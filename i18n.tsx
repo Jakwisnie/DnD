@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import {initReactI18next} from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
 import '@formatjs/intl-pluralrules/polyfill';
 
@@ -9,10 +9,10 @@ import ru from './locales/ru.json';
 import ua from './locales/ua.json';
 
 const resources = {
-  en: { translation: en },
-  pl: { translation: pl },
-  ru: { translation: ru },
-  ua: { translation: ua },
+  en: {translation: en},
+  pl: {translation: pl},
+  ru: {translation: ru},
+  ua: {translation: ua},
 };
 
 const getBestAvailableLanguage = () => {
@@ -32,7 +32,7 @@ const getBestAvailableLanguage = () => {
 const languageDetector = {
   type: 'languageDetector',
   async: true,
-  detect: (callback) => {
+  detect: callback => {
     const languageTag = getBestAvailableLanguage();
     console.log(`Detected language: ${languageTag}`);
     callback(languageTag);
@@ -40,7 +40,7 @@ const languageDetector = {
   init: () => {
     console.log('Language detector initialized');
   },
-  cacheUserLanguage: (lng) => {
+  cacheUserLanguage: lng => {
     console.log(`Caching user language: ${lng}`);
   },
 };
@@ -58,7 +58,7 @@ i18n
   .then(() => {
     console.log('i18next initialized');
   })
-  .catch((error) => {
+  .catch(error => {
     console.error('i18next initialization failed', error);
   });
 

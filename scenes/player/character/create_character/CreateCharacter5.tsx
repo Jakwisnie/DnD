@@ -1,27 +1,40 @@
-import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, FlatList, TextInput } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import React, {useState} from 'react';
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  TextInput,
+} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
-const CreateCharacter5 = ({ navigation, route }) => {
-  const { selectedClassInfo } = route.params;
-  const [gold, setGold] = useState({ copper: '0', silver: '0', gold: '0', platinum: '0' });
-  const { t, i18n } = useTranslation();
+const CreateCharacter5 = ({navigation, route}) => {
+  const {selectedClassInfo} = route.params;
+  const [gold, setGold] = useState({
+    copper: '0',
+    silver: '0',
+    gold: '0',
+    platinum: '0',
+  });
+  const {t, i18n} = useTranslation();
   const startingEquipment = {
     Bard: {
       items: [
-        { name: 'Any simple weapon', type: 'weapon' },
-        { name: 'Any musical instrument', type: 'instrument' },
-        { name: 'Leather armor', type: 'armor' },
-        { name: 'Dagger', type: 'weapon' },
+        {name: 'Any simple weapon', type: 'weapon'},
+        {name: 'Any musical instrument', type: 'instrument'},
+        {name: 'Leather armor', type: 'armor'},
+        {name: 'Dagger', type: 'weapon'},
       ],
-      gold: 0
+      gold: 0,
     },
     Barbarian: {
       items: [
-        { name: 'Greataxe or any martial weapon', type: 'weapon' },
-        { name: 'Two handaxes or any simple weapon', type: 'weapon' },
+        {name: 'Greataxe or any martial weapon', type: 'weapon'},
+        {name: 'Two handaxes or any simple weapon', type: 'weapon'},
       ],
-      gold: 0
+      gold: 0,
     },
   };
 
@@ -33,37 +46,38 @@ const CreateCharacter5 = ({ navigation, route }) => {
     const equipment = startingEquipment[selectedClassInfo];
   };
 
-  const handleFocus = (field) => {
+  const handleFocus = field => {
     if (gold[field] === '0') {
-      setGold({ ...gold, [field]: '' });
+      setGold({...gold, [field]: ''});
     }
   };
 
-  const handleBlur = (field) => {
+  const handleBlur = field => {
     if (gold[field] === '') {
-      setGold({ ...gold, [field]: '0' });
+      setGold({...gold, [field]: '0'});
     }
   };
 
   const calculateTotalGold = () => {
-     const copperValue = parseInt(gold.copper, 10) || 0;
-     const silverValue = parseInt(gold.silver, 10) || 0;
-     const goldValue = parseInt(gold.gold, 10) || 0;
-     const platinumValue = parseInt(gold.platinum, 10) || 0;
+    const copperValue = parseInt(gold.copper, 10) || 0;
+    const silverValue = parseInt(gold.silver, 10) || 0;
+    const goldValue = parseInt(gold.gold, 10) || 0;
+    const platinumValue = parseInt(gold.platinum, 10) || 0;
 
-     const totalGold = (copperValue / 100) + (silverValue / 10) + goldValue + (platinumValue * 10);
-     return totalGold;
-   };
+    const totalGold =
+      copperValue / 100 + silverValue / 10 + goldValue + platinumValue * 10;
+    return totalGold;
+  };
 
   const totalGold = calculateTotalGold();
-  const formattedTotalGold = totalGold > 999 ? totalGold.toLocaleString() : totalGold.toFixed(2);
+  const formattedTotalGold =
+    totalGold > 999 ? totalGold.toLocaleString() : totalGold.toFixed(2);
   const equipment = startingEquipment[selectedClassInfo];
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
-      style={styles.container}
-    >
+      source={require('../../../../assets/dungeon.jpeg')}
+      style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Choose Starting Equipment or Gold</Text>
         <Text style={styles.subtitle}>Starting Equipment:</Text>
@@ -71,22 +85,26 @@ const CreateCharacter5 = ({ navigation, route }) => {
         {equipment && (
           <FlatList
             data={equipment.items}
-            renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
+            renderItem={({item}) => (
+              <Text style={styles.item}>{item.name}</Text>
+            )}
             keyExtractor={(item, index) => index.toString()}
           />
         )}
 
         <Text style={styles.subtitle}>Or choose starting gold:</Text>
         <View style={styles.goldInputContainer}>
-          {['copper', 'silver', 'gold', 'platinum'].map((field) => (
+          {['copper', 'silver', 'gold', 'platinum'].map(field => (
             <View key={field} style={styles.goldInputWrapper}>
-              <Text style={styles.subtitle}>{field.charAt(0).toUpperCase() + field.slice(1)}: </Text>
+              <Text style={styles.subtitle}>
+                {field.charAt(0).toUpperCase() + field.slice(1)}:{' '}
+              </Text>
               <TextInput
                 style={styles.goldInput}
                 keyboardType="numeric"
                 onFocus={() => handleFocus(field)}
                 onBlur={() => handleBlur(field)}
-                onChangeText={(value) => setGold({ ...gold, [field]: value })}
+                onChangeText={value => setGold({...gold, [field]: value})}
                 value={gold[field]}
               />
             </View>
@@ -124,7 +142,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-
   title: {
     fontSize: 24,
     color: '#d6d6d6',
@@ -136,12 +153,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-
   item: {
     fontSize: 16,
     color: '#d6d6d6',
   },
-
 
   goldInputContainer: {
     marginTop: 10,

@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
-import { ImageBackground, View, Text, TouchableOpacity, StyleSheet, Animated, Easing, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {
+  ImageBackground,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  Easing,
+  Image,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const SelectionRole = () => {
   const navigation = useNavigation();
   const [animation, setAnimation] = useState(new Animated.Value(0));
 
-  const handlePress = (type) => {
+  const handlePress = type => {
     Animated.timing(animation, {
       toValue: 1,
       duration: 500,
@@ -45,28 +54,36 @@ const SelectionRole = () => {
 
   return (
     <ImageBackground
-
       style={styles.container}
-      source={require('./assets/dungeon.jpeg')}
+      source={require('../../assets/dungeon.jpeg')}
       resizeMode="cover">
-
-    <View style={styles.container}>
-      <Text style={styles.title}>Who are you today?</Text>
-      <View style={styles.selectionContainer}>
-        <Animated.View style={[styles.optionContainer, playerAnimatedStyle]}>
-          <TouchableOpacity style={styles.option} onPress={() => handlePress('Player')}>
-            <Image source={require('./assets/adventurer.jpeg')} style={styles.playericon} />
-            <Text style={styles.optionText}>Player</Text>
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View style={[styles.optionContainer, dmAnimatedStyle]}>
-          <TouchableOpacity style={styles.option} onPress={() => handlePress('DM')}>
-            <Image source={require('./assets/dungeon-master.jpeg')} style={styles.dmicon} />
-            <Text style={styles.optionText}>Dungeon Master</Text>
-          </TouchableOpacity>
-        </Animated.View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Who are you today?</Text>
+        <View style={styles.selectionContainer}>
+          <Animated.View style={[styles.optionContainer, playerAnimatedStyle]}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => handlePress('Player')}>
+              <Image
+                source={require('../../assets/adventurer.jpeg')}
+                style={styles.playericon}
+              />
+              <Text style={styles.optionText}>Player</Text>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View style={[styles.optionContainer, dmAnimatedStyle]}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => handlePress('DM')}>
+              <Image
+                source={require('../../assets/dungeon-master.jpeg')}
+                style={styles.dmicon}
+              />
+              <Text style={styles.optionText}>Dungeon Master</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
       </View>
-    </View>
     </ImageBackground>
   );
 };

@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import { View, Text, Picker, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import React, {useState} from 'react';
+import {View, Text, Picker, StyleSheet} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
-const Picker = ({ title, options }) => {
+const Picker = ({title, options}) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.pickerContainer}>
       <Text style={styles.pickerTitle}>{title}</Text>
       <Picker
         selectedValue={selectedOption}
         style={styles.picker}
-        onValueChange={(itemValue) => setSelectedOption(itemValue)}
-      >
+        onValueChange={itemValue => setSelectedOption(itemValue)}>
         {options.map((option, index) => (
           <Picker.Item key={index} label={option} value={option} />
         ))}

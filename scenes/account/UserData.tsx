@@ -1,9 +1,9 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UserData = createContext();
 
-export const UserProvider = ({ children }) => {
+export const UserProvider = ({children}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -15,8 +15,8 @@ export const UserProvider = ({ children }) => {
           setUsers(JSON.parse(storedUsers));
         } else {
           const initialUsers = [
-            { login: 'user', password: 'password' },
-            { login: 'admin', password: 'admin' },
+            {login: 'user', password: 'password'},
+            {login: 'admin', password: 'admin'},
           ];
           await AsyncStorage.setItem('users', JSON.stringify(initialUsers));
           setUsers(initialUsers);
@@ -28,7 +28,7 @@ export const UserProvider = ({ children }) => {
     loadUsers();
   }, []);
 
-  const registerUser = async (user) => {
+  const registerUser = async user => {
     try {
       console.log('Registering user:', user);
       const updatedUsers = [...users, user];
@@ -50,11 +50,13 @@ export const UserProvider = ({ children }) => {
   };
 
   const loginUser = (login, password) => {
-    return users.find(user => user.login === login && user.password === password);
+    return users.find(
+      user => user.login === login && user.password === password,
+    );
   };
 
   return (
-    <UserData.Provider value={{ users, registerUser, loginUser, clearUsers }}>
+    <UserData.Provider value={{users, registerUser, loginUser, clearUsers}}>
       {children}
     </UserData.Provider>
   );

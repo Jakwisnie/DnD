@@ -1,9 +1,17 @@
-import React, { useState, useContext } from 'react';
-import { ImageBackground, TouchableOpacity, Text, View, Button, StyleSheet, TextInput } from 'react-native';
-import { useNavigation, HeaderBackButton } from '@react-navigation/native';
-import { WebView } from 'react-native-webview';
-import { useTranslation } from 'react-i18next';
-import { UserData } from './UserData';
+import React, {useState, useContext} from 'react';
+import {
+  ImageBackground,
+  TouchableOpacity,
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
+import {useNavigation, HeaderBackButton} from '@react-navigation/native';
+import {WebView} from 'react-native-webview';
+import {useTranslation} from 'react-i18next';
+import {UserData} from './UserData.tsx';
 
 const Registration = () => {
   const navigation = useNavigation();
@@ -13,8 +21,8 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
 
-  const { t, i18n } = useTranslation();
-  const { registerUser, clearUsers } = useContext(UserData);
+  const {t, i18n} = useTranslation();
+  const {registerUser, clearUsers} = useContext(UserData);
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -22,7 +30,7 @@ const Registration = () => {
 
   const handleRegister = () => {
     if (password === confirmPassword) {
-      registerUser({ email, login, password });
+      registerUser({email, login, password});
       navigation.navigate('RegistrationOkEmail');
     } else {
       alert(t('Passwords do not match'));
@@ -31,15 +39,10 @@ const Registration = () => {
 
   return (
     <ImageBackground
-
       style={styles.container}
-      source={require('./assets/dungeon.jpeg')}
-      resizeMode="cover"
-    >
-      <WebView
-        source={require('./assets/captcha.html')}
-        style={{ flex: 1 }}
-      />
+      source={require('../../assets/dungeon.jpeg')}
+      resizeMode="cover">
+      <WebView source={require('../../assets/captcha.html')} style={{flex: 1}} />
 
       <Text style={styles.appName}>DMBook</Text>
 
@@ -67,47 +70,50 @@ const Registration = () => {
       </View>
 
       <View style={[styles.passContainer]}>
-      <Text style={styles.label}>{t('Pass')}</Text>
-      <TextInput
-        style={styles.passInput}
-        value={password}
-        onChangeText={setPassword}
-        placeholder={t('Pass')}
-        secureTextEntry
-      />
+        <Text style={styles.label}>{t('Pass')}</Text>
+        <TextInput
+          style={styles.passInput}
+          value={password}
+          onChangeText={setPassword}
+          placeholder={t('Pass')}
+          secureTextEntry
+        />
       </View>
 
       <View style={styles.passContainer}>
-      <Text style={styles.label}>{t('Confirm_pass')}</Text>
-      <TextInput
-        style={styles.confirmPassInput}
-        value={confirmPassword}
-        placeholder={t('Confirm_pass')}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-      />
+        <Text style={styles.label}>{t('Confirm_pass')}</Text>
+        <TextInput
+          style={styles.confirmPassInput}
+          value={confirmPassword}
+          placeholder={t('Confirm_pass')}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
       </View>
 
       <View style={styles.captchaContainer}>
-      <Text style={styles.label}>{t('Enter_captcha')}</Text>
-      <TextInput
-        style={styles.captchaInput}
-        placeholder="Captcha"
-        value={captcha}
-        onChangeText={setCaptcha}
-      />
+        <Text style={styles.label}>{t('Enter_captcha')}</Text>
+        <TextInput
+          style={styles.captchaInput}
+          placeholder="Captcha"
+          value={captcha}
+          onChangeText={setCaptcha}
+        />
       </View>
 
-       <TouchableOpacity onPress={() => {clearUsers()}}>
-           <Text>Clear Users</Text>
-       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          clearUsers();
+        }}>
+        <Text>Clear Users</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
         <Text style={styles.registerButtonText}>{t('Sign_up')}</Text>
       </TouchableOpacity>
 
       <View style={styles.GoBack}>
-        <TouchableOpacity style={styles.button} onPress={handleGoBack} >
+        <TouchableOpacity style={styles.button} onPress={handleGoBack}>
           <Text style={styles.GoBackText}>{t('Go_back')}</Text>
         </TouchableOpacity>
       </View>
@@ -143,16 +149,16 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
   },
   emailContainer: {
-   flexDirection: 'row',
-   alignItems: 'center',
-   marginBottom: 30,
-   marginHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    marginHorizontal: 10,
   },
- loginContainer: {
-   flexDirection: 'row',
-   alignItems: 'center',
-   marginBottom: 30,
-   marginHorizontal: 10,
+  loginContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    marginHorizontal: 10,
   },
   passContainer: {
     flexDirection: 'row',

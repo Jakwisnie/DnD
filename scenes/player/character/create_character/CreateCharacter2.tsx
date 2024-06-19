@@ -1,24 +1,34 @@
-import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
-import HiddenText from './ProbaUkrytegoTekstu';
+import React, {useState} from 'react';
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  Button,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Image,
+  ScrollView,
+} from 'react-native';
+import HiddenText from '../../../../ProbaUkrytegoTekstu.tsx';
 import CustomPicker from './Picker';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
-const CreateCharacter2 = ({ navigation, route }) => {
-const handleGoBack = () => {
-     navigation.navigate('CreateCharacter');
+const CreateCharacter2 = ({navigation, route}) => {
+  const handleGoBack = () => {
+    navigation.navigate('CreateCharacter');
   };
 
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
 
-  const { selectedClassInfo, nickname } = route.params;
+  const {selectedClassInfo, nickname} = route.params;
 
   const handleContinue = () => {
-    navigation.navigate('CreateCharacter3', { selectedClassInfo, nickname });
+    navigation.navigate('CreateCharacter3', {selectedClassInfo, nickname});
   };
   //const { selectedRace, selectedGender, selectedPosition } = route.params;
 
-  const renderDescription = (description) => {
+  const renderDescription = description => {
     return description.split('\n\n\n').map((block, index) => {
       const [title, ...contentArr] = block.split(': ');
       const content = contentArr.join(': ');
@@ -27,35 +37,42 @@ const handleGoBack = () => {
         return <HiddenText key={index} title={title} content={content} />;
       }
 
-  const pickerContent = selectedClassInfo[title] ? selectedClassInfo[title].split('\p') : [];
+      const pickerContent = selectedClassInfo[title]
+        ? selectedClassInfo[title].split('p')
+        : [];
 
-   if (pickerContent.length > 0) {
-     return <PickerText key={index} title={title} options={pickerContent} />;
-   }
+      if (pickerContent.length > 0) {
+        return <PickerText key={index} title={title} options={pickerContent} />;
+      }
 
-    if (block.trim() === 'Spells:') {
-      const spells = block.split('\n').slice(1);
+      if (block.trim() === 'Spells:') {
+        const spells = block.split('\n').slice(1);
+        return <Picker key={index} title="Spells" options={spells} />;
+      }
+
+      if (selectedClassInfo[block]) {
+        return (
+          <HiddenText
+            key={index}
+            title={line}
+            content={selectedClassInfo[block]}
+          />
+        );
+      }
+
       return (
-        <Picker key={index} title="Spells" options={spells} />
+        <Text key={index} style={styles.RaceGenderPosContTitle}>
+          {block}
+        </Text>
       );
-    }
-
-   if (selectedClassInfo[block]) {
-     return <HiddenText key={index} title={line} content={selectedClassInfo[block]} />;
-   }
-
-   return <Text key={index} style={styles.RaceGenderPosContTitle}>{block}</Text>;
     });
   };
 
   return (
-  <ImageBackground
-           source={require('./assets/dungeon.jpeg')}
-           style={styles.container}
-         >
-
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
-
+    <ImageBackground
+      source={require('../../../../assets/dungeon.jpeg')}
+      style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.selectedImageContainer}>
           <Image
             source={selectedClassInfo.image}
@@ -78,12 +95,10 @@ const handleGoBack = () => {
             <Text style={styles.ConButtonText}>{t('Continue')}</Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
     </ImageBackground>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -133,7 +148,6 @@ const styles = StyleSheet.create({
   selectedImageContainer: {
     marginTop: 70,
     position: 'center',
-
   },
   selectedImage: {
     width: 400,

@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { useTranslation } from 'react-i18next';
+import React, {useState} from 'react';
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
+import {useTranslation} from 'react-i18next';
 
 const alignments = [
   'Chaotic Evil',
@@ -12,38 +20,42 @@ const alignments = [
   'Lawful Neutral',
   'Neutral Evil',
   'Neutral Good',
-  'True Neutral'
+  'True Neutral',
 ];
 
-const CreateCharacter4 = ({ navigation, route }) => {
+const CreateCharacter4 = ({navigation, route}) => {
   const handleGoBack = () => {
     navigation.navigate('CreateCharacter');
   };
 
-  const { t, i18n } = useTranslation();
-  const { selectedClassInfo, nickname } = route.params;
+  const {t, i18n} = useTranslation();
+  const {selectedClassInfo, nickname} = route.params;
 
   const handleContinue = () => {
-    navigation.navigate('CreateCharacter5', { selectedClassInfo, nickname });
+    navigation.navigate('CreateCharacter5', {selectedClassInfo, nickname});
   };
 
   const [alignment, setAlignment] = useState('');
   const [fate, setFate] = useState('');
   const [lifestyle, setLifestyle] = useState('');
-  const [isCharacterDetailsVisible, setCharacterDetailsVisible] = useState(true);
-  const [isPhysicalCharacteristicsVisible, setPhysicalCharacteristicsVisible] = useState(false);
-  const [isPersonalCharacteristicsVisible, setPersonalCharacteristicsVisible] = useState(false);
+  const [isCharacterDetailsVisible, setCharacterDetailsVisible] =
+    useState(true);
+  const [isPhysicalCharacteristicsVisible, setPhysicalCharacteristicsVisible] =
+    useState(false);
+  const [isPersonalCharacteristicsVisible, setPersonalCharacteristicsVisible] =
+    useState(false);
   const [isNotesVisible, setNotesVisible] = useState(false);
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
-      style={styles.container}
-    >
+      source={require('../../../../assets/dungeon.jpeg')}
+      style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-
         {/* Харки */}
-        <TouchableOpacity onPress={() => setCharacterDetailsVisible(!isCharacterDetailsVisible)}>
+        <TouchableOpacity
+          onPress={() =>
+            setCharacterDetailsVisible(!isCharacterDetailsVisible)
+          }>
           <Text style={styles.blockTitle}>{t('Character_Details')}</Text>
         </TouchableOpacity>
         {isCharacterDetailsVisible && (
@@ -52,9 +64,8 @@ const CreateCharacter4 = ({ navigation, route }) => {
             <Picker
               selectedValue={alignment}
               style={styles.picker}
-              onValueChange={(itemValue) => setAlignment(itemValue)}
-            >
-              {alignments.map((align) => (
+              onValueChange={itemValue => setAlignment(itemValue)}>
+              {alignments.map(align => (
                 <Picker.Item key={align} label={align} value={align} />
               ))}
             </Picker>
@@ -78,19 +89,31 @@ const CreateCharacter4 = ({ navigation, route }) => {
         )}
 
         {/* Физ дан */}
-        <TouchableOpacity onPress={() => setPhysicalCharacteristicsVisible(!isPhysicalCharacteristicsVisible)}>
+        <TouchableOpacity
+          onPress={() =>
+            setPhysicalCharacteristicsVisible(!isPhysicalCharacteristicsVisible)
+          }>
           <Text style={styles.blockTitle}>Physical Characteristics</Text>
         </TouchableOpacity>
         {isPhysicalCharacteristicsVisible && (
           <View style={styles.blockContent}>
             <Text>Hair:</Text>
-            <TextInput style={styles.input} placeholder="Enter hair description" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter hair description"
+            />
 
             <Text>Skin:</Text>
-            <TextInput style={styles.input} placeholder="Enter skin description" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter skin description"
+            />
 
             <Text>Eyes:</Text>
-            <TextInput style={styles.input} placeholder="Enter eye description" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter eye description"
+            />
 
             <Text>Height:</Text>
             <TextInput style={styles.input} placeholder="Enter height" />
@@ -104,7 +127,10 @@ const CreateCharacter4 = ({ navigation, route }) => {
         )}
 
         {/* Перса */}
-        <TouchableOpacity onPress={() => setPersonalCharacteristicsVisible(!isPersonalCharacteristicsVisible)}>
+        <TouchableOpacity
+          onPress={() =>
+            setPersonalCharacteristicsVisible(!isPersonalCharacteristicsVisible)
+          }>
           <Text style={styles.blockTitle}>Personal Characteristics</Text>
         </TouchableOpacity>
         {isPersonalCharacteristicsVisible && (
@@ -116,7 +142,10 @@ const CreateCharacter4 = ({ navigation, route }) => {
             <TextInput style={styles.input} placeholder="Enter preferences" />
 
             <Text>Other:</Text>
-            <TextInput style={styles.input} placeholder="Enter other personal characteristics" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter other personal characteristics"
+            />
           </View>
         )}
 
@@ -136,10 +165,18 @@ const CreateCharacter4 = ({ navigation, route }) => {
             <TextInput style={styles.input} placeholder="Enter allies" />
 
             <Text>Backstory:</Text>
-            <TextInput style={styles.input} placeholder="Enter backstory" multiline />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter backstory"
+              multiline
+            />
 
             <Text>Other Notes:</Text>
-            <TextInput style={styles.input} placeholder="Enter other notes" multiline />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter other notes"
+              multiline
+            />
           </View>
         )}
 
@@ -172,7 +209,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-
   blockTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -188,7 +224,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-
   picker: {
     height: 50,
     width: '100%',
@@ -201,7 +236,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 10,
   },
-
 
   ConButton: {
     backgroundColor: 'transparent',

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-const HiddenText = ({ title, content }) => {
+const HiddenText = ({title, content}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -20,10 +20,16 @@ const HiddenText = ({ title, content }) => {
             const subContent = subContentArr.join(': ');
 
             if (subContent) {
-              return <HiddenText key={index} title={subTitle} content={subContent} />;
+              return (
+                <HiddenText key={index} title={subTitle} content={subContent} />
+              );
             }
 
-            return <Text key={index} style={styles.content}>{subBlock}</Text>;
+            return (
+              <Text key={index} style={styles.content}>
+                {subBlock}
+              </Text>
+            );
           })}
         </View>
       )}
