@@ -48,63 +48,68 @@ const Character1 = ({ navigation }) => {
   */
   // Function to calculate the larger number
 
-  const handleStatPress = () => {
-       navigation.navigate('RzutKostka_Bonus');
-    };
+  const handleStatPress = (statValue) => {
+    navigation.navigate('RzutKostka_Bonus', { statValue });
+  };
 
   return (
-    <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
-      style={styles.container}
-    >
-    <View style={styles.imageContainer}>
-             <Image source={require('./assets/assasin.jpeg')} style={styles.image} />
-       </View>
+    <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image source={require('./assets/assasin.jpeg')} style={styles.image} />
+      </View>
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
           <Text style={styles.GoBackText}>{t('Go_back')}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.statsContainer}>
-            <TouchableOpacity onPress={() => handleStatPress()}>
-
-        <View style={styles.statBox}>
-          <Text style={styles.largeText}>{calculateLargerNumber(player.STR)}</Text>
-          <Text style={styles.statText}>{`STR: ${player.STR}`}</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.largeText}>{calculateLargerNumber(player.DEX)}</Text>
-          <Text style={styles.statText}>{`DEX: ${player.DEX}`}</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.largeText}>{calculateLargerNumber(player.CON)}</Text>
-          <Text style={styles.statText}>{`CON: ${player.CON}`}</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.largeText}>{calculateLargerNumber(player.INT)}</Text>
-          <Text style={styles.statText}>{`INT: ${player.INT}`}</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.largeText}>{calculateLargerNumber(player.WIS)}</Text>
-          <Text style={styles.statText}>{`WIS: ${player.WIS}`}</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.largeText}>{calculateLargerNumber(player.CHA)}</Text>
-          <Text style={styles.statText}>{`CHA: ${player.CHA}`}</Text>
-        </View>
+        <TouchableOpacity onPress={() => handleStatPress(calculateLargerNumber(player.STR))}>
+          <View style={styles.statBox}>
+            <Text style={styles.largeText}>{calculateLargerNumber(player.STR)}</Text>
+            <Text style={styles.statText}>{`STR: ${player.STR}`}</Text>
+          </View>
         </TouchableOpacity>
-       </View>
-
-        <View style={styles.leftContainer}>
-            <View style={styles.circleBox}>
-                <Text style={styles.circleText}>{player.AC}</Text>
-                <Text style={styles.circleLabel}>AC</Text>
-            </View>
-            <View style={styles.circleBox}>
-                <Text style={styles.circleText}>{player.INIT}</Text>
-                <Text style={styles.circleLabel}>Initiative</Text>
-            </View>
+        <TouchableOpacity onPress={() => handleStatPress(calculateLargerNumber(player.DEX))}>
+          <View style={styles.statBox}>
+            <Text style={styles.largeText}>{calculateLargerNumber(player.DEX)}</Text>
+            <Text style={styles.statText}>{`DEX: ${player.DEX}`}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleStatPress(calculateLargerNumber(player.CON))}>
+          <View style={styles.statBox}>
+            <Text style={styles.largeText}>{calculateLargerNumber(player.CON)}</Text>
+            <Text style={styles.statText}>{`CON: ${player.CON}`}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleStatPress(calculateLargerNumber(player.INT))}>
+          <View style={styles.statBox}>
+            <Text style={styles.largeText}>{calculateLargerNumber(player.INT)}</Text>
+            <Text style={styles.statText}>{`INT: ${player.INT}`}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleStatPress(calculateLargerNumber(player.WIS))}>
+          <View style={styles.statBox}>
+            <Text style={styles.largeText}>{calculateLargerNumber(player.WIS)}</Text>
+            <Text style={styles.statText}>{`WIS: ${player.WIS}`}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleStatPress(calculateLargerNumber(player.CHA))}>
+          <View style={styles.statBox}>
+            <Text style={styles.largeText}>{calculateLargerNumber(player.CHA)}</Text>
+            <Text style={styles.statText}>{`CHA: ${player.CHA}`}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.leftContainer}>
+        <View style={styles.circleBox}>
+          <Text style={styles.circleText}>{player.AC}</Text>
+          <Text style={styles.circleLabel}>AC</Text>
         </View>
+        <View style={styles.circleBox}>
+          <Text style={styles.circleText}>{player.INIT}</Text>
+          <Text style={styles.circleLabel}>Initiative</Text>
+        </View>
+      </View>
     </ImageBackground>
   );
 };
