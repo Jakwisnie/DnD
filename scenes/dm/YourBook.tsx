@@ -20,7 +20,7 @@ const YourBook = ({navigation}) => {
     {name: 'Character2', image: require('../../assets/wizard.jpeg')},
     {name: 'Character3', image: require('../../assets/archer.jpeg')},
     {name: 'Character4', image: require('../../assets/assasin.jpeg')},
-    {name: 'Character5', image: require('../../assets/Halfling-M-Warrior.jpg')},
+    {name: 'Character5', image: require('../../assets/races/halfling/Halfling-M-Warrior.jpg')},
   ]);
   const [notes, setNotes] = useState([]);
   const [images, setImages] = useState([]);

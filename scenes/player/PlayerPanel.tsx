@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
 
-const LoggedScreen = ({navigation}) => {
+const PlayerPanel = ({navigation}) => {
   const handleLoginPress = () => {
     navigation.navigate('LogIn');
   };
@@ -82,9 +82,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1.5,
   },
+  button: {
+    backgroundColor: 'linear-gradient(to right, #00FFA3, #DC1FFF)',
+  },
   buttonText: {
     color: '#d6d6d6',
   },
 });
 
-export default LoggedScreen;
+export default PlayerPanel;

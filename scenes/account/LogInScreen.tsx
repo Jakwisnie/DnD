@@ -127,7 +127,7 @@ const LogInScreen = () => {
             handleKontoGoogle();
           }}>
           <Image
-            source={require('../../assets/google.webp')}
+            source={require('../../assets/logos/google.webp')}
             style={styles.googleicon}
           />
           <Text style={styles.socialButtonText}>{t('Use_Google')}</Text>
@@ -138,7 +138,7 @@ const LogInScreen = () => {
             handleKontoFacebook();
           }}>
           <Image
-            source={require('../../assets/facebook.jpg')}
+            source={require('../../assets/logos/facebook.jpg')}
             style={styles.facebookicon}
           />
           <Text style={styles.socialButtonText}>{t('Use_Facebook')}</Text>
@@ -149,7 +149,7 @@ const LogInScreen = () => {
             handleKontoApple();
           }}>
           <Image
-            source={require('../../assets/apple.webp')}
+            source={require('../../assets/logos/apple.webp')}
             style={styles.appleicon}
           />
           <Text style={styles.socialButtonText}>{t('Use_Apple')}</Text>
