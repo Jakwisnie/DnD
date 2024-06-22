@@ -45,7 +45,7 @@ const RzutKostka = ({ navigation }) => {
       <View style={styles.diceContainer}>
           <TouchableOpacity style={styles.diceContainer} onPress={handleRollDice}>
               <Animated.Image
-                source={require('./assets/d20.png')}
+                source={require('./assets/dice/d20.png')}
                 style={[styles.dice, { transform: [{ rotate: spin }] }]}
               />
               <Text style={styles.diceValue}>{diceValue}</Text>
