@@ -4,53 +4,58 @@ import { useTranslation } from 'react-i18next';
 import PlayerCharacter from './PlayerCharacter';
 
 const Character1 = ({ navigation }) => {
-  const handleGoBack = () => {
-    navigation.navigate('Characters');
-  };
-
   const { t, i18n } = useTranslation();
-  const calculateLargerNumber = (value) => {
-      const largerNumber = Math.floor((value - 10) / 2);
-      return largerNumber >= 0 ? `+${largerNumber}` : `${largerNumber}`;
-    };
-  // Example of creating a new PlayerCharacter instance
-  const player = new PlayerCharacter(8, 15, 12, 13, 14, 15, 16, 17);
-  /*
   const [characterData, setCharacterData] = useState(null);
+
   useEffect(() => {
-        fetchData();
-      }, []);
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/player_characters/0');
+      const response = await fetch('http://10.0.2.2:8000/player_characters/0');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
       const data = await response.json();
-      // Assuming data is in the format { STR, DEX, CON, INT, WIS, CHA, AC, INIT }
       setCharacterData(data);
     } catch (error) {
       console.error('Error fetching data:', error);
       // Handle error fetching data
     }
-    const player = new PlayerCharacter(
-        characterData.strScore,
-        characterData.dexScore,
-        characterData.conScore,
-        characterData.intScore,
-        characterData.wisScore,
-        characterData.chaScore,
-        characterData.armorClass,
-        calculateLargerNumber(characterData.dexScore) // Assuming INIT value is not provided in the schema, using 0 for now
-     );
   };
-  */
-  // Function to calculate the larger number
+
+  const handleGoBack = () => {
+    navigation.navigate('Characters');
+  };
 
   const handleStatPress = (statValue) => {
     navigation.navigate('RzutKostka_Bonus', { statValue });
   };
+
+  const calculateLargerNumber = (value) => {
+    const largerNumber = Math.floor((value - 10) / 2);
+    return largerNumber >= 0 ? `+${largerNumber}` : `${largerNumber}`;
+  };
+
+  if (!characterData) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  const player = new PlayerCharacter(
+    characterData.strScore,
+    characterData.dexScore,
+    characterData.conScore,
+    characterData.intScore,
+    characterData.wisScore,
+    characterData.chaScore,
+    characterData.armorClass,
+    calculateLargerNumber(characterData.dexScore)
+  );
 
   return (
     <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
