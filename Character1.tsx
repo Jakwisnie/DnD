@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Picker } from '@react-native-picker/picker';
 import PlayerCharacter from './PlayerCharacter';
 
 const Character1 = ({ navigation }) => {
   const { t, i18n } = useTranslation();
   const [characterData, setCharacterData] = useState(null);
+  const [selectedScreen, setSelectedScreen] = useState('Character1');
+  const [health, setHealth] = useState(100);
 
   useEffect(() => {
     fetchData();
@@ -35,7 +38,11 @@ const Character1 = ({ navigation }) => {
 
   const calculateLargerNumber = (value) => {
     const largerNumber = Math.floor((value - 10) / 2);
-    return largerNumber >= 0 ? `+${largerNumber}` : `${largerNumber}`;
+    return largerNumber >= 0 ? `${largerNumber}` : `${largerNumber}`;
+  };
+
+  const handleHealthChange = (amount) => {
+    setHealth(prevHealth => Math.max(0, Math.min(100, prevHealth + amount)));
   };
 
   if (!characterData) {
@@ -59,15 +66,39 @@ const Character1 = ({ navigation }) => {
 
   return (
     <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
+      <View style={styles.dropdownContainer}>
+        <Picker
+          selectedValue={selectedScreen}
+          style={styles.picker}
+          onValueChange={(itemValue) => {
+            setSelectedScreen(itemValue);
+            navigation.navigate(itemValue);
+          }}
+        >
+          <Picker.Item label="Main Scene" value="Character1" />
+          <Picker.Item label="Inventory" value="Inventory" />
+          <Picker.Item label="Character Details" value="CharacterDetails" />
+        </Picker>
+      </View>
       <View style={styles.imageContainer}>
         <Image source={require('./assets/assasin.jpeg')} style={styles.image} />
       </View>
-      <View style={styles.GoBack}>
-        <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-          <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+
+      <View style={styles.healthContainer}>
+       <Text style={styles.statText}>Health: {health}</Text>
+        <View style={styles.healthBar}>
+          <View style={[styles.healthFill, { width: `${health}%` }]} />
+        </View>
+        <TouchableOpacity style={styles.healthButton} onPress={() => handleHealthChange(10)}>
+          <Text style={styles.healthText}>Heal</Text>
         </TouchableOpacity>
-      </View>
+        <TouchableOpacity style={styles.damageButton} onPress={() => handleHealthChange(-10)}>
+          <Text style={styles.damageText}>Damage</Text>
+        </TouchableOpacity>
+       </View>
+
       <View style={styles.statsContainer}>
+      <View style={styles.blackLeftContainer}>
         <TouchableOpacity onPress={() => handleStatPress(calculateLargerNumber(player.STR))}>
           <View style={styles.statBox}>
             <Text style={styles.largeText}>{calculateLargerNumber(player.STR)}</Text>
@@ -104,7 +135,7 @@ const Character1 = ({ navigation }) => {
             <Text style={styles.statText}>{`CHA: ${player.CHA}`}</Text>
           </View>
         </TouchableOpacity>
-      </View>
+
       <View style={styles.leftContainer}>
         <View style={styles.circleBox}>
           <Text style={styles.circleText}>{player.AC}</Text>
@@ -114,6 +145,27 @@ const Character1 = ({ navigation }) => {
           <Text style={styles.circleText}>{player.INIT}</Text>
           <Text style={styles.circleLabel}>Initiative</Text>
         </View>
+        <View style={styles.circleBox}>
+          <Text style={styles.circleText}>{player.Proficiency}</Text>
+          <Text style={styles.circleLabel}>Proficiency</Text>
+        </View>
+      </View>
+
+        <TouchableOpacity >
+        <View style={styles.EditBox}>
+          <Text style={styles.EditText}>Edit Character</Text>
+        </View>
+        </TouchableOpacity>
+
+      </View>
+      </View>
+
+
+
+      <View style={styles.GoBack}>
+        <TouchableOpacity style={styles.button} onPress={handleGoBack}>
+          <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
@@ -127,11 +179,21 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  appName: {
+  dropdownContainer: {
     position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
+    top: '3%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    width: '40%',
+  },
+  picker: {
+    height: 50,
+    width: '101%',
+    color: '#d6d6d6',
   },
   GoBack: {
     position: 'absolute',
@@ -146,39 +208,36 @@ const styles = StyleSheet.create({
   GoBackText: {
     color: '#d6d6d6',
   },
+  blackLeftContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+  },
   statsContainer: {
     position: 'absolute',
-    top: 42,
-    right: 20,
+    top: 80,
+    left: 0,
   },
   statBox: {
-    marginVertical: 5,
     padding: 10,
     backgroundColor: 'rgba(0, 0, 0, 1.0)',
-    borderRadius: 100,
     borderColor: '#7F7F7F',
-    borderWidth: 1.5,
+    borderWidth: 1,
     alignItems: 'center',
   },
   largeText: {
     fontSize: 24,
-    color: '#ffffff',
+    color: '#d6d6d6',
     marginBottom: 5,
   },
   statText: {
     color: '#d6d6d6',
   },
-  leftContainer: {
-      position: 'absolute',
-      top: 70,
-      left: 20,
-    },
   circleBox: {
-      marginVertical: 10,
       width: 70,
       height: 70,
       borderRadius: 100,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor: 'rgba(0, 0, 0, 1)',
       borderColor: '#7F7F7F',
       borderWidth: 1.5,
       justifyContent: 'center',
@@ -189,9 +248,9 @@ const styles = StyleSheet.create({
       color: '#ffffff',
     },
     circleLabel: {
+      marginBottom: 10,
       fontSize: 12,
       color: '#d6d6d6',
-      marginTop: 2,
     },
 imageContainer: {
     position: 'absolute',
@@ -209,6 +268,68 @@ imageContainer: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+  },
+  healthContainer: {
+    position: 'absolute',
+    top: '19%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  healthBar: {
+    width: '120%',
+    height: 15,
+    backgroundColor: '#555',
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginVertical: 10,
+  },
+  healthText: {
+    color: 'green',
+  },
+  damageText: {
+    color: 'red',
+  },
+  healthFill: {
+    height: '100%',
+    backgroundColor: 'red',
+  },
+  healthButton: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    color: 'green',
+    padding: 10,
+    right: 90,
+    bottom: 60,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    width: 75,
+    height: 50,
+    alignItems: 'center',
+  },
+  damageButton: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    padding: 10,
+    left: 90,
+    bottom: 110,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    width: 75,
+    height: 50,
+    alignItems: 'center',
+  },
+  EditBox: {
+    marginTop: 25,
+    padding: 10,
+    width: 70,
+    backgroundColor: 'rgba(0, 0, 0, 1.0)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  EditText: {
+    fontSize: 10,
+    color: '#d6d6d6',
   },
 });
 
