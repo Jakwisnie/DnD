@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#d6d6d6',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   selectionContainer: {
     flex: 1,

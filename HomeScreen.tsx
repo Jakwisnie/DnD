@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginTop: 5,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     borderRadius: 5,
     padding: 5,
     elevation: 5,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
 import PlayerCharacter from './PlayerCharacter';
@@ -9,6 +9,12 @@ const Character1 = ({ navigation }) => {
   const [characterData, setCharacterData] = useState(null);
   const [selectedScreen, setSelectedScreen] = useState('Character1');
   const [health, setHealth] = useState(100);
+  const [skillsVisible, setSkillsVisible] = useState(false);
+  const [actionVisible, setActionVisible] = useState(false);
+  const [bonusVisible, setBonusVisible] = useState(false);
+  const [reactVisible, setReactVisible] = useState(false);
+  const [selectedRomanNumeral, setSelectedRomanNumeral] = useState(null);
+
 
   useEffect(() => {
     fetchData();
@@ -53,6 +59,137 @@ const Character1 = ({ navigation }) => {
     );
   }
 
+  const toggleSkills = () => {
+    setSkillsVisible(!skillsVisible);
+    setBonusVisible(false);
+    setReactVisible(false);
+    setActionVisible(false);
+    setSelectedRomanNumeral(null);
+  };
+
+  const toggleAction = () => {
+    setActionVisible(!actionVisible);
+    setBonusVisible(false);
+    setReactVisible(false);
+    setSkillsVisible(false);
+    setSelectedRomanNumeral(null);
+  };
+
+  const toggleBonus = () => {
+    setBonusVisible(!bonusVisible);
+    setActionVisible(false);
+    setReactVisible(false);
+    setSkillsVisible(false);
+    setSelectedRomanNumeral(null);
+  };
+
+  const toggleReact = () => {
+    setReactVisible(!reactVisible);
+    setActionVisible(false);
+    setBonusVisible(false);
+    setSkillsVisible(false);
+    setSelectedRomanNumeral(null);
+  };
+
+  const handleRomanNumeralPress = (label) => {
+    if (selectedRomanNumeral === label) {
+      setSelectedRomanNumeral(null);
+    } else {
+      setActionVisible(false);
+      setBonusVisible(false);
+      setSkillsVisible(false);
+      setReactVisible(false);
+      setSelectedRomanNumeral(label);
+    }
+  };
+
+  const ActionWindow = ({ onClose }) => {
+    const [showPowerLevels, setShowPowerLevels] = useState(false);
+
+    const handleImagePress = () => {
+      setShowPowerLevels(!showPowerLevels);
+    };
+
+    return (
+      <View style={styles.abilityWindow}>
+        <View style={styles.skillsContainer}>
+          <TouchableOpacity onPress={handleImagePress}>
+            <Image source={require('./assets/skills/firearrow.png')} style={styles.abilityImage} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleImagePress}>
+            <Image source={require('./assets/skills/powershot.png')} style={styles.abilityImage} />
+          </TouchableOpacity>
+        </View>
+
+        {showPowerLevels && (
+          <View style={styles.powerLevels}>
+            {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
+              <TouchableOpacity key={index} style={styles.rightButton}>
+                <Text style={styles.buttonText}>{label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </View>
+    );
+  };
+
+  const BonusWindow = ({ onClose }) => {
+    const [showPowerLevels, setShowPowerLevels] = useState(false);
+
+    const handleImagePress = () => {
+      setShowPowerLevels(!showPowerLevels);
+    };
+
+    return (
+      <View style={styles.abilityWindow}>
+        <View style={styles.skillsContainer}>
+          <TouchableOpacity onPress={handleImagePress}>
+            <Image source={require('./assets/skills/powershot.png')} style={styles.abilityImage} />
+          </TouchableOpacity>
+        </View>
+
+        {showPowerLevels && (
+          <View style={styles.powerLevels}>
+            {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
+              <TouchableOpacity key={index} style={styles.rightButton}>
+                <Text style={styles.buttonText}>{label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </View>
+    );
+  };
+
+  const ReactWindow = ({ onClose }) => {
+    const [showPowerLevels, setShowPowerLevels] = useState(false);
+
+    const handleImagePress = () => {
+      setShowPowerLevels(!showPowerLevels);
+    };
+
+    return (
+      <View style={styles.abilityWindow}>
+        <View style={styles.skillsContainer}>
+          <TouchableOpacity onPress={handleImagePress}>
+            <Image source={require('./assets/skills/firearrow.png')} style={styles.abilityImage} />
+          </TouchableOpacity>
+        </View>
+
+        {showPowerLevels && (
+          <View style={styles.powerLevels}>
+            {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
+              <TouchableOpacity key={index} style={styles.rightButton}>
+                <Text style={styles.buttonText}>{label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </View>
+    );
+  };
+
   const player = new PlayerCharacter(
     characterData.strScore,
     characterData.dexScore,
@@ -63,6 +200,39 @@ const Character1 = ({ navigation }) => {
     characterData.armorClass,
     calculateLargerNumber(characterData.dexScore)
   );
+
+  const skills = [
+    { mod: 'DEX', skill: 'Acrobatics', bonus: 3 },
+    { mod: 'WIS', skill: 'Animal Handling', bonus: -1 },
+    { mod: 'INT', skill: 'Arcana', bonus: 10 },
+    { mod: 'STR', skill: 'Athletics', bonus: 5 },
+    { mod: 'CHA', skill: 'Deception', bonus: -1 },
+    { mod: 'INT', skill: 'History', bonus: 10 },
+    { mod: 'WIS', skill: 'Insight', bonus: -1 },
+    { mod: 'CHA', skill: 'Intimidation', bonus: -1 },
+    { mod: 'INT', skill: 'Investigation', bonus: 10 },
+    { mod: 'WIS', skill: 'Medicine', bonus: -1 },
+    { mod: 'INT', skill: 'Nature', bonus: 5 },
+    { mod: 'WIS', skill: 'Perception', bonus: -1 },
+    { mod: 'CHA', skill: 'Performance', bonus: -1 },
+    { mod: 'CHA', skill: 'Persuasion', bonus: -1 },
+    { mod: 'INT', skill: 'Religion', bonus: 10 },
+    { mod: 'DEX', skill: 'Sleight of Hand', bonus: 3 },
+    { mod: 'DEX', skill: 'Stealth', bonus: 3 },
+    { mod: 'WIS', skill: 'Survival', bonus: -1 },
+  ];
+
+  const getProficiencyColor = (bonus) => {
+    if (bonus >= 10) {
+      return '#000000';
+    } else if (bonus >= 5) {
+      return '#555555';
+    } else if (bonus >= 0) {
+      return '#AAAAAA';
+    } else {
+      return '#FFFFFF';
+    }
+  };
 
   return (
     <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
@@ -151,16 +321,74 @@ const Character1 = ({ navigation }) => {
         </View>
       </View>
 
-        <TouchableOpacity >
-        <View style={styles.EditBox}>
+        <TouchableOpacity style={styles.EditBox}>
           <Text style={styles.EditText}>Edit Character</Text>
-        </View>
         </TouchableOpacity>
-
       </View>
       </View>
 
 
+      <TouchableOpacity style={styles.Skills} onPress={toggleSkills}>
+        <Text style={styles.SkillsText}>Skills</Text>
+      </TouchableOpacity>
+
+      {skillsVisible && (
+        <View style={styles.skillsWindow}>
+          <View style={styles.skillRow}>
+            <Text style={[styles.headerText, {right: '70%' }]}>Prof.</Text>
+            <Text style={[styles.headerText, {right: '150%' }]}>Mod.</Text>
+            <Text style={[styles.headerText, {right: '60%' }]}>Skill</Text>
+            <Text style={[styles.headerText, {left: '320%' }]}>Bonus</Text>
+          </View>
+          <ScrollView>
+            {skills.map((skill, index) => (
+              <View key={index} style={styles.skillRow}>
+                <View
+                  style={[
+                    styles.circle,
+                    { backgroundColor: getProficiencyColor(skill.bonus) },
+                  ]}
+                />
+                <Text style={styles.skillMod}>{skill.mod}</Text>
+                <Text style={styles.skillName}>{skill.skill}</Text>
+                <View style={styles.bonusBox}>
+                  <Text style={styles.skillBonus}>{skill.bonus >= 0 ? `+${skill.bonus}` : skill.bonus}</Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      )}
+
+      <View style={styles.rightContainer}>
+      <TouchableOpacity style={styles.rightButton} onPress={toggleAction}>
+        <Text style={styles.buttonText}>Action</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.rightButton} onPress={toggleBonus}>
+        <Text style={styles.buttonText}>Bonus</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.rightButton} onPress={toggleReact}>
+        <Text style={styles.buttonText}>React</Text>
+      </TouchableOpacity>
+        {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'].map((label, index) => (
+          <TouchableOpacity key={index} style={styles.rightButton} onPress={() => handleRomanNumeralPress(label)}>
+            <Text style={styles.buttonText}>{label}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {actionVisible && <ActionWindow />}
+      {bonusVisible && <BonusWindow />}
+      {reactVisible && <ReactWindow />}
+
+        <View style={styles.diceTurnContainer}>
+          <TouchableOpacity style={styles.TurnDiceButton}>
+            <Text style={styles.rightTurnDiceText}>New Turn</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.TurnDiceButton}>
+            <Text style={styles.rightTurnDiceText}>Roll Dice</Text>
+          </TouchableOpacity>
+        </View>
 
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
@@ -170,6 +398,7 @@ const Character1 = ({ navigation }) => {
     </ImageBackground>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -215,7 +444,7 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     position: 'absolute',
-    top: 80,
+    bottom: 0,
     left: 0,
   },
   statBox: {
@@ -234,25 +463,25 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
   },
   circleBox: {
-      width: 70,
-      height: 70,
-      borderRadius: 100,
-      backgroundColor: 'rgba(0, 0, 0, 1)',
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    circleText: {
-      fontSize: 24,
-      color: '#ffffff',
-    },
-    circleLabel: {
-      marginBottom: 10,
-      fontSize: 12,
-      color: '#d6d6d6',
-    },
-imageContainer: {
+    width: 70,
+    height: 70,
+    borderRadius: 100,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  circleText: {
+    fontSize: 24,
+    color: '#ffffff',
+  },
+  circleLabel: {
+    marginBottom: 10,
+    fontSize: 12,
+    color: '#d6d6d6',
+  },
+  imageContainer: {
     position: 'absolute',
     top: '10%',
     justifyContent: 'center',
@@ -329,6 +558,134 @@ imageContainer: {
   },
   EditText: {
     fontSize: 10,
+    color: '#d6d6d6',
+  },
+  Skills: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    padding: 25,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  SkillsText: {
+    fontSize: 20,
+    color: '#d6d6d6',
+  },
+  skillsWindow: {
+    position: 'absolute',
+    top: '25%',
+    left: '10%',
+    right: '10%',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 10,
+    padding: 30,
+    zIndex: 1,
+  },
+  skillRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  circle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  skillMod: {
+    width: 50,
+  },
+  skillName: {
+    flex: 1,
+  },
+  skillBonus: {
+    width: 50,
+    textAlign: 'center',
+  },
+  bonusBox: {
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    padding: 1,
+    marginRight: 10,
+  },
+  headerText: {
+    width: 50,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  rightContainer: {
+    position: 'absolute',
+    top: '10%',
+    right: 0,
+    height: '70%',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    borderColor: '#7F7F7F',
+    borderWidth: 2,
+  },
+  rightButton: {
+    padding: 10,
+    paddingBottom: 15,
+    backgroundColor: 'rgba(0, 0, 0, 1.0)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#d6d6d6',
+  },
+  abilityWindow: {
+    position: 'absolute',
+    top: '25%',
+    backgroundColor: '#000',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  skillsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  abilityImage: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 5,
+  },
+  powerLevels: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  diceTurnContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: '40%',
+    width: '100%',
+    alignItems: 'center',
+  },
+  TurnDiceButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 100,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rightTurnDiceText: {
+    fontSize: 14,
     color: '#d6d6d6',
   },
 });

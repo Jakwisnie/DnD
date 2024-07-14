@@ -45,7 +45,7 @@ const Characters = ({ navigation }) => {
 
               <TouchableOpacity onPress={() => handleCharacterPress('Character3')}>
                 <ImageBackground
-                  source={require('./assets/magician.png')}
+                  source={require('./assets/Halfling-W-Druid.jpg')}
                   style={styles.characterImage}
                 >
                   <Text style={[styles.characterStatus, {color:'yellow' }]}>{t('To_finish')}</Text>
@@ -74,7 +74,7 @@ const Characters = ({ navigation }) => {
 
               <TouchableOpacity onPress={() => handleCharacterPress('CreateCharacter')}>
                 <ImageBackground
-                  source={require('./assets/add_new.png')}
+                  source={require('./assets/Halfling-M-Warlock.jpg')}
                   style={styles.characterImage}
                 >
                   <Text style={[styles.characterStatus, {color:'white' }]}>{t('Create_new')}</Text>
