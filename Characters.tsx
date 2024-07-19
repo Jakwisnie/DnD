@@ -10,7 +10,6 @@ const Characters = ({ navigation }) => {
   const { t, i18n } = useTranslation();
 
   const handleCharacterPress = (characterName) => {
-     //proba na przyszlosc czy dziala
      console.log(`Character ${characterName} pressed`);
      navigation.navigate(characterName);
   };

@@ -38,6 +38,10 @@ const Character1 = ({ navigation }) => {
     navigation.navigate('Characters');
   };
 
+  const handleRollDice = () => {
+    navigation.navigate('RzutKostka');
+  };
+
   const handleStatPress = (statValue) => {
     navigation.navigate('RzutKostka_Bonus', { statValue });
   };
@@ -101,6 +105,42 @@ const Character1 = ({ navigation }) => {
       setReactVisible(false);
       setSelectedRomanNumeral(label);
     }
+  };
+
+  const abilitiesData = {
+    I: [{ image: require('./assets/skills/bootofspeed.png') }, { image: require('./assets/skills/powershot.png') }],
+    II: [{ image: require('./assets/skills/icesword.png') }],
+    //...
+  };
+
+  const AbilitiesWindow = ({ abilities }) => {
+    const [showPowerLevels, setShowPowerLevels] = useState(false);
+
+    const handleImagePress = () => {
+      setShowPowerLevels(!showPowerLevels);
+    };
+
+    return (
+      <View style={styles.abilityWindow}>
+        <View style={styles.skillsContainer}>
+          {abilities.map((ability, index) => (
+            <TouchableOpacity key={index} onPress={handleImagePress}>
+              <Image source={ability.image} style={styles.abilityImage} />
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {showPowerLevels && (
+          <View style={styles.powerLevels}>
+            {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
+              <TouchableOpacity key={index} style={styles.rightButton}>
+                <Text style={styles.buttonText}>{label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </View>
+    );
   };
 
   const ActionWindow = ({ onClose }) => {
@@ -377,6 +417,8 @@ const Character1 = ({ navigation }) => {
         ))}
       </View>
 
+      {selectedRomanNumeral && <AbilitiesWindow abilities={abilitiesData[selectedRomanNumeral] || []} />}
+
       {actionVisible && <ActionWindow />}
       {bonusVisible && <BonusWindow />}
       {reactVisible && <ReactWindow />}
@@ -385,7 +427,7 @@ const Character1 = ({ navigation }) => {
           <TouchableOpacity style={styles.TurnDiceButton}>
             <Text style={styles.rightTurnDiceText}>New Turn</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.TurnDiceButton}>
+          <TouchableOpacity style={styles.TurnDiceButton} onPress={() => {handleRollDice()}}>
             <Text style={styles.rightTurnDiceText}>Roll Dice</Text>
           </TouchableOpacity>
         </View>

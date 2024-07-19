@@ -55,7 +55,7 @@ const RzutKostka_Bonus = ({ navigation }) => {
         {diceTypes.map((dice, index) => renderDice(dice, index))}
       </View>
       <View style={styles.goBack}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoggedScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
           <Text style={styles.goBackText}>{t('Go_back')}</Text>
         </TouchableOpacity>
       </View>

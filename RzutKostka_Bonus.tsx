@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 const RzutKostka = ({ route, navigation }) => {
   const { statValue } = route.params;
   const handleGoBack = () => {
-    navigation.navigate('Character1');
+    navigation.goBack();
   };
   const { t, i18n } = useTranslation();
 
