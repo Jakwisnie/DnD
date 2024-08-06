@@ -7,20 +7,38 @@ const CampaignOne = ({ navigation }) => {
   const { t, i18n } = useTranslation();
 
   const [sessions, setSessions] = useState([
-    { name: "Session 1", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo at risus quis sagittis. Sed feugiat in turpis nec rutrum. Fusce non elit justo. Maecenas ac tempor tortor. Sed tincidunt pretium blandit. Nunc lobortis euismod sem in tincidunt. Pellentesque iaculis eget eros vel faucibus. Mauris posuere aliquet ipsum, at vestibulum tortor. Aliquam tempus fermentum feugiat." },
-    { name: "Session 2", content: "Praesent eu enim et justo consectetur porta. Aliquam erat volutpat. Nulla hendrerit elementum purus, eget cursus turpis laoreet nec. Duis blandit auctor massa id luctus. Praesent faucibus sapien arcu, et mattis felis tristique id. Pellentesque molestie purus ligula, a feugiat velit consequat sed. Integer nisi tellus, dictum sit amet porta nec, laoreet eu nisi. Morbi euismod sem tristique euismod vehicula. Nullam ipsum erat, mollis ut metus quis, ullamcorper euismod ligula. Phasellus egestas arcu vitae ornare porttitor. Fusce bibendum erat ac arcu sodales, eu tristique massa rhoncus. Nullam luctus, risus ut ornare viverra, ipsum velit sagittis augue, eget condimentum enim augue sed libero. Curabitur blandit nulla turpis, in sodales risus consectetur vel." },
+    { name: "Session 1" },
+    { name: "Session 2" },
+  ]);
+  const [notes, setNotes] = useState([
+    {
+      title: "Notatka1",
+      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo at risus quis sagittis. Sed feugiat in turpis nec rutrum. Fusce non elit justo. Maecenas ac tempor tortor. Sed tincidunt pretium blandit. Nunc lobortis euismod sem in tincidunt. Pellentesque iaculis eget eros vel faucibus. Mauris posuere aliquet ipsum, at vestibulum tortor. Aliquam tempus fermentum feugiat.",
+      image: require('./assets/Dwarf-M-Inventor.jpg')
+    },
+    {
+      title: "Notatka2",
+      content: "Praesent eu enim et justo consectetur porta. Aliquam erat volutpat. Nulla hendrerit elementum purus, eget cursus turpis laoreet nec. Duis blandit auctor massa id luctus. Praesent faucibus sapien arcu, et mattis felis tristique id. Pellentesque molestie purus ligula, a feugiat velit consequat sed. Integer nisi tellus, dictum sit amet porta nec, laoreet eu nisi. Morbi euismod sem tristique euismod vehicula. Nullam ipsum erat, mollis ut metus quis, ullamcorper euismod ligula. Phasellus egestas arcu vitae ornare porttitor. Fusce bibendum erat ac arcu sodales, eu tristique massa rhoncus. Nullam luctus, risus ut ornare viverra, ipsum velit sagittis augue, eget condimentum enim augue sed libero. Curabitur blandit nulla turpis, in sodales risus consectetur vel.",
+      image: require('./assets/Dwarf-W-Inventor.jpg')
+    },
   ]);
   const [newSessionName, setNewSessionName] = useState('');
   const [newSessionContent, setNewSessionContent] = useState('');
+  const [newNoteTitle, setNewNoteTitle] = useState('');
+  const [newNoteContent, setNewNoteContent] = useState('');
+  const [newNoteImage, setNewNoteImage] = useState(null);
+  const [editingNoteIndex, setEditingNoteIndex] = useState(null);
   const [editingSession, setEditingSession] = useState(null);
   const [activeSessionIndex, setActiveSessionIndex] = useState(0);
   const [addingNewSession, setAddingNewSession] = useState(false);
+  const [addingNewNote, setAddingNewNote] = useState(false);
 
   const [players, setPlayers] = useState([
     { id: 1, name: "Player 1", image: require('./assets/assasin.jpeg'), coins: 0, level: 1, hp: 100 },
     { id: 2, name: "Player 2", image: require('./assets/archer.jpeg'), coins: 0, level: 1, hp: 100 },
   ]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [noteVisibility, setNoteVisibility] = useState(new Array(notes.length).fill(false));
 
   const handleSelectPlayer = (player) => {
     if (selectedPlayers.includes(player.id)) {
@@ -134,6 +152,92 @@ const CampaignOne = ({ navigation }) => {
     setActiveSessionIndex(sessions.length);
   };
 
+  const toggleNoteVisibility = (index) => {
+    setNoteVisibility(prevVisibility => {
+      const newVisibility = [...prevVisibility];
+      newVisibility[index] = !newVisibility[index];
+      return newVisibility;
+    });
+  };
+
+  const handleShareNote = (note) => {
+
+
+
+    Alert.alert(`Sharing note: ${note.title}`);
+  };
+
+  const handleAddNote = () => {
+    setAddingNewNote(!addingNewNote);
+    setEditingNoteIndex(null);
+    setNewNoteTitle('');
+    setNewNoteContent('');
+    setNewNoteImage(null);
+  };
+
+  const handleSaveNote = async () => {
+    if (newNoteTitle && newNoteContent) {
+      const newNote = {
+        title: newNoteTitle,
+        content: newNoteContent,
+        image: newNoteImage ? { uri: newNoteImage } : require('./assets/Human-W-Mage.jpg')
+      };
+      const updatedNotes = [...notes, newNote];
+      setNotes(updatedNotes);
+      setNewNoteTitle('');
+      setNewNoteContent('');
+      setNewNoteImage(null);
+      setAddingNewNote(false);
+    } else {
+      Alert.alert(t('Please enter both title and content for the note.'));
+    }
+  };
+
+  const handleEditNote = (index) => {
+    setEditingNoteIndex(index);
+    setNewNoteTitle(notes[index].title);
+    setNewNoteContent(notes[index].content);
+    setNewNoteImage(notes[index].image.uri || null);
+    setAddingNewNote(!addingNewNote);
+  };
+
+  const handleSaveEditNote = () => {
+    if (editingNoteIndex !== null) {
+      const updatedNotes = [...notes];
+      updatedNotes[editingNoteIndex] = {
+        title: newNoteTitle,
+        content: newNoteContent,
+        image: newNoteImage ? { uri: newNoteImage } : require('./assets/Human-W-Mage.jpg')
+      };
+      setNotes(updatedNotes);
+      setEditingNoteIndex(null);
+      setNewNoteTitle('');
+      setNewNoteContent('');
+      setNewNoteImage(null);
+      setAddingNewNote(false);
+    }
+  };
+
+  const handleDeleteNote = (index) => {
+    const updatedNotes = notes.filter((_, i) => i !== index);
+    setNotes(updatedNotes);
+    setNoteVisibility(noteVisibility.filter((_, i) => i !== index));
+    setAddingNewNote(false);
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setNewNoteImage(result.assets[0].uri);
+    }
+  };
+
   return (
     <ImageBackground
       source={require('./assets/dungeon.jpeg')}
@@ -142,6 +246,7 @@ const CampaignOne = ({ navigation }) => {
 
       <View style={styles.sessionsList}>
         <Text style={styles.appName}>LOREM PSILUM</Text>
+
         <ScrollView horizontal>
           {sessions.map((session, index) => (
             <TouchableOpacity key={index} style={styles.sessionTab} onPress={() => {
@@ -172,8 +277,9 @@ const CampaignOne = ({ navigation }) => {
             <Text style={styles.sessionContent}>{sessions[activeSessionIndex]?.content}</Text>
           </View>
         )}
-        {(editingSession !== null || addingNewSession) && (
-          <View style={styles.newSessionContainer}>
+
+        {addingNewSession && (
+          <View style={styles.sessionContainer}>
             <TextInput
               style={styles.inputName}
               value={newSessionName}
@@ -189,12 +295,130 @@ const CampaignOne = ({ navigation }) => {
               placeholderTextColor="#d6d6d6"
               multiline
             />
-            <TouchableOpacity style={styles.addButton} onPress={editingSession === null ? handleAddSession : handleSaveEdit}>
-              <Text style={styles.buttonText}>{editingSession === null ? t('Add Session') : t('Save Session')}</Text>
+            <TouchableOpacity style={styles.addButton} onPress={handleAddSession}>
+              <Text style={styles.buttonText}>{t('Add Session')}</Text>
             </TouchableOpacity>
           </View>
         )}
+
+        {editingSession !== null && !addingNewSession && (
+          <View style={styles.sessionContainer}>
+            <TextInput
+              style={styles.inputName}
+              value={newSessionName}
+              onChangeText={setNewSessionName}
+              placeholder={t('Enter session name')}
+              placeholderTextColor="#d6d6d6"
+            />
+            <TextInput
+              style={[styles.inputContent, styles.textArea]}
+              value={newSessionContent}
+              onChangeText={setNewSessionContent}
+              placeholder={t('Enter session content')}
+              placeholderTextColor="#d6d6d6"
+              multiline
+            />
+            <TouchableOpacity style={styles.addButton} onPress={handleSaveEdit}>
+              <Text style={styles.buttonText}>{t('Save Changes')}</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+      {!addingNewSession && (
+        <View style={styles.noteContent}>
+          {notes.map((note, index) => (
+            <View key={index} style={styles.noteHeader}>
+              <TouchableOpacity
+                onPress={() => toggleNoteVisibility(index)}
+                onLongPress={() => handleEditNote(index)}
+              >
+              <View style={styles.noteActions}>
+                <Text style={styles.noteTitle}>{note.title}</Text>
+                    <TouchableOpacity
+                      style={styles.editButton}
+                      onPress={() => handleEditNote(index)}
+                    >
+                      <Text style={styles.editText}>{t('Edit')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.shareButton}
+                      onPress={() => handleShareNote(note)}
+                    >
+                      <Text style={styles.shareText}>{t('Share')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.deleteButton}
+                      onPress={() => handleDeleteNote(index)}
+                    >
+                      <Text style={styles.deleteText}>{t('Delete')}</Text>
+                    </TouchableOpacity>
+                  </View>
+              </TouchableOpacity>
+              {noteVisibility[index] && (
+                <>
+                  <Text style={styles.noteContent}>{note.content}</Text>
+                  <Image source={note.image} style={styles.noteImage} />
+                </>
+              )}
+            </View>
+          ))}
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={handleAddNote}
+          >
+            <Text style={styles.addButtonText}>{t('+ Add Note')}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+        {addingNewNote && !addingNewSession && (
+          <View style={styles.newNoteContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder={t('Enter note title')}
+              placeholderTextColor="#d6d6d6"
+              value={newNoteTitle}
+              onChangeText={setNewNoteTitle}
+            />
+            <TextInput
+              style={[styles.input, styles.contentInput]}
+              placeholder={t('Enter note content')}
+              placeholderTextColor="#d6d6d6"
+              multiline
+              value={newNoteContent}
+              onChangeText={setNewNoteContent}
+            />
+            <TouchableOpacity
+              style={styles.imagePicker}
+              onPress={pickImage}
+            >
+              <Text style={styles.imagePickerText}>
+                {t('Pick an image')}
+              </Text>
+            </TouchableOpacity>
+            {newNoteImage && (
+              <Image source={{ uri: newNoteImage }} style={styles.newNoteImage} />
+            )}
+            <TouchableOpacity
+              style={styles.saveButton}
+              onPress={editingNoteIndex !== null ? handleSaveEditNote : handleSaveNote}
+            >
+              <Text style={styles.saveText}>
+                {editingNoteIndex !== null ? t('Save') : t('Add Note')}
+              </Text>
+            </TouchableOpacity>
+            {editingNoteIndex !== null && (
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDeleteNote(editingNoteIndex)}
+              >
+                <Text style={styles.deleteText}>{t('Delete Note')}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
       </ScrollView>
+
 
       <View style={styles.playerPanel}>
         <ScrollView horizontal>
@@ -250,6 +474,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
   appName: {
     textAlign: 'center',
@@ -261,6 +486,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     paddingTop: '20%',
     paddingHorizontal: 20,
+    paddingBottom: 100,
   },
   sessionContainer: {
     borderColor: '#7F7F7F',
@@ -283,7 +509,6 @@ const styles = StyleSheet.create({
   },
   sessionContent: {
     color: '#d6d6d6',
-    marginTop: 10,
   },
   sessionsList: {
     textAlign: 'center',
@@ -292,7 +517,7 @@ const styles = StyleSheet.create({
     borderColor: '#7F7F7F',
     borderBottomWidth: 1.5,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    zIndex: 1, //przez tą linijke stracilem kilka godzin, bo kod nie dzialal
+    zIndex: 1,
   },
   sessionTab: {
     padding: 10,
@@ -304,13 +529,117 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   editText: {
-    color: '#d6d6d6',
+    color: 'yellow',
     marginHorizontal: 5,
   },
   deleteText: {
-    color: '#d6d6d6',
+    color: 'red',
     marginHorizontal: 5,
   },
+  newNoteContainer: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  input: {
+    borderColor: '#7F7F7F',
+    color: '#d6d6d6',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  contentInput: {
+    color: '#d6d6d6',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  noteHeader: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  noteActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  noteImage: {
+    marginTop: 10,
+    width: 350,
+    height: 350,
+  },
+  noteTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#9F9F9F',
+  },
+  noteContent: {
+    fontSize: 16,
+    color: '#8F8F8F',
+    marginTop: 10,
+  },
+  shareText: {
+    color: 'green',
+    marginLeft: 10,
+  },
+  saveButton: {
+    alignItems: 'center',
+  },
+  saveText: {
+    color: 'green',
+    fontSize: 16,
+  },
+  imagePicker: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  imagePickerText: {
+    color: 'yellow',
+    fontSize: 16,
+  },
+  addButton: {
+  //sad
+  },
+  addButtonText: {
+    color: 'green',
+    fontSize: 16,
+  },
+
+
+
+
+
+
+  newNoteImage: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+  },
+
+  deleteButton: {
+    alignItems: 'center',
+    color: 'red',
+    fontSize: 16,
+  },
+
+
+
   newSessionContainer: {
     marginBottom: 15,
   },

@@ -14,8 +14,10 @@ const GenericCampaign = ({ route, navigation }) => {
     const [activeSessionIndex, setActiveSessionIndex] = useState(0);
     const [addingNewSession, setAddingNewSession] = useState(false);
 
-    const [players, setPlayers] = useState([]);
-    const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [players, setPlayers] = useState([
+    { id: 1, name: "Player 1", image: require('./assets/assasin.jpeg'), coins: 0, level: 1, hp: 100 },
+  ]);
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
     const handleSelectPlayer = (player) => {
       if (selectedPlayers.includes(player.id)) {
