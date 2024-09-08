@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Fireball",
+    "level": 3,
+    "school": "Evocation",
+    "effect": "Attack"
+  },
+  {
+    "name": "Shield",
+    "level": 1,
+    "school": "Abjuration",
+    "effect": "Defense"
+  },
+  {
+    "name": "Cure Wounds",
+    "level": 1,
+    "school": "Evocation",
+    "effect": "Support"
+  },
+  {
+    "name": "Magic Missile",
+    "level": 1,
+    "school": "Evocation",
+    "effect": "Attack"
+  },
+  {
+    "name": "Heal",
+    "level": 6,
+    "school": "Necromancy",
+    "effect": "Support"
+  },
+  {
+    "name": "Mage Armor",
+    "level": 1,
+    "school": "Abjuration",
+    "effect": "Defense"
+  }
+]

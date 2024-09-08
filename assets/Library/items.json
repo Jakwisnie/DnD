@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Longsword",
+    "type": "Weapon",
+    "rarity": "Common",
+    "price": 15,
+    "weight": 3,
+    "description": "A versatile, slashing weapon."
+  },
+  {
+    "name": "Potion of Healing",
+    "type": "Potion",
+    "rarity": "Uncommon",
+    "price": 50,
+    "weight": 0.5,
+    "description": "Heals 2d4+2 hit points."
+  },
+  {
+    "name": "Plate Armor",
+    "type": "Armor",
+    "rarity": "Rare",
+    "price": 1500,
+    "weight": 65,
+    "description": "Heavy armor that provides excellent protection."
+  }
+]

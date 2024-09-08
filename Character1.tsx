@@ -22,7 +22,7 @@ const Character1 = ({ navigation }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://10.0.2.2:8000/player_characters/0');
+      const response = await fetch('http://10.0.2.2:8000/player_characters/get/0');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }

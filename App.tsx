@@ -47,6 +47,10 @@ import GenericCampaign from './GenericCampaign';
 import RzutKostka_Bonus from './RzutKostka_Bonus';
 import Inventory from './Inventory';
 import CharacterDetails from './CharacterDetails';
+import Spells from './Spells';
+import Items from './Items';
+import Feats from './Feats';
+
 
 const Stack = createStackNavigator();
 
@@ -84,6 +88,9 @@ const App = () => {
         <Stack.Screen name="RzutKostka_Bonus" component={RzutKostka_Bonus} options={{ headerShown: false }} />
         <Stack.Screen name="Inventory" component={Inventory} options={{ headerShown: false }} />
         <Stack.Screen name="CharacterDetails" component={CharacterDetails} options={{ headerShown: false }} />
+        <Stack.Screen name="Spells" component={Spells} options={{ headerShown: false }} />
+        <Stack.Screen name="Items" component={Items} options={{ headerShown: false }} />
+        <Stack.Screen name="Feats" component={Feats} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
     </UserProvider>
