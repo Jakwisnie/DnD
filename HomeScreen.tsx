@@ -34,12 +34,14 @@ const HomeScreen = ({ navigation }) => {
        <Text style={styles.appName}>DMBook</Text>
        <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={() => {handleLoginPress()}}>
+                <Image source={require('./assets/icons/login.png')} style={styles.icons} />
                 <Text style={styles.buttonText}>{t('Login')}</Text>
           </TouchableOpacity>
        </View>
 
        <View style={[styles.buttonContainer, { bottom: 180 }]}>
           <TouchableOpacity style={styles.button} onPress={() => {handleRegistrationPress()}}>
+                <Image source={require('./assets/icons/register.png')} style={styles.icons} />
                 <Text style={styles.buttonText}>{t('Registration')}</Text>
           </TouchableOpacity>
        </View>
@@ -79,7 +81,11 @@ const styles = StyleSheet.create({
       fontSize: 24,
       color: '#7F7F7F',
     },
-
+  icons: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+  },
   flagsContainer: {
     position: 'absolute',
     top: 10,
@@ -99,15 +105,18 @@ const styles = StyleSheet.create({
     width: 50,
     height: 30,
   },
-
-
+  button: {
+     flexDirection: 'row',
+     alignItems: 'center',
+  },
   buttonContainer: {
       position: 'absolute',
       bottom: '35%',
       width: '30%',
-      backgroundColor: 'transparent',
-      borderColor: '#7F7F7F',
+      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      borderColor: '#FFF',
       alignItems: 'center',
+      justifyContent: 'center',
       borderRadius: 10,
       borderWidth: 1.5,
     },

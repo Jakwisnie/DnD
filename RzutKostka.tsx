@@ -8,7 +8,7 @@ const diceTypes = [
   { sides: 8, image: require('./assets/dice/d8.png') },
   { sides: 10, image: require('./assets/dice/d10.png') },
   { sides: 12, image: require('./assets/dice/d12.png') },
-  { sides: 20, image: require('./assets/dice/d20.png') },
+  { sides: 20, image: require('./assets/icons/d20.png') },
   { sides: 100, image: require('./assets/dice/d100.png') },
 ];
 
@@ -85,7 +85,9 @@ const styles = StyleSheet.create({
   diceContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
+    width: 120,
+    height: 120,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   diceValue: {
     position: 'absolute',

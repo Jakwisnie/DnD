@@ -105,12 +105,15 @@ const YourBook = ({ navigation }) => {
       {activeSection === null && (
         <>
           <TouchableOpacity style={[styles.mainButton, { bottom: '50%' }]} onPress={() => setActiveSection('characters')}>
+            <Image source={require('./assets/icons/characters.png')} style={styles.icons} />
             <Text style={styles.buttonText}>{t('CHARACTERS')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.mainButton, { bottom: '40%' }]} onPress={() => setActiveSection('notes')}>
+            <Image source={require('./assets/icons/notes.png')} style={styles.icons} />
             <Text style={styles.buttonText}>{t('NOTES')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.mainButton, {bottom: '30%' }]} onPress={() => setActiveSection('images')}>
+            <Image source={require('./assets/icons/magic.png')} style={styles.icons} />
             <Text style={styles.buttonText}>{t('IMAGES')}</Text>
           </TouchableOpacity>
         </>
@@ -159,13 +162,21 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: '#d6d6d6',
   },
+  icons: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+  },
   mainButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     position: 'absolute',
     bottom: '35%',
     width: '50%',
-    backgroundColor: 'transparent',
-    borderColor: '#7F7F7F',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: '#FFF',
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 10,
     borderWidth: 1.5,
   },
