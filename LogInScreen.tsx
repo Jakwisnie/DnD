@@ -112,7 +112,9 @@ const LogInScreen = () => {
 
     <View style={styles.GoBack}>
       <TouchableOpacity style={styles.button} onPress={() => {handleGoBack()}} >
+            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
             <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+            </ImageBackground>
       </TouchableOpacity>
      </View>
     </ImageBackground>
@@ -137,14 +139,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 42,
     left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 1.5,
+    borderWidth: 2,
   },
   GoBackText: {
     color: '#d6d6d6',
+  },
+  buttonBackground: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   title: {
     position: 'absolute',

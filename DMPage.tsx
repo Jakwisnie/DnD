@@ -26,36 +26,44 @@ const DMPage = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
+      source={require('./assets/font/background1.jpg')}
       style={styles.container}
     >
       <Text style={styles.appName}>DMBook</Text>
 
       <View style={[styles.buttonContainer, { bottom: '50%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleCampaignsPress}>
-          <Image source={require('./assets/icons/campaign.png')} style={styles.icons} />
-          <Text style={styles.buttonText}>{t('Your campaigns')}</Text>
+          <ImageBackground source={require('./assets/font/CampaignBack.png')} style={styles.buttonBackground}>
+            <Image source={require('./assets/icons/campaign1.png')} style={styles.icons} />
+            <Text style={styles.buttonText}>{t('Your campaigns')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
 
       <View style={[styles.buttonContainer, { bottom: '40%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleBookPress}>
-          <Image source={require('./assets/icons/dmbook.png')} style={styles.icons} />
-          <Text style={styles.buttonText}>{t('Your book')}</Text>
+          <ImageBackground source={require('./assets/font/YourBook.png')} style={styles.buttonBackground}>
+            <Image source={require('./assets/icons/dmbook.png')} style={styles.icons} />
+            <Text style={styles.buttonText}>{t('Your book')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
 
       <View style={[styles.buttonContainer, { bottom: '30%' }]}>
         <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
-          <Image source={require('./assets/icons/library.png')} style={styles.icons} />
-          <Text style={styles.buttonText}>{t('Library')}</Text>
+          <ImageBackground source={require('./assets/font/Library1.png')} style={styles.buttonBackground}>
+            <Image source={require('./assets/icons/library.png')} style={styles.icons} />
+            <Text style={styles.buttonText}>{t('Library')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
 
       <View style={[styles.buttonContainer, { bottom: '20%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
-          <Image source={require('./assets/icons/logout.png')} style={styles.icons} />
-          <Text style={styles.buttonText}>{t('Log out')}</Text>
+          <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+            <Image source={require('./assets/icons/logout.png')} style={styles.icons} />
+            <Text style={styles.buttonText}>{t('Log out')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
 
@@ -69,16 +77,22 @@ const DMPage = ({ navigation }) => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>{t('Library')}</Text>
             <TouchableOpacity style={styles.modalButton} onPress={() => handleLibraryPress('Spells')}>
+            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
               <Image source={require('./assets/icons/spells.png')} style={styles.icons} />
               <Text style={styles.modalButtonText}>{t('Spells')}</Text>
+            </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={() => handleLibraryPress('Items')}>
+            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
               <Image source={require('./assets/icons/items.png')} style={styles.icons} />
               <Text style={styles.modalButtonText}>{t('Items')}</Text>
+            </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={() => handleLibraryPress('Feats')}>
+            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
               <Image source={require('./assets/icons/feats.png')} style={styles.icons} />
               <Text style={styles.modalButtonText}>{t('Feats')}</Text>
+            </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalCloseButton} onPress={() => setModalVisible(false)}>
               <Text style={styles.modalCloseButtonText}>{t('Close')}</Text>
@@ -103,30 +117,56 @@ const styles = StyleSheet.create({
     top: '16%',
     fontSize: 24,
     color: '#7F7F7F',
+    fontSize: 30,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 3,
+    fontWeight: 'bold',
   },
   button: {
-     flexDirection: 'row',
      alignItems: 'center',
+     width: '100%',
   },
   buttonContainer: {
     position: 'absolute',
     bottom: '35%',
-    width: '50%',
-    backgroundColor: 'rgba(112, 128, 144, 0.8)',
-    borderColor: 'rgba(255,255,255,0.4)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '60%',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
     borderRadius: 10,
     borderWidth: 2,
     shadowColor: 'rgba(0, 0, 0, 1)',
   },
+  chainOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+  },
+  buttonBackground: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
   buttonText: {
-    color: '#d6d6d6',
+    color: '#ffd700',
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontStyle: 'italic',
+    flex: 1,
+    textAlign: 'center',
   },
   icons: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
+    marginRight: -30,
+    marginLeft: 10,
+    width: 40,
+    height: 40,
   },
   modalContainer: {
     flex: 1,
@@ -147,17 +187,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalButton: {
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#444',
-    padding: 10,
     marginVertical: 10,
     width: '100%',
     alignItems: 'center',
     borderRadius: 10,
   },
   modalButtonText: {
+    flex: 1,
+    textAlign: 'center',
     color: '#d6d6d6',
     fontSize: 18,
   },
