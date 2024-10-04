@@ -61,7 +61,7 @@ const YourBook = ({ navigation }) => {
         <ImageBackground key={index} source={character.image} style={styles.characterImage} />
       ))}
       <TouchableOpacity onPress={handleAddCharacter}>
-        <ImageBackground source={require('./assets/add_new.png')} style={styles.characterImage} />
+        <ImageBackground source={require('./assets/icons/characters.png')} style={styles.characterImage} />
       </TouchableOpacity>
     </View>
   );
@@ -104,18 +104,32 @@ const YourBook = ({ navigation }) => {
 
       {activeSection === null && (
         <>
-          <TouchableOpacity style={[styles.mainButton, { bottom: '50%' }]} onPress={() => setActiveSection('characters')}>
-            <Image source={require('./assets/icons/characters.png')} style={styles.icons} />
-            <Text style={styles.buttonText}>{t('CHARACTERS')}</Text>
+       <View style={[styles.buttonContainer, {bottom: '50%' }]}>
+          <TouchableOpacity style={[styles.button]} onPress={() => setActiveSection('characters')}>
+            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+              <Image source={require('./assets/icons/characters.png')} style={styles.icons} />
+              <Text style={styles.buttonText}>{t('CHARACTERS')}</Text>
+            </ImageBackground>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.mainButton, { bottom: '40%' }]} onPress={() => setActiveSection('notes')}>
-            <Image source={require('./assets/icons/notes.png')} style={styles.icons} />
-            <Text style={styles.buttonText}>{t('NOTES')}</Text>
+       </View>
+
+       <View style={[styles.buttonContainer, { bottom: '40%' }]}>
+          <TouchableOpacity style={[styles.button]} onPress={() => setActiveSection('notes')}>
+            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+              <Image source={require('./assets/icons/notes.png')} style={styles.icons} />
+              <Text style={styles.buttonText}>{t('NOTES')}</Text>
+            </ImageBackground>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.mainButton, {bottom: '30%' }]} onPress={() => setActiveSection('images')}>
-            <Image source={require('./assets/icons/magic.png')} style={styles.icons} />
-            <Text style={styles.buttonText}>{t('IMAGES')}</Text>
+       </View>
+
+       <View style={[styles.buttonContainer, {bottom: '30%' }]}>
+          <TouchableOpacity style={[styles.button]} onPress={() => setActiveSection('images')}>
+            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+              <Image source={require('./assets/icons/image.png')} style={styles.icons} />
+              <Text style={styles.buttonText}>{t('IMAGES')}</Text>
+            </ImageBackground>
           </TouchableOpacity>
+       </View>
         </>
       )}
 
@@ -162,26 +176,43 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: '#d6d6d6',
   },
-  icons: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
+  button: {
+     alignItems: 'center',
+     width: '100%',
   },
-  mainButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  buttonContainer: {
     position: 'absolute',
     bottom: '35%',
-    width: '50%',
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    borderColor: '#FFF',
+    width: '60%',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    },
+  buttonBackground: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
     borderRadius: 10,
-    borderWidth: 1.5,
+    overflow: 'hidden',
   },
   buttonText: {
-    color: '#d6d6d6',
+    color: '#ffd700',
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontStyle: 'italic',
+    flex: 1,
+    textAlign: 'center',
+  },
+  icons: {
+    marginRight: -30,
+    marginLeft: 10,
+    width: 40,
+    height: 40,
   },
   sectionContainer: {
     width: '80%',

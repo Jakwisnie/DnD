@@ -134,6 +134,11 @@ const styles = StyleSheet.create({
     top: '16%',
     fontSize: 24,
     color: '#7F7F7F',
+    fontSize: 30,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 3,
+    fontWeight: 'bold',
   },
   GoBack: {
     position: 'absolute',

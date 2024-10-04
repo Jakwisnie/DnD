@@ -33,7 +33,7 @@ const DMPage = ({ navigation }) => {
 
       <View style={[styles.buttonContainer, { bottom: '50%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleCampaignsPress}>
-          <ImageBackground source={require('./assets/font/CampaignBack.png')} style={styles.buttonBackground}>
+          <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
             <Image source={require('./assets/icons/campaign1.png')} style={styles.icons} />
             <Text style={styles.buttonText}>{t('Your campaigns')}</Text>
           </ImageBackground>
@@ -42,8 +42,8 @@ const DMPage = ({ navigation }) => {
 
       <View style={[styles.buttonContainer, { bottom: '40%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleBookPress}>
-          <ImageBackground source={require('./assets/font/YourBook.png')} style={styles.buttonBackground}>
-            <Image source={require('./assets/icons/dmbook.png')} style={styles.icons} />
+          <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+            <Image source={require('./assets/icons/book.png')} style={styles.icons} />
             <Text style={styles.buttonText}>{t('Your book')}</Text>
           </ImageBackground>
         </TouchableOpacity>
@@ -51,7 +51,7 @@ const DMPage = ({ navigation }) => {
 
       <View style={[styles.buttonContainer, { bottom: '30%' }]}>
         <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
-          <ImageBackground source={require('./assets/font/Library1.png')} style={styles.buttonBackground}>
+          <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
             <Image source={require('./assets/icons/library.png')} style={styles.icons} />
             <Text style={styles.buttonText}>{t('Library')}</Text>
           </ImageBackground>
@@ -84,13 +84,13 @@ const DMPage = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={() => handleLibraryPress('Items')}>
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
-              <Image source={require('./assets/icons/items.png')} style={styles.icons} />
+              <Image source={require('./assets/icons/item.png')} style={styles.icons} />
               <Text style={styles.modalButtonText}>{t('Items')}</Text>
             </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={() => handleLibraryPress('Feats')}>
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
-              <Image source={require('./assets/icons/feats.png')} style={styles.icons} />
+              <Image source={require('./assets/icons/feat.png')} style={styles.icons} />
               <Text style={styles.modalButtonText}>{t('Feats')}</Text>
             </ImageBackground>
             </TouchableOpacity>
@@ -196,10 +196,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   modalButtonText: {
+    color: '#ffd700',
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontStyle: 'italic',
     flex: 1,
     textAlign: 'center',
-    color: '#d6d6d6',
-    fontSize: 18,
   },
   modalCloseButton: {
     marginTop: 20,
