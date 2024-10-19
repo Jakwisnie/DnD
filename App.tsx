@@ -16,7 +16,7 @@ import i18n from './i18n';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { UserProvider } from './UserData';
-
+import { ThemeProvider } from './theme/ThemeContext';
 
 
 import HomeScreen from './HomeScreen';
@@ -57,6 +57,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
   <I18nextProvider i18n={i18n}>
+   <ThemeProvider>
     <UserProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -94,6 +95,7 @@ const App = () => {
       </Stack.Navigator>
     </NavigationContainer>
     </UserProvider>
+   </ThemeProvider>
   </I18nextProvider>
   );
 };

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const Characters = ({ navigation }) => {
   const handleGoBack = () => {
@@ -8,6 +10,7 @@ const Characters = ({ navigation }) => {
   };
 
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const handleCharacterPress = (characterName) => {
      console.log(`Character ${characterName} pressed`);
@@ -16,7 +19,7 @@ const Characters = ({ navigation }) => {
 
   return (
   <ImageBackground
-         source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
          style={styles.container}
        >
 
@@ -90,51 +93,5 @@ const Characters = ({ navigation }) => {
       </ImageBackground>
 );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
-  characterRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  characterImage: {
-    width: 100,
-    height: 100,
-    margin: 10,
-    justifyContent: 'flex-end',
-  },
-    characterStatus: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    padding: 5,
-    textAlign: 'center',
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-});
 
 export default Characters;

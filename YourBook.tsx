@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, FlatList, Image, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import * as ImagePicker from 'react-native-image-picker';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const YourBook = ({ navigation }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
   const [activeSection, setActiveSection] = useState(null);
   const [characters, setCharacters] = useState([
     { name: 'Character1', image: require('./assets/swordsman.jpeg') },
@@ -99,7 +102,7 @@ const YourBook = ({ navigation }) => {
   );
 
   return (
-    <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
+    <ImageBackground source={theme.background} style={styles.container}>
       <Text style={styles.appName}>DUNGEON MASTER BOOK</Text>
 
       {activeSection === null && (
@@ -150,131 +153,5 @@ const YourBook = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    fontSize: 24,
-    color: '#fff',
-    position: 'absolute',
-    top: '16%',
-  },
-  backButton: {
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    marginTop: 10,
-  },
-  backButtonText: {
-    color: '#d6d6d6',
-  },
-  button: {
-     alignItems: 'center',
-     width: '100%',
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: '35%',
-    width: '60%',
-    borderColor: 'rgba(60, 60, 60, 0.5)',
-    borderRadius: 10,
-    borderWidth: 2,
-    shadowColor: 'rgba(0, 0, 0, 1)',
-    },
-  buttonBackground: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  buttonText: {
-    color: '#ffd700',
-    fontSize: 20,
-    textShadowColor: 'black',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 2,
-    fontStyle: 'italic',
-    flex: 1,
-    textAlign: 'center',
-  },
-  icons: {
-    marginRight: -30,
-    marginLeft: 10,
-    width: 40,
-    height: 40,
-  },
-  sectionContainer: {
-    width: '80%',
-    alignItems: 'center',
-  },
-  itemText: {
-    color: '#fff',
-    fontSize: 16,
-    marginVertical: 5,
-  },
-  input: {
-    width: '100%',
-    padding: 10,
-    borderColor: '#fff',
-    borderWidth: 1,
-    borderRadius: 5,
-    color: '#fff',
-    marginVertical: 10,
-  },
-  addButton: {
-    backgroundColor: 'transparent',
-    padding: 10,
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-  },
-  addButtonText: {
-    color: '#d6d6d6',
-    fontSize: 16,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    margin: 5,
-  },
-  characterRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  characterImage: {
-    width: 100,
-    height: 100,
-    margin: 10,
-    justifyContent: 'flex-end',
-  },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-});
 
 export default YourBook;

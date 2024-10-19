@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView, Alert, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const GenericCampaign = ({ route, navigation }) => {
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
     const { campaignName } = route.params;
     const [sessions, setSessions] = useState([]);
@@ -133,7 +136,7 @@ const GenericCampaign = ({ route, navigation }) => {
 
     return (
       <ImageBackground
-        source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
         style={styles.container}
       >
 
@@ -240,167 +243,5 @@ const GenericCampaign = ({ route, navigation }) => {
       </ImageBackground>
     );
   };
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      width: '100%',
-      height: '100%',
-    },
-    appName: {
-      textAlign: 'center',
-      marginBottom: 20,
-      fontSize: 24,
-      color: '#7F7F7F',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    scrollContainer: {
-      paddingTop: '20%',
-      paddingHorizontal: 20,
-    },
-    sessionContainer: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      marginTop: 10,
-      marginBottom: 10,
-      padding: 10,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    },
-    sessionHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    sessionName: {
-      color: '#d6d6d6',
-      fontSize: 18,
-    },
-    sessionContent: {
-      color: '#d6d6d6',
-      marginTop: 10,
-    },
-    sessionsList: {
-      textAlign: 'center',
-      top: '10%',
-      width: '100%',
-      borderColor: '#7F7F7F',
-      borderBottomWidth: 1.5,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      zIndex: 1, //przez tą linijke stracilem kilka godzin, bo kod nie dzialal
-    },
-    sessionTab: {
-      padding: 10,
-      borderColor: '#7F7F7F',
-      borderRightWidth: 1.5,
-    },
-    sessionTabText: {
-      color: '#d6d6d6',
-      fontSize: 18,
-    },
-    editText: {
-      color: '#d6d6d6',
-      marginHorizontal: 5,
-    },
-    deleteText: {
-      color: '#d6d6d6',
-      marginHorizontal: 5,
-    },
-    newSessionContainer: {
-      marginBottom: 15,
-    },
-    inputName: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      color: '#d6d6d6',
-      paddingHorizontal: 10,
-      marginTop: 10,
-      marginBottom: 10,
-    },
-    inputContent: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      color: '#d6d6d6',
-      paddingHorizontal: 10,
-      marginBottom: 10,
-    },
-    textArea: {
-      height: 100,
-    },
-    addButton: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      alignItems: 'center',
-    },
-    buttonText: {
-      color: '#d6d6d6',
-    },
-    playerPanel: {
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      borderTopColor: '#7F7F7F',
-      borderTopWidth: 1.5,
-      padding: 10,
-    },
-    playerAvatar: {
-      margin: 5,
-      padding: 5,
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 50,
-    },
-    playerImage: {
-      width: 50,
-      height: 50,
-      borderRadius: 50,
-    },
-    selectedPlayer: {
-      borderColor: 'yellow',
-    },
-    addPlayerText: {
-      color: '#d6d6d6',
-      fontSize: 18,
-      top: 10,
-      paddingHorizontal: 20,
-    },
-    playerActions: {
-      bottom: 90,
-      width: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      padding: 5,
-      borderTopColor: '#7F7F7F',
-      borderTopWidth: 1,
-    },
-    playerActionButton: {
-      padding: 4,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      borderRadius: 50,
-    },
-    playerActionText: {
-      color: '#d6d6d6',
-    },
-    goBack: {
-      position: 'absolute',
-      top: 42,
-      left: 20,
-      width: '20%',
-      borderColor: '#7F7F7F',
-      alignItems: 'center',
-      borderRadius: 10,
-      borderWidth: 1.5,
-    },
-    goBackText: {
-      color: '#d6d6d6',
-    },
-  });
 
 export default GenericCampaign;

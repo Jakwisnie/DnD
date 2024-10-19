@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTranslation } from 'react-i18next';
+import styles from './styles';
 
 const alignments = [
   'Chaotic Evil',
@@ -37,7 +38,7 @@ const CreateCharacter4 = ({ navigation, route }) => {
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
+         source={require('./assets/font/dungeon.jpeg')}
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -157,78 +158,5 @@ const CreateCharacter4 = ({ navigation, route }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-
-  blockTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#d6d6d6',
-    marginTop: 20,
-  },
-
-  blockContent: {
-    width: '90%',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-
-
-  picker: {
-    height: 50,
-    width: '100%',
-    marginBottom: 20,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingLeft: 10,
-  },
-
-
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '60%',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-});
 
 export default CreateCharacter4;

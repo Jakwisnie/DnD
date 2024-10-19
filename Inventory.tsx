@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const Inventory = ({ navigation }) => {
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
   const [selectedScreen, setSelectedScreen] = useState('Inventory');
   const [items, setItems] = useState([
     { name: 'Arrow', weight: 0.1, quantity: 10, cost: 1 },
@@ -52,7 +55,7 @@ const Inventory = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
+    <ImageBackground source={theme.background} style={styles.container}>
       <View style={styles.dropdownContainer}>
         <Picker
           selectedValue={selectedScreen}
@@ -125,118 +128,5 @@ const Inventory = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
-  dropdownContainer: {
-    position: 'absolute',
-    top: '3%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    width: '40%',
-  },
-  picker: {
-    height: 50,
-    width: '101%',
-    color: '#d6d6d6',
-  },
-
-  tableContainer: {
-    marginTop: 90,
-    width: '90%',
-    maxHeight: '75%',
-  },
-  tableHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#2d2d38',
-    padding: 4,
-  },
-  tableHeaderText: {
-    color: '#d6d6d6',
-    fontWeight: 'bold',
-    flex: 1,
-    textAlign: 'center',
-  },
-  tableRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#3f3f4d',
-    padding: 4,
-    marginBottom: -1,
-  },
-  tableCell: {
-    flex: 1,
-    color: '#d6d6d6',
-    borderBottomColor: '#04021f',
-    borderBottomWidth: 1,
-    textAlign: 'center',
-  },
-  removeButton: {
-    marginBottom: 6,
-    flex: 1,
-    backgroundColor: '#a30b0b',
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  removeButtonText: {
-    color: '#d6d6d6',
-  },
-  addButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: '#2d2d38',
-    borderRadius: 5,
-  },
-  addButtonText: {
-    color: '#d6d6d6',
-  },
-  summaryContainer: {
-    marginTop: 30,
-  },
-  summaryTextRight: {
-    bottom: 85,
-    left: 80,
-    fontSize: 16,
-    color: '#d6d6d6',
-  },
-  summaryTextLeft: {
-    bottom: 65,
-    right: 65,
-    fontSize: 16,
-    color: '#d6d6d6',
-  },
-
-  goBackContainer: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-});
 
 export default Inventory;

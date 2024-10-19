@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity, FlatList, Image, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTranslation } from 'react-i18next';
+import styles from './styles';
 
 const CreateCharacter = ({ navigation }) => {
   const handleGoBack = () => {
@@ -363,7 +364,7 @@ const CreateCharacter = ({ navigation }) => {
 
   return (
   <ImageBackground
-         source={require('./assets/dungeon.jpeg')}
+         source={require('./assets/font/dungeon.jpeg')}
          style={styles.container}
        >
 
@@ -432,91 +433,5 @@ const CreateCharacter = ({ navigation }) => {
       </ImageBackground>
 );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '30%',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
-  },
-
-  RaceGenderPosCont: {
-    marginTop: 20,
-    marginBottom: 10,
-    alignItems: 'flex-start',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-  },
-  RaceGenderPosContTitle: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginRight: 10,
-  },
-
-  textInput: {
-    height: 40,
-    width: 200,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-
-  picker: {
-    height: 40,
-    width: 200,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-  },
-
-  selectedImageContainer: {
-    position: 'center',
-
-  },
-  selectedImage: {
-    width: 250,
-    height: 250,
-    resizeMode: 'contain',
-  },
-
-
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-      GoBackText: {
-        color: '#d6d6d6',
-      },
-    });
 
 export default CreateCharacter;

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
 import PlayerCharacter from './PlayerCharacter';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const Character1 = ({ navigation }) => {
   const { t, i18n } = useTranslation();
@@ -14,6 +16,7 @@ const Character1 = ({ navigation }) => {
   const [bonusVisible, setBonusVisible] = useState(false);
   const [reactVisible, setReactVisible] = useState(false);
   const [selectedRomanNumeral, setSelectedRomanNumeral] = useState(null);
+  const { theme } = useContext(ThemeContext);
 
 
   useEffect(() => {
@@ -275,7 +278,7 @@ const Character1 = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
+    <ImageBackground source={theme.background} style={styles.container}>
       <View style={styles.dropdownContainer}>
         <Picker
           selectedValue={selectedScreen}
@@ -440,296 +443,5 @@ const Character1 = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  dropdownContainer: {
-    position: 'absolute',
-    top: '3%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    width: '40%',
-  },
-  picker: {
-    height: 50,
-    width: '101%',
-    color: '#d6d6d6',
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-  blackLeftContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    borderColor: '#7F7F7F',
-    borderWidth: 1,
-  },
-  statsContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-  },
-  statBox: {
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, 1.0)',
-    borderColor: '#7F7F7F',
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  largeText: {
-    fontSize: 24,
-    color: '#d6d6d6',
-    marginBottom: 5,
-  },
-  statText: {
-    color: '#d6d6d6',
-  },
-  circleBox: {
-    width: 70,
-    height: 70,
-    borderRadius: 100,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  circleText: {
-    fontSize: 24,
-    color: '#ffffff',
-  },
-  circleLabel: {
-    marginBottom: 10,
-    fontSize: 12,
-    color: '#d6d6d6',
-  },
-  imageContainer: {
-    position: 'absolute',
-    top: '10%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 100,
-    height: 100,
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  healthContainer: {
-    position: 'absolute',
-    top: '19%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  healthBar: {
-    width: '120%',
-    height: 15,
-    backgroundColor: '#555',
-    borderRadius: 10,
-    overflow: 'hidden',
-    marginVertical: 10,
-  },
-  healthText: {
-    color: 'green',
-  },
-  damageText: {
-    color: 'red',
-  },
-  healthFill: {
-    height: '100%',
-    backgroundColor: 'red',
-  },
-  healthButton: {
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    color: 'green',
-    padding: 10,
-    right: 90,
-    bottom: 60,
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    width: 75,
-    height: 50,
-    alignItems: 'center',
-  },
-  damageButton: {
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    padding: 10,
-    left: 90,
-    bottom: 110,
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    width: 75,
-    height: 50,
-    alignItems: 'center',
-  },
-  EditBox: {
-    marginTop: 25,
-    padding: 10,
-    width: 70,
-    backgroundColor: 'rgba(0, 0, 0, 1.0)',
-    borderColor: '#7F7F7F',
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  EditText: {
-    fontSize: 10,
-    color: '#d6d6d6',
-  },
-  Skills: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    padding: 25,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    borderColor: '#7F7F7F',
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  SkillsText: {
-    fontSize: 20,
-    color: '#d6d6d6',
-  },
-  skillsWindow: {
-    position: 'absolute',
-    top: '25%',
-    left: '10%',
-    right: '10%',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 10,
-    padding: 30,
-    zIndex: 1,
-  },
-  skillRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  circle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    marginRight: 10,
-  },
-  skillMod: {
-    width: 50,
-  },
-  skillName: {
-    flex: 1,
-  },
-  skillBonus: {
-    width: 50,
-    textAlign: 'center',
-  },
-  bonusBox: {
-    width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 5,
-    padding: 1,
-    marginRight: 10,
-  },
-  headerText: {
-    width: 50,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  rightContainer: {
-    position: 'absolute',
-    top: '10%',
-    right: 0,
-    height: '70%',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderColor: '#7F7F7F',
-    borderWidth: 2,
-  },
-  rightButton: {
-    padding: 10,
-    paddingBottom: 15,
-    backgroundColor: 'rgba(0, 0, 0, 1.0)',
-    borderColor: '#7F7F7F',
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#d6d6d6',
-  },
-  abilityWindow: {
-    position: 'absolute',
-    top: '25%',
-    backgroundColor: '#000',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  skillsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  abilityImage: {
-    width: 40,
-    height: 40,
-    marginHorizontal: 5,
-  },
-  powerLevels: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: 10,
-  },
-  diceTurnContainer: {
-    position: 'absolute',
-    bottom: 10,
-    left: '40%',
-    width: '100%',
-    alignItems: 'center',
-  },
-  TurnDiceButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 100,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rightTurnDiceText: {
-    fontSize: 14,
-    color: '#d6d6d6',
-  },
-});
 
 export default Character1;

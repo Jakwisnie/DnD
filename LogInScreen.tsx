@@ -3,11 +3,14 @@ import { ImageBackground, TouchableOpacity, Image, Text, View, Button, StyleShee
 import { useNavigation, HeaderBackButton } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { UserData } from './UserData';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const LogInScreen = () => {
   const navigation = useNavigation();
 
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const { loginUser } = useContext(UserData);
   const [login, setLogin] = useState('');
@@ -47,7 +50,7 @@ const LogInScreen = () => {
   return (
   <ImageBackground
     style={styles.container}
-    source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
     resizeMode="cover">
 
     <Text style={styles.appName}>DMBook</Text>
@@ -120,209 +123,5 @@ const LogInScreen = () => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-    fontSize: 30,
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 3,
-    fontWeight: 'bold',
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    borderColor: 'rgba(60, 60, 60, 0.5)',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 2,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-  buttonBackground: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  title: {
-    position: 'absolute',
-    top: '25%',
-    left: '10%',
-    fontSize: 22,
-    alignItems: 'center',
-    fontWeight: 'bold',
-    color: '#d6d6d6'
-  },
-  newUser: {
-    position: 'absolute',
-    top: '27%',
-    left: '10%',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  newUserText: {
-    flex: 1,
-    color: '#d6d6d6'
-  },
-  buttonUser: {
-    position: 'absolute',
-    backgroundColor: 'transparent',
-    left: '105%'
-  },
-  buttonUserText: {
-    color: '#007bff',
-    textAlign: 'left',
-  },
-  labelLogin: {
-    position: 'absolute',
-    top: '35%',
-    left: '10%',
-    fontSize: 16,
-    color: '#d6d6d6'
-  },
-  labelPassword: {
-    position: 'absolute',
-    marginTop: '5%',
-    left: '10%',
-    fontSize: 16,
-    color: '#d6d6d6'
-  },
-  inputLogin: {
-    position: 'absolute',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    borderColor: '#d6d6d6',
-    borderRadius: 4,
-    top: '39%',
-    left: '9%',
-    paddingVertical: 0,
-    paddingHorizontal: 8,
-    marginBottom: 20,
-    fontSize: 16,
-    width: '60%',
-    alignSelf: 'flex-start',
-  },
-  inputPassword: {
-    position: 'absolute',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    borderColor: '#d6d6d6',
-    top: '51%',
-    borderRadius: 4,
-    left: '9%',
-    paddingVertical: 0,
-    paddingHorizontal: 8,
-    marginBottom: 20,
-    fontSize: 16,
-    width: '60%',
-    alignSelf: 'flex-start',
-  },
-  forgotPasswordButtonText: {
-    position: 'absolute',
-    marginTop: '11%',
-    fontSize: 16,
-    left: '-40%',
-    color: '#007bff',
-  },
-  continueButton: {
-    position: 'absolute',
-    top: '58%',
-    padding: 25,
-    backgroundColor: 'transparent',
-  },
-  continueButtonText: {
-    color: '#d6d6d6',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  separator: {
-    position: 'absolute',
-    top: '65%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 20,
-  },
-  separatorText: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#d6d6d6',
-  },
-  separatorLine: {
-    flex: 3,
-    height: 1,
-    backgroundColor: '#d6d6d6',
-  },
-  media: {
-    position: 'absolute',
-    top: '75%',
-  },
-  socialGoogle: {
-    backgroundColor: 'transparent',
-    borderColor: '#7F7F7F',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 10,
-    borderWidth: 1.5,
-  },
-  socialFacebook: {
-    backgroundColor: '#3b5998',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  socialApple: {
-    backgroundColor: 'black',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  appleicon: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
-  },
-  facebookicon: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
-  },
-  googleicon: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
-  },
-  socialButtonText: {
-    color: '#d6d6d6',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
 
 export default LogInScreen;

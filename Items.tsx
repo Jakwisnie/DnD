@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const items = require('./assets/Library/items.json');
 
 const Items = ({ navigation }) => {
   const { t } = useTranslation();
+  const { theme } = useContext(ThemeContext);
   const [searchText, setSearchText] = useState('');
   const [selectedType, setSelectedType] = useState(null);
   const [selectedRarity, setSelectedRarity] = useState(null);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
+
+  const [openFilters, setOpenFilters] = useState([]);
 
   const priceRanges = [
     [0, 50],
@@ -17,6 +22,16 @@ const Items = ({ navigation }) => {
     [501, 5000],
     [5001, 10000]
   ];
+
+  const toggleFilter = (filterName) => {
+    setOpenFilters((prevFilters) => {
+      if (prevFilters.includes(filterName)) {
+        return prevFilters.filter((filter) => filter !== filterName);
+      } else {
+        return [...prevFilters, filterName];
+      }
+    });
+  };
 
   const filterItems = () => {
     let filtered = items;
@@ -47,13 +62,14 @@ const Items = ({ navigation }) => {
     setSelectedType(null);
     setSelectedRarity(null);
     setSelectedPriceRange(null);
+    setOpenFilters([]);
   };
 
   const filteredItems = filterItems();
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
       style={styles.container}
     >
       <View style={styles.goBack}>
@@ -71,51 +87,71 @@ const Items = ({ navigation }) => {
       />
 
       <View style={styles.filterContainer}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
-          {['Weapon', 'Armor', 'Potion', 'Scroll', 'Tool'].map(type => (
-            <TouchableOpacity
-              key={type}
-              style={[
-                styles.filterButton,
-                selectedType === type && styles.selectedFilterButton
-              ]}
-              onPress={() => setSelectedType(type === selectedType ? null : type)}
-            >
-              <Text style={styles.filterButtonText}>{t(type)}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
-          {['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary'].map(rarity => (
-            <TouchableOpacity
-              key={rarity}
-              style={[
-                styles.filterButton,
-                selectedRarity === rarity && styles.selectedFilterButton
-              ]}
-              onPress={() => setSelectedRarity(rarity === selectedRarity ? null : rarity)}
-            >
-              <Text style={styles.filterButtonText}>{t(rarity)}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
-          {priceRanges.map((range, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.filterButton,
-                selectedPriceRange === index  && styles.selectedFilterButton
-              ]}
-              onPress={() => setSelectedPriceRange(index  === selectedPriceRange ? null : index )}
-            >
-              <Text style={styles.filterButtonText}>{t('Price')} {range[0]} - {range[1]}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <TouchableOpacity onPress={() => toggleFilter('Type')} style={[styles.filterToggle, openFilters.includes('Type') && styles.activeFilterToggle]}>
+          <Text style={styles.filterToggleText}>{t('Type')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => toggleFilter('Rarity')} style={[styles.filterToggle, openFilters.includes('Rarity') && styles.activeFilterToggle]}>
+          <Text style={styles.filterToggleText}>{t('Rarity')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => toggleFilter('Price')} style={[styles.filterToggle, openFilters.includes('Price') && styles.activeFilterToggle]}>
+          <Text style={styles.filterToggleText}>{t('Price')}</Text>
+        </TouchableOpacity>
       </View>
+
+      <ScrollView style={styles.filterOptionsContainer}>
+        {openFilters.map((filter, index) => (
+          <View key={index} style={styles.filterBlock}>
+            {filter === 'Type' && (
+              <View style={styles.filterOptions}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+                {['Weapon', 'Armor', 'Potion', 'Scroll', 'Tool'].map(type => (
+                  <TouchableOpacity
+                    key={type}
+                    style={[
+                      styles.filterButton,
+                      selectedType === type && styles.selectedFilterButton
+                    ]}
+                    onPress={() => setSelectedType(type === selectedType ? null : type)}
+                  >
+                    <Text style={styles.filterButtonText}>{t(type)}</Text>
+                  </TouchableOpacity>
+                ))}
+               </ScrollView>
+              </View>
+            )}
+            {filter === 'Rarity' && (
+              <View style={styles.filterOptions}>
+               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+                {['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary'].map(rarity => (
+                  <TouchableOpacity
+                    key={rarity}
+                    style={[styles.filterButton, selectedRarity === rarity && styles.selectedFilterButton]}
+                    onPress={() => setSelectedRarity(rarity === selectedRarity ? null : rarity)}
+                  >
+                    <Text style={styles.filterButtonText}>{t(rarity)}</Text>
+                  </TouchableOpacity>
+                ))}
+               </ScrollView>
+              </View>
+            )}
+            {filter === 'Price' && (
+              <View style={styles.filterOptions}>
+               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+                {priceRanges.map((range, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={[styles.filterButton, selectedPriceRange === index && styles.selectedFilterButton]}
+                    onPress={() => setSelectedPriceRange(index === selectedPriceRange ? null : index)}
+                  >
+                    <Text style={styles.filterButtonText}>{t('Price')} {range[0]} - {range[1]}</Text>
+                  </TouchableOpacity>
+                ))}
+               </ScrollView>
+              </View>
+            )}
+          </View>
+        ))}
+      </ScrollView>
 
       <ScrollView style={styles.itemContainer}>
         {filteredItems.length === 0 ? (
@@ -134,79 +170,5 @@ const Items = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  goBack: {
-    position: 'absolute',
-    top: '5%',
-    left: '5%',
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-  searchInput: {
-    marginTop: 100,
-    width: '80%',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    padding: 10,
-    color: '#d6d6d6',
-  },
-  filterContainer: {
-    width: '80%',
-    marginTop: 20,
-  },
-  filterScroll: {
-    marginBottom: 10,
-  },
-  filterButton: {
-    padding: 10,
-    marginHorizontal: 5,
-    backgroundColor: '#444',
-    borderRadius: 10,
-  },
-  selectedFilterButton: {
-    backgroundColor: '#777',
-  },
-  filterButtonText: {
-    color: '#d6d6d6',
-  },
-  itemContainer: {
-    width: '80%',
-    marginTop: 20,
-  },
-  item: {
-    backgroundColor: '#333',
-    padding: 15,
-    marginVertical: 10,
-    borderRadius: 10,
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-  },
-  itemName: {
-    fontSize: 18,
-    color: '#d6d6d6',
-  },
-  itemDetails: {
-    color: '#a1a1a1',
-  },
-  noResultsText: {
-    color: '#d6d6d6',
-    fontSize: 18,
-  },
-});
 
 export default Items;

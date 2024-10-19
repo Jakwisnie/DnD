@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView, Alert, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const CampaignOne = ({ navigation }) => {
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const [sessions, setSessions] = useState([
     { name: "Session 1" },
@@ -240,7 +243,7 @@ const CampaignOne = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
+      source={theme.background}
       style={styles.container}
     >
 
@@ -257,7 +260,8 @@ const CampaignOne = ({ navigation }) => {
             </TouchableOpacity>
           ))}
           <TouchableOpacity style={styles.sessionTab} onPress={handleNewSessionTab}>
-            <Text style={styles.sessionTabText}>{t('Add new')}</Text>
+            <Text style={[styles.sessionTabText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+            {t('Add new')}</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
@@ -268,10 +272,12 @@ const CampaignOne = ({ navigation }) => {
             <View style={styles.sessionHeader}>
               <Text style={styles.sessionName}>{sessions[activeSessionIndex]?.name}</Text>
               <TouchableOpacity onPress={() => handleEditSession(activeSessionIndex)}>
-                <Text style={styles.editText}>{t('Edit')}</Text>
+                <Text style={[styles.editText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+                {t('Edit')}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleDeleteSession(activeSessionIndex)}>
-                <Text style={styles.deleteText}>{t('Delete')}</Text>
+                <Text style={[styles.deleteText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+                {t('Delete')}</Text>
               </TouchableOpacity>
             </View>
             <Text style={styles.sessionContent}>{sessions[activeSessionIndex]?.content}</Text>
@@ -467,272 +473,5 @@ const CampaignOne = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  appName: {
-    textAlign: 'center',
-    marginBottom: 20,
-    fontSize: 24,
-    color: '#7F7F7F',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  scrollContainer: {
-    paddingTop: '20%',
-    paddingHorizontal: 20,
-    paddingBottom: 100,
-  },
-  sessionContainer: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  },
-  sessionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  sessionName: {
-    color: '#d6d6d6',
-    fontSize: 18,
-  },
-  sessionContent: {
-    color: '#d6d6d6',
-  },
-  sessionsList: {
-    textAlign: 'center',
-    top: '10%',
-    width: '100%',
-    borderColor: '#7F7F7F',
-    borderBottomWidth: 1.5,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    zIndex: 1,
-  },
-  sessionTab: {
-    padding: 10,
-    borderColor: '#7F7F7F',
-    borderRightWidth: 1.5,
-  },
-  sessionTabText: {
-    color: '#d6d6d6',
-    fontSize: 18,
-  },
-  editText: {
-    color: 'yellow',
-    marginHorizontal: 5,
-  },
-  deleteText: {
-    color: 'red',
-    marginHorizontal: 5,
-  },
-  newNoteContainer: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  },
-  input: {
-    borderColor: '#7F7F7F',
-    color: '#d6d6d6',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  },
-  contentInput: {
-    color: '#d6d6d6',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  noteHeader: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    marginTop: 5,
-    marginBottom: 5,
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  },
-  noteActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  noteImage: {
-    marginTop: 10,
-    width: 350,
-    height: 350,
-  },
-  noteTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#9F9F9F',
-  },
-  noteContent: {
-    fontSize: 16,
-    color: '#8F8F8F',
-    marginTop: 10,
-  },
-  shareText: {
-    color: 'green',
-    marginLeft: 10,
-  },
-  saveButton: {
-    alignItems: 'center',
-  },
-  saveText: {
-    color: 'green',
-    fontSize: 16,
-  },
-  imagePicker: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  },
-  imagePickerText: {
-    color: 'yellow',
-    fontSize: 16,
-  },
-  addButton: {
-  //sad
-  },
-  addButtonText: {
-    color: 'green',
-    fontSize: 16,
-  },
-
-
-
-
-
-
-  newNoteImage: {
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 10,
-  },
-
-  deleteButton: {
-    alignItems: 'center',
-    color: 'red',
-    fontSize: 16,
-  },
-
-
-
-  newSessionContainer: {
-    marginBottom: 15,
-  },
-  inputName: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    color: '#d6d6d6',
-    paddingHorizontal: 10,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  inputContent: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    color: '#d6d6d6',
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  textArea: {
-    height: 100,
-  },
-  addButton: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#d6d6d6',
-  },
-  playerPanel: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderTopColor: '#7F7F7F',
-    borderTopWidth: 1.5,
-    padding: 10,
-  },
-  playerAvatar: {
-    margin: 5,
-    padding: 5,
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 50,
-  },
-  playerImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-  },
-  selectedPlayer: {
-    borderColor: 'yellow',
-  },
-  addPlayerText: {
-    color: '#d6d6d6',
-    fontSize: 18,
-    top: 10,
-    paddingHorizontal: 20,
-  },
-  playerActions: {
-    bottom: 90,
-    width: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    padding: 5,
-    borderTopColor: '#7F7F7F',
-    borderTopWidth: 1,
-  },
-  playerActionButton: {
-    padding: 4,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderRadius: 50,
-  },
-  playerActionText: {
-    color: '#d6d6d6',
-  },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-});
 
 export default CampaignOne;

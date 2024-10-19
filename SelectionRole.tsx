@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, View, Text, TouchableOpacity, StyleSheet, Animated, Easing, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const SelectionRole = () => {
+  const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const [animation, setAnimation] = useState(new Animated.Value(0));
 
@@ -47,7 +50,7 @@ const SelectionRole = () => {
     <ImageBackground
 
       style={styles.container}
-      source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
       resizeMode="cover">
 
     <View style={styles.container}>
@@ -70,45 +73,5 @@ const SelectionRole = () => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#d6d6d6',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  },
-  selectionContainer: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  optionContainer: {
-    flex: 1,
-  },
-  option: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  optionText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#d6d6d6',
-    position: 'absolute',
-    bottom: 10,
-  },
-  playericon: {
-    width: '100%',
-    height: '100%',
-  },
-  dmicon: {
-    width: '100%',
-    height: '100%',
-  },
-});
 
 export default SelectionRole;

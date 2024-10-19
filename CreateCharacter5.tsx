@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, FlatList, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import styles from './styles';
 
 const CreateCharacter5 = ({ navigation, route }) => {
   const { selectedClassInfo } = route.params;
@@ -61,7 +62,7 @@ const CreateCharacter5 = ({ navigation, route }) => {
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
+         source={require('./assets/font/dungeon.jpeg')}
       style={styles.container}
     >
       <View style={styles.content}>
@@ -109,90 +110,5 @@ const CreateCharacter5 = ({ navigation, route }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  content: {
-    padding: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius: 10,
-  },
-
-
-  title: {
-    fontSize: 24,
-    color: '#d6d6d6',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#d6d6d6',
-    marginTop: 10,
-  },
-
-
-  item: {
-    fontSize: 16,
-    color: '#d6d6d6',
-  },
-
-
-  goldInputContainer: {
-    marginTop: 10,
-  },
-  goldInputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  goldInput: {
-    width: 100,
-    height: 40,
-    backgroundColor: '#d6d6d6',
-    marginLeft: 10,
-    borderRadius: 5,
-    textAlign: 'center',
-    fontSize: 16,
-    padding: 5,
-  },
-
-  totalGold: {
-    fontSize: 20,
-    color: '#FFD700',
-    marginTop: 20,
-    textAlign: 'center',
-  },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '35%',
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
-  },
-});
 
 export default CreateCharacter5;

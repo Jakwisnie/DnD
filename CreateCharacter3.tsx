@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity, FlatList, Image, ScrollView, Modal, TouchableWithoutFeedback } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import styles from './styles';
 
 const initialAttributes = {
   Strength: 8,
@@ -90,7 +91,7 @@ const handleGoBack = () => {
 
   return (
   <ImageBackground
-           source={require('./assets/dungeon.jpeg')}
+         source={require('./assets/font/dungeon.jpeg')}
            style={styles.container}
          >
 
@@ -148,85 +149,5 @@ const handleGoBack = () => {
     </ImageBackground>
   );
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '40%',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
-  },
-
-
-  remainingPointsText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-
-  attributeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  attributeText: {
-    color: '#7F7F7F',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginRight: 20,
-  },
-
-  modalOverlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: '#7F7F7F',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  modalOption: {
-    fontSize: 18,
-    padding: 10,
-    textAlign: 'center',
-  },
-
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-});
 
 export default CreateCharacter3;

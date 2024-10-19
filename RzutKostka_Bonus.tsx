@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Animated, Easing } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
-const RzutKostka = ({ route, navigation }) => {
+const RzutKostka_Bonus = ({ route, navigation }) => {
   const { statValue } = route.params;
   const handleGoBack = () => {
     navigation.goBack();
   };
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const [diceValue, setDiceValue] = useState(null);
   const [rotateValue] = useState(new Animated.Value(0));
@@ -39,7 +42,7 @@ const RzutKostka = ({ route, navigation }) => {
   });
 
   return (
-    <ImageBackground source={require('./assets/dungeon.jpeg')} style={styles.container}>
+    <ImageBackground source={theme.background} style={styles.container}>
       <Text style={styles.appName}>DMBook</Text>
       <View style={styles.diceContainer}>
         <TouchableOpacity style={styles.diceContainer} onPress={handleRollDice}>
@@ -64,51 +67,4 @@ const RzutKostka = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
-  resultText: {
-    fontSize: 26,
-    color: '#7F7F7F',
-  },
-  diceContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  diceValue: {
-    position: 'absolute',
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#d6d6d6',
-  },
-  dice: {
-    width: 200,
-    height: 200,
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-});
-
-export default RzutKostka;
+export default RzutKostka_Bonus;

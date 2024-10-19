@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const YourCampaigns = ({ navigation }) => {
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const [campaigns, setCampaigns] = useState([]);
   const [newCampaign, setNewCampaign] = useState('');
@@ -87,7 +90,7 @@ const YourCampaigns = ({ navigation }) => {
 
   return (
   <ImageBackground
-         source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
          style={styles.container}
        >
        <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -136,88 +139,5 @@ const YourCampaigns = ({ navigation }) => {
       </ImageBackground>
 );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    textAlign: 'center',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
-  scrollContainer: {
-    paddingTop: '40%',
-    paddingHorizontal: 40,
-  },
-  headerText: {
-    marginBottom: 20,
-    fontSize: 24,
-    color: '#7F7F7F',
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    flex: 1,
-    marginBottom: 30,
-    paddingHorizontal: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'transparent',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  buttonText: {
-    color: '#d6d6d6',
-  },
-  buttonTextPlus: {
-    color: '#d6d6d6',
-    justifyContent: 'center',
-    textAlign: 'center',
-    marginLeft: "55%",
-  },
-  deleteButton: {
-    padding: 10,
-  },
-  deleteButtonText: {
-    color: '#d6d6d6',
-  },
-  addCampaignContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    width: '70%',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    color: '#d6d6d6',
-    paddingHorizontal: 10,
-    marginRight: 10,
-  },
-  addButton: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-});
 
 export default YourCampaigns;

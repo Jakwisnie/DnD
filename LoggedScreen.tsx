@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const LoggedScreen = ({ navigation }) => {
   const handleLoginPress = () => {
@@ -13,10 +15,11 @@ const LoggedScreen = ({ navigation }) => {
         navigation.navigate('Characters');
   };
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   return (
   <ImageBackground
-         source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
          style={styles.container}
        >
        <Text style={styles.appName}>DMBook</Text>
@@ -51,59 +54,5 @@ const LoggedScreen = ({ navigation }) => {
       </ImageBackground>
 );
 };
-
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-  appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
-  button: {
-     alignItems: 'center',
-     width: '100%',
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: '35%',
-    width: '60%',
-    borderColor: 'rgba(60, 60, 60, 0.5)',
-    borderRadius: 10,
-    borderWidth: 2,
-    shadowColor: 'rgba(0, 0, 0, 1)',
-    },
-  buttonBackground: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  buttonText: {
-    color: '#ffd700',
-    fontSize: 20,
-    textShadowColor: 'black',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 2,
-    fontStyle: 'italic',
-    flex: 1,
-    textAlign: 'center',
-  },
-  icons: {
-    marginRight: -30,
-    marginLeft: 10,
-    width: 40,
-    height: 40,
-  },
-});
 
 export default LoggedScreen;

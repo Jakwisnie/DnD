@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
+import styles from './styles';
 
 const spells = require('./assets/Library/spells.json');
 
 const Spells = ({ navigation }) => {
   const { t } = useTranslation();
+  const { theme } = useContext(ThemeContext);
   const [searchText, setSearchText] = useState('');
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedEffect, setSelectedEffect] = useState(null);
@@ -43,7 +46,7 @@ const Spells = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
       style={styles.container}
     >
       <View style={styles.goBack}>
@@ -109,84 +112,5 @@ const Spells = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  goBack: {
-    position: 'absolute',
-    top: '5%',
-    left: '5%',
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-  searchInput: {
-    marginTop: 100,
-    width: '80%',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    padding: 10,
-    color: '#d6d6d6',
-  },
-  filterContainer: {
-    width: '80%',
-    marginTop: 20,
-  },
-  levelFilter: {
-    marginBottom: 10,
-  },
-  effectFilter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 10,
-  },
-  filterButton: {
-    padding: 10,
-    marginHorizontal: 5,
-    backgroundColor: '#444',
-    borderRadius: 10,
-  },
-  selectedFilterButton: {
-    backgroundColor: '#777',
-  },
-  filterButtonText: {
-    color: '#d6d6d6',
-  },
-  spellContainer: {
-    width: '80%',
-    marginTop: 20,
-  },
-  spellItem: {
-    backgroundColor: '#333',
-    padding: 15,
-    marginVertical: 10,
-    borderRadius: 10,
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-  },
-  spellName: {
-    fontSize: 18,
-    color: '#d6d6d6',
-  },
-  spellDetails: {
-    color: '#a1a1a1',
-  },
-  noResultsText: {
-    color: '#d6d6d6',
-    fontSize: 18,
-  },
-});
 
 export default Spells;

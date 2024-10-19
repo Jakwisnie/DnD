@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView, Alert, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeContext } from './theme/ThemeContext';
+
 
 const CampaignOne = ({ navigation }) => {
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const [sessions, setSessions] = useState([
     { name: "Session 1" },
@@ -233,7 +236,7 @@ const CampaignOne = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('./assets/dungeon.jpeg')}
+         source={theme.background}
       style={styles.container}
     >
 
