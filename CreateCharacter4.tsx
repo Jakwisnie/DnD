@@ -22,6 +22,7 @@ const CreateCharacter4 = ({ navigation, route }) => {
   };
 
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
   const { selectedClassInfo, nickname } = route.params;
 
   const handleContinue = () => {
@@ -38,7 +39,7 @@ const CreateCharacter4 = ({ navigation, route }) => {
 
   return (
     <ImageBackground
-         source={require('./assets/font/dungeon.jpeg')}
+         source={theme.background}
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -152,7 +153,9 @@ const CreateCharacter4 = ({ navigation, route }) => {
       </ScrollView>
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-          <Text style={styles.GoBackText}>Go back</Text>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
+            <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
     </ImageBackground>

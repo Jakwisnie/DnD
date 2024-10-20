@@ -34,7 +34,7 @@ const DMPage = ({ navigation }) => {
     >
       <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
-      <View style={[styles.buttonContainer, { bottom: '50%' }]}>
+      <View style={[styles.buttonContainerUsu, { bottom: '50%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleCampaignsPress}>
           <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
             <Image source={theme.icons.yourcamp} style={styles.icons} />
@@ -44,7 +44,7 @@ const DMPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.buttonContainer, { bottom: '40%' }]}>
+      <View style={[styles.buttonContainerUsu, { bottom: '40%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleBookPress}>
           <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
             <Image source={theme.icons.yourbook} style={styles.icons} />
@@ -54,7 +54,7 @@ const DMPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.buttonContainer, { bottom: '30%' }]}>
+      <View style={[styles.buttonContainerUsu, { bottom: '30%' }]}>
         <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
           <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
             <Image source={theme.icons.library} style={styles.icons} />
@@ -64,7 +64,7 @@ const DMPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.buttonContainer, { bottom: '20%' }]}>
+      <View style={[styles.buttonContainerUsu, { bottom: '20%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
           <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
             <Image source={theme.icons.logout} style={styles.icons} />

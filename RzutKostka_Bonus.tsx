@@ -60,7 +60,9 @@ const RzutKostka_Bonus = ({ route, navigation }) => {
       )}
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-          <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
+            <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
     </ImageBackground>

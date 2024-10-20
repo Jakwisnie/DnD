@@ -21,11 +21,13 @@ const KontoGoogle = ({ navigation }) => {
 
        <Text style={styles.cos}>Google</Text>
 
-       <View style={styles.GoBack}>
-         <TouchableOpacity style={styles.button} onPress={handleGoBack} >
+      <View style={styles.GoBack}>
+        <TouchableOpacity style={styles.button} onPress={handleGoBack}>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Text style={styles.GoBackText}>{t('Go_back')}</Text>
-         </TouchableOpacity>
-       </View>
+          </ImageBackground>
+        </TouchableOpacity>
+      </View>
 
       </ImageBackground>
 );

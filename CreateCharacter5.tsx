@@ -7,6 +7,7 @@ const CreateCharacter5 = ({ navigation, route }) => {
   const { selectedClassInfo } = route.params;
   const [gold, setGold] = useState({ copper: '0', silver: '0', gold: '0', platinum: '0' });
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
   const startingEquipment = {
     Bard: {
       items: [
@@ -62,7 +63,7 @@ const CreateCharacter5 = ({ navigation, route }) => {
 
   return (
     <ImageBackground
-         source={require('./assets/font/dungeon.jpeg')}
+         source={theme.background}
       style={styles.container}
     >
       <View style={styles.content}>
@@ -96,9 +97,11 @@ const CreateCharacter5 = ({ navigation, route }) => {
         <Text style={styles.totalGold}>Total Gold: {formattedTotalGold}</Text>
       </View>
 
-      <View style={styles.goBack}>
+      <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-          <Text style={styles.goBackText}>Go back</Text>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
+            <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
 

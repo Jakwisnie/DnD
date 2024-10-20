@@ -44,7 +44,7 @@ const Registration = () => {
 
   return (
     <ImageBackground
-      style={styles.container}
+      style={styles.containerReg}
       source={theme.background}
       resizeMode="cover"
     >
@@ -54,7 +54,7 @@ const Registration = () => {
         onMessage={onCaptchaMessage}
       />
 
-      <Text style={styles.appName}>DMBook</Text>
+      <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
       <View style={styles.emailContainer}>
         <Text style={styles.label}>{t('Email')}</Text>
@@ -111,7 +111,9 @@ const Registration = () => {
 
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-          <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
+            <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
     </ImageBackground>

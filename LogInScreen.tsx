@@ -50,15 +50,13 @@ const LogInScreen = () => {
   return (
   <ImageBackground
     style={styles.container}
-         source={theme.background}
+    source={theme.background}
     resizeMode="cover">
 
-    <Text style={styles.appName}>DMBook</Text>
+      <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
-    {/* Залогинься */}
-    <Text style={styles.title}>{t('Log_in')}</Text>
+    <Text style={styles.titleLogin}>{t('Log_in')}</Text>
 
-    {/* Новый пользователь */}
     <View style={styles.newUser}>
        <Text style={styles.newUserText}>{t('New_user')}?</Text>
        <TouchableOpacity style={[styles.buttonUser, {width: '200%' }]} onPress={() => {handleRegistrationPress()}}>
@@ -66,38 +64,32 @@ const LogInScreen = () => {
        </TouchableOpacity>
     </View>
 
-    {/* Поле для логина */}
     <Text style={styles.labelLogin}>{t('Login_nick')}</Text>
     <TextInput style={styles.inputLogin}
     value={login}
     onChangeText={setLogin}
     placeholder={t('Login_nick')} />
 
-    {/* Поле для пароля */}
     <Text style={styles.labelPassword}>{t('Pass')}</Text>
     <TextInput style={styles.inputPassword}
     value={password}
     onChangeText={setPassword}
     placeholder={t('Pass')} secureTextEntry={true} />
 
-    {/* Забыл пароль */}
     <TouchableOpacity style={styles.forgotPasswordButton} onPress={() => {handleForgotPassPress()}}>
        <Text style={styles.forgotPasswordButtonText}>{t('Forgot_pass')}?</Text>
     </TouchableOpacity>
 
-    {/* Продолжить */}
     <TouchableOpacity style={styles.continueButton} onPress={() => {handleKontynuacja()}}>
       <Text style={styles.continueButtonText}>{t('Continue')}</Text>
     </TouchableOpacity>
 
-    {/* Разделитель */}
     <View style={styles.separator}>
     <View style={styles.separatorLine} />
        <Text style={styles.separatorText}>{t('or')}</Text>
     <View style={styles.separatorLine} />
     </View>
 
-    {/* аккаунты */}
     <View style={styles.media}>
        <TouchableOpacity style={styles.socialGoogle} onPress={() => {handleKontoGoogle()}}>
           <Image source={require('./assets/google.webp')} style={styles.googleicon} />
@@ -113,13 +105,14 @@ const LogInScreen = () => {
        </TouchableOpacity>
     </View>
 
-    <View style={styles.GoBack}>
-      <TouchableOpacity style={styles.button} onPress={() => {handleGoBack()}} >
-            <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+      <View style={styles.GoBack}>
+        <TouchableOpacity style={styles.button} onPress={() => {handleGoBack()}} >
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Text style={styles.GoBackText}>{t('Go_back')}</Text>
-            </ImageBackground>
-      </TouchableOpacity>
-     </View>
+          </ImageBackground>
+        </TouchableOpacity>
+      </View>
+
     </ImageBackground>
   );
 };

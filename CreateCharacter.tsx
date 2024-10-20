@@ -10,6 +10,7 @@ const CreateCharacter = ({ navigation }) => {
   };
 
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const races = [
     { name: '-' },
@@ -364,7 +365,7 @@ const CreateCharacter = ({ navigation }) => {
 
   return (
   <ImageBackground
-         source={require('./assets/font/dungeon.jpeg')}
+         source={theme.background}
          style={styles.container}
        >
 
@@ -418,11 +419,13 @@ const CreateCharacter = ({ navigation }) => {
           )}
         </View>
 
-       <View style={styles.GoBack}>
-      <TouchableOpacity style={styles.button} onPress={() => {handleGoBack()}} >
+      <View style={styles.GoBack}>
+        <TouchableOpacity style={styles.button} onPress={() => {handleGoBack()}} >
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Text style={styles.GoBackText}>{t('Go_back')}</Text>
-      </TouchableOpacity>
-     </View>
+          </ImageBackground>
+        </TouchableOpacity>
+      </View>
 
         <View style={styles.ConButton}>
           <TouchableOpacity style={styles.button} onPress={handleContinue}>

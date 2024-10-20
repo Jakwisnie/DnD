@@ -1,466 +1,92 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView, Alert, Image } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeContext } from './theme/ThemeContext';
-
-
-const CampaignOne = ({ navigation }) => {
-  const { t, i18n } = useTranslation();
-  const { theme } = useContext(ThemeContext);
-
-  const [sessions, setSessions] = useState([
-    { name: "Session 1" },
-    { name: "Session 2" },
-  ]);
-  const [notes, setNotes] = useState([
-    {
-      title: "Notatka1",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo at risus quis sagittis. Sed feugiat in turpis nec rutrum. Fusce non elit justo. Maecenas ac tempor tortor. Sed tincidunt pretium blandit. Nunc lobortis euismod sem in tincidunt. Pellentesque iaculis eget eros vel faucibus. Mauris posuere aliquet ipsum, at vestibulum tortor. Aliquam tempus fermentum feugiat.",
-      image: require('./assets/Dwarf-M-Inventor.jpg')
-    },
-    {
-      title: "Notatka2",
-      content: "Praesent eu enim et justo consectetur porta. Aliquam erat volutpat. Nulla hendrerit elementum purus, eget cursus turpis laoreet nec. Duis blandit auctor massa id luctus. Praesent faucibus sapien arcu, et mattis felis tristique id. Pellentesque molestie purus ligula, a feugiat velit consequat sed. Integer nisi tellus, dictum sit amet porta nec, laoreet eu nisi. Morbi euismod sem tristique euismod vehicula. Nullam ipsum erat, mollis ut metus quis, ullamcorper euismod ligula. Phasellus egestas arcu vitae ornare porttitor. Fusce bibendum erat ac arcu sodales, eu tristique massa rhoncus. Nullam luctus, risus ut ornare viverra, ipsum velit sagittis augue, eget condimentum enim augue sed libero. Curabitur blandit nulla turpis, in sodales risus consectetur vel.",
-      image: require('./assets/Dwarf-W-Inventor.jpg')
-    },
-  ]);
-  const [newSessionName, setNewSessionName] = useState('');
-  const [newSessionContent, setNewSessionContent] = useState('');
-  const [newNoteTitle, setNewNoteTitle] = useState('');
-  const [newNoteContent, setNewNoteContent] = useState('');
-  const [newNoteImage, setNewNoteImage] = useState(null);
-  const [editingNoteIndex, setEditingNoteIndex] = useState(null);
-  const [editingSession, setEditingSession] = useState(null);
-  const [activeSessionIndex, setActiveSessionIndex] = useState(0);
-  const [addingNewSession, setAddingNewSession] = useState(false);
-  const [addingNewNote, setAddingNewNote] = useState(false);
-
-  const [players, setPlayers] = useState([
-    { id: 1, name: "Player 1", image: require('./assets/assasin.jpeg'), coins: 0, level: 1, hp: 100 },
-    { id: 2, name: "Player 2", image: require('./assets/archer.jpeg'), coins: 0, level: 1, hp: 100 },
-  ]);
-  const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const [noteVisibility, setNoteVisibility] = useState(new Array(notes.length).fill(false));
-
-  const handleSelectPlayer = (player) => {
-    if (selectedPlayers.includes(player.id)) {
-      setSelectedPlayers(selectedPlayers.filter(id => id !== player.id));
-    } else {
-      setSelectedPlayers([...selectedPlayers, player.id]);
-    }
-  };
-
-  const handlePlayerAction = (action) => {
-    const updatedPlayers = players.map(player => {
-      if (selectedPlayers.includes(player.id)) {
-        switch (action) {
-          case 'addCoins':
-            player.coins += 10;
-            break;
-          case 'levelUp':
-            player.level += 1;
-            break;
-          case 'changeHP':
-            player.hp = player.hp < 100 ? 100 : player.hp - 10;
-            break;
-          case 'remove':
-            return null;
-        }
-      }
-      return player;
-    }).filter(player => player !== null);
-    setPlayers(updatedPlayers);
-    setSelectedPlayers([]);
-  };
-
-  const handleAddPlayer = () => {
-    const newPlayer = {
-      id: players.length + 1,
-      name: `Player ${players.length + 1}`,
-      image: require('./assets/adventurer.jpeg'),
-      coins: 0,
-      level: 1,
-      hp: 100,
-    };
-    setPlayers([...players, newPlayer]);
-  };
-
-  useEffect(() => {
-    const loadSessions = async () => {
-      try {
-        const savedSessions = await AsyncStorage.getItem('sessions');
-        if (savedSessions !== null) {
-          console.log('Loaded sessions from storage:', savedSessions);
-          setSessions(JSON.parse(savedSessions));
-        }
-      } catch (error) {
-        console.error('Failed to load sessions', error);
-      }
-    };
-    loadSessions();
-  }, []);
-
-  const saveSessions = async (updatedSessions) => {
-    try {
-      await AsyncStorage.setItem('sessions', JSON.stringify(updatedSessions));
-      setSessions(updatedSessions);
-    } catch (error) {
-      console.error('Failed to save sessions', error);
-    }
-  };
-
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
-  const handleAddSession = () => {
-    if (newSessionName && newSessionContent) {
-      const updatedSessions = [...sessions, { name: newSessionName, content: newSessionContent }];
-      saveSessions(updatedSessions);
-      setNewSessionName('');
-      setNewSessionContent('');
-      setAddingNewSession(false);
-      setActiveSessionIndex(updatedSessions.length - 1);
-    } else {
-      Alert.alert(t('Please enter both name and content for the session.'));
-    }
-  };
-
-  const handleEditSession = (index) => {
-    setEditingSession(index);
-    setNewSessionName(sessions[index].name);
-    setNewSessionContent(sessions[index].content);
-  };
-
-  const handleSaveEdit = () => {
-    if (editingSession !== null) {
-      const updatedSessions = [...sessions];
-      updatedSessions[editingSession] = { name: newSessionName, content: newSessionContent };
-      saveSessions(updatedSessions);
-      setEditingSession(null);
-      setNewSessionName('');
-      setNewSessionContent('');
-    }
-  };
-
-  const handleDeleteSession = (index) => {
-    const updatedSessions = sessions.filter((_, i) => i !== index);
-    saveSessions(updatedSessions);
-    setActiveSessionIndex(0);
-  };
-
-  const handleNewSessionTab = () => {
-    setAddingNewSession(true);
-    setActiveSessionIndex(sessions.length);
-  };
-
-  const toggleNoteVisibility = (index) => {
-    setNoteVisibility(prevVisibility => {
-      const newVisibility = [...prevVisibility];
-      newVisibility[index] = !newVisibility[index];
-      return newVisibility;
-    });
-  };
-
-  const handleShareNote = (note) => {
-
-
-
-    Alert.alert(`Sharing note: ${note.title}`);
-  };
-
-  const handleAddNote = () => {
-    setAddingNewNote(true);
-  };
-
-  const handleSaveNote = async () => {
-    if (newNoteTitle && newNoteContent) {
-      const newNote = {
-        title: newNoteTitle,
-        content: newNoteContent,
-        image: newNoteImage ? { uri: newNoteImage } : require('./assets/Human-W-Mage.jpg')
-      };
-      const updatedNotes = [...notes, newNote];
-      setNotes(updatedNotes);
-      setNewNoteTitle('');
-      setNewNoteContent('');
-      setNewNoteImage(null);
-      setAddingNewNote(false);
-    } else {
-      Alert.alert(t('Please enter both title and content for the note.'));
-    }
-  };
-
-  const handleEditNote = (index) => {
-    setEditingNoteIndex(index);
-    setNewNoteTitle(notes[index].title);
-    setNewNoteContent(notes[index].content);
-    setNewNoteImage(notes[index].image.uri || null);
-  };
-
-  const handleSaveEditNote = () => {
-    if (editingNoteIndex !== null) {
-      const updatedNotes = [...notes];
-      updatedNotes[editingNoteIndex] = {
-        title: newNoteTitle,
-        content: newNoteContent,
-        image: newNoteImage ? { uri: newNoteImage } : require('./assets/Human-W-Mage.jpg')
-      };
-      setNotes(updatedNotes);
-      setEditingNoteIndex(null);
-      setNewNoteTitle('');
-      setNewNoteContent('');
-      setNewNoteImage(null);
-    }
-  };
-
-  const handleDeleteNote = (index) => {
-    const updatedNotes = notes.filter((_, i) => i !== index);
-    setNotes(updatedNotes);
-    setNoteVisibility(noteVisibility.filter((_, i) => i !== index));
-  };
-
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setNewNoteImage(result.assets[0].uri);
-    }
-  };
-
-  return (
-    <ImageBackground
-         source={theme.background}
-      style={styles.container}
-    >
-
-      <View style={styles.sessionsList}>
-        <Text style={styles.appName}>LOREM PSILUM</Text>
-
-        <ScrollView horizontal>
-          {sessions.map((session, index) => (
-            <TouchableOpacity key={index} style={styles.sessionTab} onPress={() => {
-              setActiveSessionIndex(index);
-              setAddingNewSession(false);
-            }}>
-              <Text style={styles.sessionTabText}>{session.name}</Text>
-            </TouchableOpacity>
-          ))}
-          <TouchableOpacity style={styles.sessionTab} onPress={handleNewSessionTab}>
-            <Text style={styles.sessionTabText}>{t('Add new')}</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {sessions.length > 0 && activeSessionIndex < sessions.length && !addingNewSession && (
-          <View style={styles.sessionContainer}>
-            <View style={styles.sessionHeader}>
-              <Text style={styles.sessionName}>{sessions[activeSessionIndex]?.name}</Text>
-              <TouchableOpacity onPress={() => handleEditSession(activeSessionIndex)}>
-                <Text style={styles.editText}>{t('Edit')}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleDeleteSession(activeSessionIndex)}>
-                <Text style={styles.deleteText}>{t('Delete')}</Text>
-              </TouchableOpacity>
-            </View>
-            {notes.map((note, index) => (
-              <View key={index}>
-                <TouchableOpacity onPress={() => toggleNoteVisibility(index)}>
-                  <View style={styles.noteHeader}>
-                    <Text style={styles.noteTitle}>{note.title}</Text>
-                    <Image source={note.image} style={styles.noteImage} />
-                    <TouchableOpacity onPress={() => handleEditSession(index)}>
-                      <Text style={styles.editText}>{t('Edit')}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleShareNote(note)}>
-                      <Text style={styles.shareText}>{t('Share')}</Text>
-                    </TouchableOpacity>
-                  </View>
-                </TouchableOpacity>
-                {noteVisibility[index] && (
-                  <Text style={styles.noteContent}>{note.content}</Text>
-                )}
-              </View>
-            ))}
-          </View>
-        )}
-
-        {addingNewSession && (
-          <View style={styles.sessionContainer}>
-            <TextInput
-              style={styles.inputName}
-              value={newSessionName}
-              onChangeText={setNewSessionName}
-              placeholder={t('Enter session name')}
-              placeholderTextColor="#d6d6d6"
-            />
-            <TextInput
-              style={[styles.inputContent, styles.textArea]}
-              value={newSessionContent}
-              onChangeText={setNewSessionContent}
-              placeholder={t('Enter session content')}
-              placeholderTextColor="#d6d6d6"
-              multiline
-            />
-            <TouchableOpacity style={styles.addButton} onPress={handleAddSession}>
-              <Text style={styles.buttonText}>{t('Add Session')}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-
-        {editingSession !== null && (
-          <View style={styles.sessionContainer}>
-            <TextInput
-              style={styles.inputName}
-              value={newSessionName}
-              onChangeText={setNewSessionName}
-              placeholder={t('Enter session name')}
-              placeholderTextColor="#d6d6d6"
-            />
-            <TextInput
-              style={[styles.inputContent, styles.textArea]}
-              value={newSessionContent}
-              onChangeText={setNewSessionContent}
-              placeholder={t('Enter session content')}
-              placeholderTextColor="#d6d6d6"
-              multiline
-            />
-            <TouchableOpacity style={styles.addButton} onPress={handleSaveEdit}>
-              <Text style={styles.buttonText}>{t('Save Changes')}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </ScrollView>
-
-            {notes.map((note, index) => (
-              <View key={index}>
-                <TouchableOpacity onPress={() => toggleNoteVisibility(index)}>
-                  <View style={styles.noteHeader}>
-                    <Text style={styles.noteTitle}>{note.title}</Text>
-                    <Image source={note.image} style={styles.noteImage} />
-                    <TouchableOpacity onPress={() => handleEditSession(index)}>
-                      <Text style={styles.editText}>{t('Edit')}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleShareNote(note)}>
-                      <Text style={styles.shareText}>{t('Share')}</Text>
-                    </TouchableOpacity>
-                  </View>
-                </TouchableOpacity>
-                {noteVisibility[index] && (
-                  <Text style={styles.noteContent}>{note.content}</Text>
-                )}
-              </View>
-            ))}
-
-
-noteActions: {
-addButton: {
-addButtonText: {
-newNoteContainer: {
-input: { (титл заметки)
-contentInput: {
-imagePicker: {
-imagePickerText: {
-newNoteImage: {
-saveButton: {
-saveText: {
-deleteButton: {
-
-
-  noteHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  noteTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#9F9F9F',
-  },
-  noteContent: {
-    fontSize: 16,
-    color: '#8F8F8F',
-    marginTop: 10,
-  },
-  noteImage: {
-    width: 50,
-    height: 50,
-  },
-  shareText: {
-    color: 'green',
-    marginLeft: 10,
-  },
-
-      <View style={styles.playerPanel}>
-        <ScrollView horizontal>
-          {players.map(player => (
-            <TouchableOpacity
-              key={player.id}
-              style={[
-                styles.playerAvatar,
-                selectedPlayers.includes(player.id) && styles.selectedPlayer
-              ]}
-              onPress={() => handleSelectPlayer(player)}
-            >
-              <Image source={player.image} style={styles.playerImage} />
-            </TouchableOpacity>
-          ))}
-          <TouchableOpacity style={styles.playerAvatar} onPress={handleAddPlayer}>
-            <Text style={styles.addPlayerText}>+</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-      {selectedPlayers.length > 0 && (
-        <View style={styles.playerActions}>
-          <TouchableOpacity style={styles.playerActionButton} onPress={() => handlePlayerAction('addCoins')}>
-            <Text style={styles.playerActionText}>{t('Add Coins')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.playerActionButton} onPress={() => handlePlayerAction('levelUp')}>
-            <Text style={styles.playerActionText}>{t('Level Up')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.playerActionButton} onPress={() => handlePlayerAction('manageInventory')}>
-            <Text style={styles.playerActionText}>{t('Manage Inventory')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.playerActionButton} onPress={() => handlePlayerAction('changeHP')}>
-            <Text style={styles.playerActionText}>{t('Change HP')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.playerActionButton} onPress={() => handlePlayerAction('remove')}>
-            <Text style={styles.playerActionText}>{t('Remove Player')}</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      <View style={styles.goBack}>
-        <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-          <Text style={styles.goBackText}>{t('Go_back')}</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
-  );
-};
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
   },
   appName: {
+    position: 'absolute',
+    top: '16%',
+    fontSize: 30,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 3,
+    fontWeight: 'bold',
+  },
+  button: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  buttonContainerUsu: {
+    position: 'absolute',
+    width: '60%',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+  },
+  buttonBackground: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  buttonText: {
+    color: '#ffd700',
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontStyle: 'italic',
+    flex: 1,
     textAlign: 'center',
-    marginBottom: 20,
-    fontSize: 24,
-    color: '#7F7F7F',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  icons: {
+    marginRight: -30,
+    marginLeft: 10,
+    width: 40,
+    height: 40,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    width: '60%',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 22,
+    color: '#d6d6d6',
+    marginBottom: 10,
+  },
+  modalButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#444',
+    marginVertical: 10,
+    width: '100%',
+    borderRadius: 10,
+  },
+  modalCloseButton: {
+    marginTop: 20,
+  },
+  modalCloseButtonText: {
+    color: '#d6d6d6',
+    fontSize: 16,
   },
   scrollContainer: {
     paddingTop: '20%',
@@ -488,7 +114,6 @@ const styles = StyleSheet.create({
   },
   sessionContent: {
     color: '#d6d6d6',
-    marginTop: 10,
   },
   sessionsList: {
     textAlign: 'center',
@@ -509,18 +134,55 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   editText: {
-    color: '#d6d6d6',
+    color: 'yellow',
     marginHorizontal: 5,
   },
   deleteText: {
     color: 'red',
     marginHorizontal: 5,
   },
+  newNoteContainer: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  input: {
+    borderColor: '#7F7F7F',
+    color: '#d6d6d6',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  contentInput: {
+    color: '#d6d6d6',
+    marginTop: 10,
+    marginBottom: 10,
+  },
   noteHeader: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  noteActions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 10,
+  },
+  noteImage: {
+    marginTop: 10,
+    width: 350,
+    height: 350,
   },
   noteTitle: {
     fontSize: 18,
@@ -532,14 +194,54 @@ const styles = StyleSheet.create({
     color: '#8F8F8F',
     marginTop: 10,
   },
-  noteImage: {
-    width: 50,
-    height: 50,
-  },
   shareText: {
     color: 'green',
     marginLeft: 10,
   },
+  saveButton: {
+    alignItems: 'center',
+  },
+  saveText: {
+    color: 'green',
+    fontSize: 16,
+  },
+  imagePicker: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  imagePickerText: {
+    color: 'yellow',
+    fontSize: 16,
+  },
+  addButtonText: {
+    color: 'green',
+    fontSize: 16,
+  },
+
+
+
+
+
+
+  newNoteImage: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+  },
+
+  deleteButton: {
+    alignItems: 'center',
+    color: 'red',
+    fontSize: 16,
+  },
+
+
+
   newSessionContainer: {
     marginBottom: 15,
   },
@@ -570,6 +272,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   buttonText: {
     color: '#d6d6d6',
@@ -620,7 +323,1043 @@ const styles = StyleSheet.create({
   playerActionText: {
     color: '#d6d6d6',
   },
-  goBack: {
+  dropdownContainer: {
+    position: 'absolute',
+    top: '3%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    width: '40%',
+  },
+  picker: {
+    height: 50,
+    width: '101%',
+    color: '#d6d6d6',
+  },
+  blackLeftContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+  },
+  statsContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+  },
+  statBox: {
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 1.0)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  largeText: {
+    fontSize: 24,
+    color: '#d6d6d6',
+    marginBottom: 5,
+  },
+  statText: {
+    color: '#d6d6d6',
+  },
+  circleBox: {
+    width: 70,
+    height: 70,
+    borderRadius: 100,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  circleText: {
+    fontSize: 24,
+    color: '#ffffff',
+  },
+  circleLabel: {
+    marginBottom: 10,
+    fontSize: 12,
+    color: '#d6d6d6',
+  },
+  imageContainer: {
+    position: 'absolute',
+    top: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 100,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  healthContainer: {
+    position: 'absolute',
+    top: '19%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  healthBar: {
+    width: '120%',
+    height: 15,
+    backgroundColor: '#555',
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginVertical: 10,
+  },
+  healthText: {
+    color: 'green',
+  },
+  damageText: {
+    color: 'red',
+  },
+  healthFill: {
+    height: '100%',
+    backgroundColor: 'red',
+  },
+  healthButton: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    color: 'green',
+    padding: 10,
+    right: 90,
+    bottom: 60,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    width: 75,
+    height: 50,
+    alignItems: 'center',
+  },
+  damageButton: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    padding: 10,
+    left: 90,
+    bottom: 110,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    width: 75,
+    height: 50,
+    alignItems: 'center',
+  },
+  EditBox: {
+    marginTop: 25,
+    padding: 10,
+    width: 70,
+    backgroundColor: 'rgba(0, 0, 0, 1.0)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  EditText: {
+    fontSize: 10,
+    color: '#d6d6d6',
+  },
+  Skills: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    padding: 25,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  SkillsText: {
+    fontSize: 20,
+    color: '#d6d6d6',
+  },
+  skillsWindow: {
+    position: 'absolute',
+    top: '25%',
+    left: '10%',
+    right: '10%',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 10,
+    padding: 30,
+    zIndex: 1,
+  },
+  skillRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  circle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  skillMod: {
+    width: 50,
+  },
+  skillName: {
+    flex: 1,
+  },
+  skillBonus: {
+    width: 50,
+    textAlign: 'center',
+  },
+  bonusBox: {
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    padding: 1,
+    marginRight: 10,
+  },
+  headerText: {
+    width: 50,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  rightContainer: {
+    position: 'absolute',
+    top: '10%',
+    right: 0,
+    height: '70%',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    borderColor: '#7F7F7F',
+    borderWidth: 2,
+  },
+  rightButton: {
+    padding: 10,
+    paddingBottom: 15,
+    backgroundColor: 'rgba(0, 0, 0, 1.0)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#d6d6d6',
+  },
+  abilityWindow: {
+    position: 'absolute',
+    top: '25%',
+    backgroundColor: '#000',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  skillsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  abilityImage: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 5,
+  },
+  powerLevels: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  diceTurnContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: '40%',
+    width: '100%',
+    alignItems: 'center',
+  },
+  TurnDiceButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 100,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rightTurnDiceText: {
+    fontSize: 14,
+    color: '#d6d6d6',
+  },
+  dropdownContainer: {
+    position: 'absolute',
+    top: '3%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    width: '40%',
+  },
+  picker: {
+    height: 50,
+    width: '101%',
+    color: '#d6d6d6',
+  },
+  characterRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  characterImage: {
+    width: 100,
+    height: 100,
+    margin: 10,
+    justifyContent: 'flex-end',
+  },
+    characterStatus: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    padding: 5,
+    textAlign: 'center',
+  },
+  ConButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    width: '30%',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+  },
+  ConButtonText: {
+    color: '#d6d6d6',
+    fontSize: 20,
+  },
+
+  RaceGenderPosCont: {
+    marginTop: 20,
+    marginBottom: 10,
+    alignItems: 'flex-start',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  RaceGenderPosContTitle: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+
+  textInput: {
+    height: 40,
+    width: 200,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+
+  picker: {
+    height: 40,
+    width: 200,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+
+  selectedImageContainer: {
+    position: 'center',
+
+  },
+  selectedImage: {
+    width: 250,
+    height: 250,
+    resizeMode: 'contain',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  ConButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    width: '30%',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+  },
+  ConButtonText: {
+    color: '#d6d6d6',
+    fontSize: 20,
+  },
+
+  RaceGenderPosContTitle: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  nicknameContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 10,
+    borderRadius: 5,
+  },
+  nicknameText: {
+    color: '#FFD700',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+
+  selectedImageContainer: {
+    marginTop: 70,
+    position: 'center',
+
+  },
+  selectedImage: {
+    width: 400,
+    height: 400,
+    resizeMode: 'contain',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ConButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    width: '40%',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+  },
+  ConButtonText: {
+    color: '#d6d6d6',
+    fontSize: 20,
+  },
+
+
+  remainingPointsText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+
+  attributeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  attributeText: {
+    color: '#7F7F7F',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 20,
+  },
+
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#7F7F7F',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalOption: {
+    fontSize: 18,
+    padding: 10,
+    textAlign: 'center',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+
+  blockTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#d6d6d6',
+    marginTop: 20,
+  },
+
+  blockContent: {
+    width: '90%',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+
+
+  picker: {
+    height: 50,
+    width: '100%',
+    marginBottom: 20,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingLeft: 10,
+  },
+
+
+  ConButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    width: '60%',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+  },
+  ConButtonText: {
+    color: '#d6d6d6',
+    fontSize: 20,
+  },
+  content: {
+    padding: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 10,
+  },
+
+
+  title: {
+    fontSize: 24,
+    color: '#d6d6d6',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#d6d6d6',
+    marginTop: 10,
+  },
+
+
+  item: {
+    fontSize: 16,
+    color: '#d6d6d6',
+  },
+
+
+  goldInputContainer: {
+    marginTop: 10,
+  },
+  goldInputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  goldInput: {
+    width: 100,
+    height: 40,
+    backgroundColor: '#d6d6d6',
+    marginLeft: 10,
+    borderRadius: 5,
+    textAlign: 'center',
+    fontSize: 16,
+    padding: 5,
+  },
+
+  totalGold: {
+    fontSize: 20,
+    color: '#FFD700',
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  ConButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    width: '35%',
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+  },
+  ConButtonText: {
+    color: '#d6d6d6',
+    fontSize: 20,
+  },
+    message: {
+      position: 'absolute',
+      top: '41%',
+      textAlign: 'center',
+      fontSize: 16,
+      color: '#d6d6d6',
+      width: '80%',
+    },
+    okButton: {
+      position: 'absolute',
+      backgroundColor: 'transparent',
+      borderRadius: 10,
+      paddingVertical: 15,
+      paddingHorizontal: 50,
+      alignItems: 'center',
+      bottom: '40%',
+    },
+    okButtonText: {
+      color: '#d6d6d6',
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
+  searchInput: {
+    marginTop: 100,
+    width: '80%',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    padding: 10,
+    color: '#d6d6d6',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+  },
+  filterContainer: {
+    width: '80%',
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  filterToggle: {
+    backgroundColor: '#444',
+    padding: 3,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '30%',
+  },
+  filterToggleText: {
+    color: '#d6d6d6',
+    fontSize: 16,
+  },
+  activeFilterToggle: {
+    backgroundColor: '#777',
+  },
+  filterOptionsContainer: {
+    width: '80%',
+    marginTop: 10,
+  },
+  filterBlock: {
+    marginBottom: 15,
+  },
+  filterOptions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  filterButton: {
+    padding: 10,
+    marginHorizontal: 5,
+    backgroundColor: '#444',
+    borderRadius: 10,
+  },
+  selectedFilterButton: {
+    backgroundColor: '#777',
+  },
+  filterButtonText: {
+    color: '#d6d6d6',
+  },
+  monsterContainer: {
+    width: '80%',
+    marginTop: 20,
+  },
+  monsterItem: {
+    backgroundColor: '#333',
+    padding: 15,
+    marginVertical: 10,
+    borderRadius: 10,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+  },
+  monsterName: {
+    fontSize: 18,
+    color: '#d6d6d6',
+  },
+  monsterDetails: {
+    color: '#a1a1a1',
+  },
+  noResultsText: {
+    color: '#d6d6d6',
+    fontSize: 18,
+  },
+    resetPass: {
+      color: '#d6d6d6',
+      fontSize: 22,
+    },
+    separator: {
+      position: 'absolute',
+      top: '35%',
+      left: '10%',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    separatorLine: {
+      flex: 3,
+      height: 1,
+      backgroundColor: 'grey',
+      width: '200%',
+    },
+    email: {
+      position: 'absolute',
+      color: '#d6d6d6',
+      left: '10%',
+    },
+    emailLabel: {
+      position: 'absolute',
+      color: '#d6d6d6',
+      left: '10%',
+      top: '40%',
+    },
+    emailInput: {
+      position: 'absolute',
+      backgroundColor: 'white',
+      borderColor: '#d6d6d6',
+      borderRadius: 4,
+      paddingVertical: 0,
+      paddingHorizontal: 8,
+      fontSize: 16,
+      width: '70%',
+      top: '53%',
+      left: '10%',
+      marginBottom: 20,
+    },
+    sendEmail: {
+      position: 'absolute',
+      backgroundColor: 'transparent',
+      borderRadius: 10,
+      paddingVertical: 15,
+      paddingHorizontal: 50,
+      alignItems: 'center',
+      top: '57%',
+    },
+    sendEmailText: {
+      color: '#d6d6d6',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    scrollContainer: {
+      paddingTop: '20%',
+      paddingHorizontal: 20,
+    },
+    sessionContainer: {
+      borderColor: '#7F7F7F',
+      borderWidth: 1.5,
+      borderRadius: 10,
+      marginTop: 10,
+      marginBottom: 10,
+      padding: 10,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    },
+    sessionHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    sessionName: {
+      color: '#d6d6d6',
+      fontSize: 18,
+    },
+    sessionContent: {
+      color: '#d6d6d6',
+      marginTop: 10,
+    },
+    sessionsList: {
+      textAlign: 'center',
+      top: '10%',
+      width: '100%',
+      borderColor: '#7F7F7F',
+      borderBottomWidth: 1.5,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      zIndex: 1, //przez tą linijke stracilem kilka godzin, bo kod nie dzialal
+    },
+    sessionTab: {
+      padding: 10,
+      borderColor: '#7F7F7F',
+      borderRightWidth: 1.5,
+    },
+    sessionTabText: {
+      color: '#d6d6d6',
+      fontSize: 18,
+    },
+    editText: {
+      color: '#d6d6d6',
+      marginHorizontal: 5,
+    },
+    deleteText: {
+      color: '#d6d6d6',
+      marginHorizontal: 5,
+    },
+    newSessionContainer: {
+      marginBottom: 15,
+    },
+    inputName: {
+      borderColor: '#7F7F7F',
+      borderWidth: 1.5,
+      borderRadius: 10,
+      color: '#d6d6d6',
+      paddingHorizontal: 10,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    inputContent: {
+      borderColor: '#7F7F7F',
+      borderWidth: 1.5,
+      borderRadius: 10,
+      color: '#d6d6d6',
+      paddingHorizontal: 10,
+      marginBottom: 10,
+    },
+    textArea: {
+      height: 100,
+    },
+    addButton: {
+      borderColor: '#7F7F7F',
+      borderWidth: 1.5,
+      borderRadius: 10,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: '#d6d6d6',
+    },
+    playerPanel: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      borderTopColor: '#7F7F7F',
+      borderTopWidth: 1.5,
+      padding: 10,
+    },
+    playerAvatar: {
+      margin: 5,
+      padding: 5,
+      borderColor: '#7F7F7F',
+      borderWidth: 1.5,
+      borderRadius: 50,
+    },
+    playerImage: {
+      width: 50,
+      height: 50,
+      borderRadius: 50,
+    },
+    selectedPlayer: {
+      borderColor: 'yellow',
+    },
+    addPlayerText: {
+      color: '#d6d6d6',
+      fontSize: 18,
+      top: 10,
+      paddingHorizontal: 20,
+    },
+    playerActions: {
+      bottom: 90,
+      width: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      padding: 5,
+      borderTopColor: '#7F7F7F',
+      borderTopWidth: 1,
+    },
+    playerActionButton: {
+      padding: 4,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      borderRadius: 50,
+    },
+    playerActionText: {
+      color: '#d6d6d6',
+    },
+  flagsContainer: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+  },
+  dropdown: {
+    marginTop: 5,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    borderRadius: 5,
+    padding: 5,
+    elevation: 5,
+  },
+  flagButton: {
+    marginVertical: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  flag: {
+    width: 50,
+    height: 30,
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: '35%',
+    width: '60%',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+  },
+  buttonBackground: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  buttonText: {
+    color: '#ffd700',
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontStyle: 'italic',
+    flex: 1,
+    textAlign: 'center',
+  },
+  icons: {
+    marginRight: -30,
+    marginLeft: 10,
+    width: 40,
+    height: 40,
+  },
+  gearIcon: {
+    width: 50,
+    height: 50,
+  },
+  themeContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+  themePreview: {
+    width: 150,
+    height: 300,
+    marginRight: 10,
+  },
+  themeLabel: {
+    color: 'white',
+    fontSize: 20,
+    marginTop: 8,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+  },
+  modalContent: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    color: 'white',
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  themeOption: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  closeButton: {
+    marginTop: 20,
+    padding: 10,
+  },
+  dropdownContainer: {
+    position: 'absolute',
+    top: '3%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    width: '40%',
+  },
+  picker: {
+    height: 50,
+    width: '101%',
+    color: '#d6d6d6',
+  },
+
+  tableContainer: {
+    marginTop: 90,
+    width: '90%',
+    maxHeight: '75%',
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#2d2d38',
+    padding: 4,
+  },
+  tableHeaderText: {
+    color: '#d6d6d6',
+    fontWeight: 'bold',
+    flex: 1,
+    textAlign: 'center',
+  },
+  tableRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#3f3f4d',
+    padding: 4,
+    marginBottom: -1,
+  },
+  tableCell: {
+    flex: 1,
+    color: '#d6d6d6',
+    borderBottomColor: '#04021f',
+    borderBottomWidth: 1,
+    textAlign: 'center',
+  },
+  removeButton: {
+    marginBottom: 6,
+    flex: 1,
+    backgroundColor: '#a30b0b',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  removeButtonText: {
+    color: '#d6d6d6',
+  },
+  addButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#2d2d38',
+    borderRadius: 5,
+  },
+  addButtonText: {
+    color: '#d6d6d6',
+  },
+  summaryContainer: {
+    marginTop: 30,
+  },
+  summaryTextRight: {
+    bottom: 85,
+    left: 80,
+    fontSize: 16,
+    color: '#d6d6d6',
+  },
+  summaryTextLeft: {
+    bottom: 65,
+    right: 65,
+    fontSize: 16,
+    color: '#d6d6d6',
+  },
+  goBackContainer: {
     position: 'absolute',
     top: 42,
     left: 20,
@@ -630,9 +1369,761 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1.5,
   },
-  goBackText: {
+  searchInput: {
+    marginTop: 100,
+    width: '80%',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    padding: 10,
     color: '#d6d6d6',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+  },
+  filterContainer: {
+    width: '80%',
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  filterToggle: {
+    backgroundColor: '#444',
+    padding: 7,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '30%',
+  },
+  filterToggleText: {
+    color: '#d6d6d6',
+    fontSize: 16,
+  },
+  activeFilterToggle: {
+    backgroundColor: '#777',
+  },
+  filterOptionsContainer: {
+    width: '80%',
+    marginTop: 10,
+  },
+  filterBlock: {
+    marginBottom: 15,
+  },
+  filterOptions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  filterButton: {
+    padding: 10,
+    marginHorizontal: 5,
+    backgroundColor: '#444',
+    borderRadius: 10,
+  },
+  selectedFilterButton: {
+    backgroundColor: '#777',
+  },
+  filterButtonText: {
+    color: '#d6d6d6',
+  },
+  item: {
+    backgroundColor: '#333',
+    padding: 15,
+    marginVertical: 10,
+    borderRadius: 10,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+  },
+  itemContainer: {
+    width: '80%',
+    marginTop: 20,
+  },
+  itemName: {
+    fontSize: 18,
+    color: '#d6d6d6',
+  },
+  itemDetails: {
+    color: '#a1a1a1',
+  },
+  noResultsText: {
+    color: '#d6d6d6',
+    fontSize: 18,
+  },
+  cos: {
+    color: '#d6d6d6',
+    fontSize: 20,
+    position: 'absolute',
+    top: '50%',
+  },
+    cos: {
+      color: '#d6d6d6',
+      fontSize: 20,
+      position: 'absolute',
+      top: '50%',
+    },
+    cos: {
+          color: '#d6d6d6',
+          fontSize: 20,
+          position: 'absolute',
+          top: '50%',
+        },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: '35%',
+    width: '60%',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    },
+  buttonBackground: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  buttonText: {
+    color: '#ffd700',
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontStyle: 'italic',
+    flex: 1,
+    textAlign: 'center',
+  },
+  icons: {
+    marginRight: -30,
+    marginLeft: 10,
+    width: 40,
+    height: 40,
+  },
+  GoBack: {
+    position: 'absolute',
+    top: '5%',
+    left: '5%',
+    width: '20%',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
+  },
+  GoBackText: {
+    color: '#d6d6d6',
+  },
+  buttonBackground: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  title: {
+    position: 'absolute',
+    top: '25%',
+    left: '10%',
+    fontSize: 22,
+    alignItems: 'center',
+    fontWeight: 'bold',
+    color: '#d6d6d6'
+  },
+  newUser: {
+    position: 'absolute',
+    top: '27%',
+    left: '10%',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  newUserText: {
+    flex: 1,
+    color: '#d6d6d6'
+  },
+  buttonUser: {
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    left: '105%'
+  },
+  buttonUserText: {
+    color: '#007bff',
+    textAlign: 'left',
+  },
+  labelLogin: {
+    position: 'absolute',
+    top: '35%',
+    left: '10%',
+    fontSize: 16,
+    color: '#d6d6d6'
+  },
+  labelPassword: {
+    position: 'absolute',
+    marginTop: '5%',
+    left: '10%',
+    fontSize: 16,
+    color: '#d6d6d6'
+  },
+  inputLogin: {
+    position: 'absolute',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: '#d6d6d6',
+    borderRadius: 4,
+    top: '39%',
+    left: '9%',
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    marginBottom: 20,
+    fontSize: 16,
+    width: '60%',
+    alignSelf: 'flex-start',
+  },
+  inputPassword: {
+    position: 'absolute',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: '#d6d6d6',
+    top: '51%',
+    borderRadius: 4,
+    left: '9%',
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    marginBottom: 20,
+    fontSize: 16,
+    width: '60%',
+    alignSelf: 'flex-start',
+  },
+  forgotPasswordButtonText: {
+    position: 'absolute',
+    marginTop: '11%',
+    fontSize: 16,
+    left: '-40%',
+    color: '#007bff',
+  },
+  continueButton: {
+    position: 'absolute',
+    top: '58%',
+    padding: 25,
+    backgroundColor: 'transparent',
+  },
+  continueButtonText: {
+    color: '#d6d6d6',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  separator: {
+    position: 'absolute',
+    top: '65%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  separatorText: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#d6d6d6',
+  },
+  separatorLine: {
+    flex: 3,
+    height: 1,
+    backgroundColor: '#d6d6d6',
+  },
+  media: {
+    position: 'absolute',
+    top: '75%',
+  },
+  socialGoogle: {
+    backgroundColor: 'transparent',
+    borderColor: '#7F7F7F',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1.5,
+  },
+  socialFacebook: {
+    backgroundColor: '#3b5998',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  socialApple: {
+    backgroundColor: 'black',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  appleicon: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+  },
+  facebookicon: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+  },
+  googleicon: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+  },
+  socialButtonText: {
+    color: '#d6d6d6',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  emailContainer: {
+   flexDirection: 'row',
+   alignItems: 'center',
+   marginBottom: 30,
+   marginHorizontal: 10,
+  },
+ loginContainer: {
+   flexDirection: 'row',
+   alignItems: 'center',
+   marginBottom: 30,
+   marginHorizontal: 10,
+  },
+  passContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    marginHorizontal: 10,
+  },
+  captchaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    marginHorizontal: 10,
+  },
+  label: {
+    color: '#d6d6d6',
+    fontSize: 16,
+    marginBottom: 5,
+    marginRight: 10,
+  },
+  emailInput: {
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: '#d6d6d6',
+    borderRadius: 4,
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    marginBottom: 6,
+    fontSize: 16,
+    flex: 1,
+  },
+  loginInput: {
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: '#d6d6d6',
+    borderRadius: 4,
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    marginBottom: 6,
+    fontSize: 16,
+    flex: 1,
+  },
+  passInput: {
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: '#d6d6d6',
+    borderRadius: 4,
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    marginBottom: 6,
+    fontSize: 16,
+    flex: 1,
+  },
+  confirmPassInput: {
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: '#d6d6d6',
+    borderRadius: 4,
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    marginBottom: 6,
+    fontSize: 16,
+    flex: 1,
+  },
+  captchaInput: {
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: '#d6d6d6',
+    borderRadius: 4,
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    marginBottom: 6,
+    fontSize: 16,
+    flex: 1,
+  },
+  registerButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 50,
+    alignItems: 'center',
+  },
+  registerButtonText: {
+    color: '#d6d6d6',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+    message: {
+      position: 'absolute',
+      top: '41%',
+      textAlign: 'center',
+      fontSize: 16,
+      color: '#d6d6d6',
+      width: '80%',
+    },
+    okButton: {
+      position: 'absolute',
+      backgroundColor: 'transparent',
+      borderRadius: 10,
+      paddingVertical: 15,
+      paddingHorizontal: 50,
+      alignItems: 'center',
+      bottom: '40%',
+    },
+    okButtonText: {
+      color: '#d6d6d6',
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
+  diceBar: {
+    position: 'absolute',
+    top: '10%',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+  },
+  diceContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 90,
+    height: 90,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginHorizontal: 5,
+  },
+  selectedDice: {
+    borderColor: '#FFD700',
+    borderWidth: 2,
+  },
+  dice: {
+    width: 50,
+    height: 50,
+  },
+  counterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  counterButton: {
+    padding: 4,
+    backgroundColor: '#7F7F7F',
+    borderRadius: 5,
+  },
+  counterText: {
+    color: '#fff',
+  },
+  counterValue: {
+    paddingHorizontal: 8,
+    fontSize: 18,
+    color: '#d6d6d6',
+  },
+  rollButton: {
+    position: 'absolute',
+    bottom: 150,
+    backgroundColor: '#444',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  rollButtonText: {
+    fontSize: 20,
+    color: '#d6d6d6',
+  },
+  resultsContainer: {
+    marginTop: 20,
+  },
+  resultContainer: {
+    padding: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  resultText: {
+    color: 'pink',
+    fontSize: 18,
+  },
+  resultText: {
+    fontSize: 26,
+    color: '#7F7F7F',
+  },
+  diceContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  diceValue: {
+    position: 'absolute',
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#d6d6d6',
+  },
+  dice: {
+    width: 200,
+    height: 200,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#d6d6d6',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  },
+  selectionContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  optionContainer: {
+    flex: 1,
+  },
+  option: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  optionText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#d6d6d6',
+    position: 'absolute',
+    bottom: 10,
+  },
+  playericon: {
+    width: '100%',
+    height: '100%',
+  },
+  dmicon: {
+    width: '100%',
+    height: '100%',
+  },
+  searchInput: {
+    marginTop: 100,
+    width: '80%',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    padding: 10,
+    color: '#d6d6d6',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+  },
+  filterContainer: {
+    width: '80%',
+    marginTop: 20,
+  },
+  levelFilter: {
+    marginBottom: 10,
+  },
+  effectFilter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+  filterButton: {
+    padding: 10,
+    marginHorizontal: 5,
+    backgroundColor: '#444',
+    borderRadius: 10,
+  },
+  selectedFilterButton: {
+    backgroundColor: '#777',
+  },
+  filterButtonText: {
+    color: '#d6d6d6',
+  },
+  spellContainer: {
+    width: '80%',
+    marginTop: 20,
+  },
+  spellItem: {
+    backgroundColor: '#333',
+    padding: 15,
+    marginVertical: 10,
+    borderRadius: 10,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+  },
+  spellName: {
+    fontSize: 18,
+    color: '#d6d6d6',
+  },
+  spellDetails: {
+    color: '#a1a1a1',
+  },
+  noResultsText: {
+    color: '#d6d6d6',
+    fontSize: 18,
+  },
+  backButton: {
+    width: '20%',
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    marginTop: 10,
+  },
+  backButtonText: {
+    color: '#d6d6d6',
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: '35%',
+    width: '60%',
+    borderColor: 'rgba(60, 60, 60, 0.5)',
+    borderRadius: 10,
+    borderWidth: 2,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    },
+  buttonBackground: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  buttonText: {
+    color: '#ffd700',
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontStyle: 'italic',
+    flex: 1,
+    textAlign: 'center',
+  },
+  icons: {
+    marginRight: -30,
+    marginLeft: 10,
+    width: 40,
+    height: 40,
+  },
+  sectionContainer: {
+    width: '80%',
+    alignItems: 'center',
+  },
+  itemText: {
+    color: '#fff',
+    fontSize: 16,
+    marginVertical: 5,
+  },
+  input: {
+    width: '100%',
+    padding: 10,
+    borderColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 5,
+    color: '#fff',
+    marginVertical: 10,
+  },
+  addButton: {
+    backgroundColor: 'transparent',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+  },
+  addButtonText: {
+    color: '#d6d6d6',
+    fontSize: 16,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 5,
+  },
+  characterRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  characterImage: {
+    width: 100,
+    height: 100,
+    margin: 10,
+    justifyContent: 'flex-end',
+  },
+  scrollContainer: {
+    paddingTop: '40%',
+    paddingHorizontal: 40,
+  },
+  headerText: {
+    marginBottom: 20,
+    fontSize: 24,
+    color: '#7F7F7F',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flex: 1,
+    marginBottom: 30,
+    paddingHorizontal: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
+  },
+  buttonText: {
+    color: '#d6d6d6',
+  },
+  buttonTextPlus: {
+    color: '#d6d6d6',
+    justifyContent: 'center',
+    textAlign: 'center',
+    marginLeft: "55%",
+  },
+  deleteButton: {
+    padding: 10,
+  },
+  deleteButtonText: {
+    color: '#d6d6d6',
+  },
+  addCampaignContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    width: '70%',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    color: '#d6d6d6',
+    paddingHorizontal: 10,
+    marginRight: 10,
+  },
+  addButton: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
 });
 
-export default CampaignOne;
+export default styles;

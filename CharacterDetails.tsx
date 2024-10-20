@@ -22,7 +22,7 @@ const CharacterDetail = ({ navigation }) => {
       style={styles.container}
     >
 
-    <Text style={styles.appName}>CharacterDetails</Text>
+    <Text style={[styles.appName, { color: theme.fontColor }]}>CharacterDetails</Text>
 
       <View style={styles.dropdownContainer}>
         <Picker
@@ -39,11 +39,13 @@ const CharacterDetail = ({ navigation }) => {
         </Picker>
       </View>
 
-       <View style={styles.GoBack}>
-      <TouchableOpacity style={styles.button} onPress={() => {handleGoBack()}} >
+      <View style={styles.GoBack}>
+        <TouchableOpacity style={styles.button} onPress={() => {handleGoBack()}} >
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Text style={styles.GoBackText}>{t('Go_back')}</Text>
-      </TouchableOpacity>
-     </View>
+          </ImageBackground>
+        </TouchableOpacity>
+      </View>
       </ImageBackground>
 );
 };

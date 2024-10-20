@@ -7,6 +7,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
+  },
+  containerReg: {
+    flex: 1,
+    justifyContent: 'center',
+//    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   appName: {
     position: 'absolute',
@@ -21,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  buttonContainer: {
+  buttonContainerUsu: {
     position: 'absolute',
     width: '60%',
     borderColor: 'rgba(60, 60, 60, 0.5)',
@@ -86,20 +95,6 @@ const styles = StyleSheet.create({
   modalCloseButtonText: {
     color: '#d6d6d6',
     fontSize: 16,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  appName: {
-    textAlign: 'center',
-    marginBottom: 20,
-    fontSize: 24,
-    color: '#7F7F7F',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   scrollContainer: {
     paddingTop: '20%',
@@ -336,27 +331,6 @@ const styles = StyleSheet.create({
   playerActionText: {
     color: '#d6d6d6',
   },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
   dropdownContainer: {
     position: 'absolute',
     top: '3%',
@@ -371,19 +345,6 @@ const styles = StyleSheet.create({
   picker: {
     height: 50,
     width: '101%',
-    color: '#d6d6d6',
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
     color: '#d6d6d6',
   },
   blackLeftContainer: {
@@ -637,19 +598,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#d6d6d6',
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
   dropdownContainer: {
     position: 'absolute',
     top: '3%',
@@ -665,35 +613,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: '101%',
     color: '#d6d6d6',
-  },
-
-
-
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-      GoBackText: {
-        color: '#d6d6d6',
-      },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
   },
   characterRow: {
     flexDirection: 'row',
@@ -711,32 +630,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     padding: 5,
     textAlign: 'center',
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
   },
   ConButton: {
     backgroundColor: 'transparent',
@@ -793,28 +686,6 @@ const styles = StyleSheet.create({
     height: 250,
     resizeMode: 'contain',
   },
-
-
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-      GoBackText: {
-        color: '#d6d6d6',
-      },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
@@ -861,27 +732,6 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     resizeMode: 'contain',
-  },
-
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -938,27 +788,6 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
   },
-
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
@@ -1008,26 +837,6 @@ const styles = StyleSheet.create({
   ConButtonText: {
     color: '#d6d6d6',
     fontSize: 20,
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
   },
   content: {
     padding: 20,
@@ -1079,19 +888,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textAlign: 'center',
   },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
   ConButton: {
     backgroundColor: 'transparent',
     borderRadius: 10,
@@ -1104,19 +900,6 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontSize: 20,
   },
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-    appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
     message: {
       position: 'absolute',
       top: '41%',
@@ -1139,27 +922,6 @@ const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
     },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  goBack: {
-    position: 'absolute',
-    top: '5%',
-    left: '5%',
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
   searchInput: {
     marginTop: 100,
     width: '80%',
@@ -1237,32 +999,6 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontSize: 18,
   },
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-    appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
-    GoBack: {
-      position: 'absolute',
-      top: '5%',
-      left: '5%',
-      width: '20%',
-      borderColor: '#7F7F7F',
-      alignItems: 'center',
-      borderRadius: 10,
-      borderWidth: 1.5,
-    },
-    GoBackText: {
-      color: '#d6d6d6',
-    },
     resetPass: {
       color: '#d6d6d6',
       fontSize: 22,
@@ -1317,19 +1053,6 @@ const styles = StyleSheet.create({
       color: '#d6d6d6',
       fontSize: 16,
       fontWeight: 'bold',
-    },
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      width: '100%',
-      height: '100%',
-    },
-    appName: {
-      textAlign: 'center',
-      marginBottom: 20,
-      fontSize: 24,
-      color: '#7F7F7F',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     scrollContainer: {
       paddingTop: '20%',
@@ -1464,36 +1187,6 @@ const styles = StyleSheet.create({
     playerActionText: {
       color: '#d6d6d6',
     },
-    goBack: {
-      position: 'absolute',
-      top: 42,
-      left: 20,
-      width: '20%',
-      borderColor: '#7F7F7F',
-      alignItems: 'center',
-      borderRadius: 10,
-      borderWidth: 1.5,
-    },
-    goBackText: {
-      color: '#d6d6d6',
-    },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    fontSize: 30,
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 3,
-    fontWeight: 'bold',
-  },
   flagsContainer: {
     position: 'absolute',
     top: 10,
@@ -1514,10 +1207,6 @@ const styles = StyleSheet.create({
   flag: {
     width: 50,
     height: 30,
-  },
-  button: {
-    alignItems: 'center',
-    width: '100%',
   },
   buttonContainer: {
     position: 'absolute',
@@ -1594,19 +1283,6 @@ const styles = StyleSheet.create({
   closeButton: {
     marginTop: 20,
     padding: 10,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
   },
   dropdownContainer: {
     position: 'absolute',
@@ -1691,7 +1367,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#d6d6d6',
   },
-
   goBackContainer: {
     position: 'absolute',
     top: 42,
@@ -1701,30 +1376,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  goBack: {
-    position: 'absolute',
-    top: '5%',
-    left: '5%',
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-  goBackText: {
-    color: '#d6d6d6',
   },
   searchInput: {
     marginTop: 100,
@@ -1803,98 +1454,17 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontSize: 18,
   },
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-  appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
   cos: {
     color: '#d6d6d6',
     fontSize: 20,
     position: 'absolute',
     top: '50%',
   },
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-  appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-    GoBackText: {
-      color: '#d6d6d6',
-    },
     cos: {
       color: '#d6d6d6',
       fontSize: 20,
       position: 'absolute',
       top: '50%',
-    },
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-  appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-    GoBackText: {
-      color: '#d6d6d6',
     },
     cos: {
           color: '#d6d6d6',
@@ -1902,32 +1472,6 @@ const styles = StyleSheet.create({
           position: 'absolute',
           top: '50%',
         },
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-  appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
-  button: {
-     alignItems: 'center',
-     width: '100%',
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: '35%',
-    width: '60%',
-    borderColor: 'rgba(60, 60, 60, 0.5)',
-    borderRadius: 10,
-    borderWidth: 2,
-    shadowColor: 'rgba(0, 0, 0, 1)',
-    },
   buttonBackground: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1953,32 +1497,15 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-    fontSize: 30,
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 3,
-    fontWeight: 'bold',
-  },
   GoBack: {
     position: 'absolute',
-    top: 42,
-    left: 20,
+    top: '5%',
+    left: '5%',
+    width: '20%',
     borderColor: 'rgba(60, 60, 60, 0.5)',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 1.5,
   },
   GoBackText: {
     color: '#d6d6d6',
@@ -1991,7 +1518,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
   },
-  title: {
+  titleLogin: {
     position: 'absolute',
     top: '25%',
     left: '10%',
@@ -2154,32 +1681,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
   emailContainer: {
    flexDirection: 'row',
    alignItems: 'center',
@@ -2277,19 +1778,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-    },
-    appName: {
-      position: 'absolute',
-      top: '16%',
-      fontSize: 24,
-      color: '#7F7F7F',
-    },
     message: {
       position: 'absolute',
       top: '41%',
@@ -2312,13 +1800,6 @@ const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
     },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
   diceBar: {
     position: 'absolute',
     top: '10%',
@@ -2383,32 +1864,6 @@ const styles = StyleSheet.create({
     color: 'pink',
     fontSize: 18,
   },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    position: 'absolute',
-    top: '16%',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
   resultText: {
     fontSize: 26,
     color: '#7F7F7F',
@@ -2426,22 +1881,6 @@ const styles = StyleSheet.create({
   dice: {
     width: 200,
     height: 200,
-  },
-  GoBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  GoBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    flex: 1,
   },
   title: {
     fontSize: 24,
@@ -2476,27 +1915,6 @@ const styles = StyleSheet.create({
   dmicon: {
     width: '100%',
     height: '100%',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  goBack: {
-    position: 'absolute',
-    top: '5%',
-    left: '5%',
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-  goBackText: {
-    color: '#d6d6d6',
   },
   searchInput: {
     marginTop: 100,
@@ -2555,19 +1973,6 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontSize: 18,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    fontSize: 24,
-    color: '#fff',
-    position: 'absolute',
-    top: '16%',
-  },
   backButton: {
     width: '20%',
     borderColor: '#7F7F7F',
@@ -2579,19 +1984,6 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: '#d6d6d6',
   },
-  button: {
-     alignItems: 'center',
-     width: '100%',
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: '35%',
-    width: '60%',
-    borderColor: 'rgba(60, 60, 60, 0.5)',
-    borderRadius: 10,
-    borderWidth: 2,
-    shadowColor: 'rgba(0, 0, 0, 1)',
-    },
   buttonBackground: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -2665,29 +2057,6 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'flex-end',
   },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
-  },
-  container: {
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  appName: {
-    textAlign: 'center',
-    fontSize: 24,
-    color: '#7F7F7F',
-  },
   scrollContainer: {
     paddingTop: '40%',
     paddingHorizontal: 40,
@@ -2698,7 +2067,7 @@ const styles = StyleSheet.create({
     color: '#7F7F7F',
     textAlign: 'center',
   },
-  buttonContainer: {
+  buttonContainerCamp: {
     flex: 1,
     marginBottom: 30,
     paddingHorizontal: 40,
@@ -2744,19 +2113,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
-  },
-  goBack: {
-    position: 'absolute',
-    top: 42,
-    left: 20,
-    width: '20%',
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  goBackText: {
-    color: '#d6d6d6',
   },
 });
 

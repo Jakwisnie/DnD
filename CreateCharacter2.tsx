@@ -11,6 +11,7 @@ const handleGoBack = () => {
   };
 
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const { selectedClassInfo, nickname } = route.params;
 
@@ -51,7 +52,7 @@ const handleGoBack = () => {
 
   return (
   <ImageBackground
-         source={require('./assets/font/dungeon.jpeg')}
+         source={theme.background}
            style={styles.container}
          >
 
@@ -68,11 +69,13 @@ const handleGoBack = () => {
           {renderDescription(selectedClassInfo.description)}
         </View>
 
-        <View style={styles.GoBack}>
-          <TouchableOpacity style={styles.button} onPress={handleGoBack}>
+      <View style={styles.GoBack}>
+        <TouchableOpacity style={styles.button} onPress={handleGoBack}>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Text style={styles.GoBackText}>{t('Go_back')}</Text>
-          </TouchableOpacity>
-        </View>
+          </ImageBackground>
+        </TouchableOpacity>
+      </View>
 
         <View style={styles.ConButton}>
           <TouchableOpacity style={styles.button} onPress={handleContinue}>

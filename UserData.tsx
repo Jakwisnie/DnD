@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
           const initialUsers = [
             { login: 'user', password: 'password' },
             { login: 'admin', password: 'admin' },
+            { login: '', password: '' },
           ];
           await AsyncStorage.setItem('users', JSON.stringify(initialUsers));
           setUsers(initialUsers);

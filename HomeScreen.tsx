@@ -47,9 +47,9 @@ const HomeScreen = ({ navigation }) => {
     <ImageBackground source={theme.background} style={styles.container}>
       <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainerUsu}>
         <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
-          <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Image source={theme.icons.login} style={styles.icons} />
             <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
               {t('Login')}
@@ -58,9 +58,9 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.buttonContainer, { bottom: 180 }]}>
+      <View style={[styles.buttonContainerUsu, { bottom: 250 }]}>
         <TouchableOpacity style={styles.button} onPress={handleRegistrationPress}>
-          <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Image source={theme.icons.register} style={styles.icons} />
             <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
             {t('Registration')}</Text>

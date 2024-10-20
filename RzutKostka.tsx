@@ -116,11 +116,14 @@ const RzutKostka = ({ navigation }) => {
         <Text style={styles.rollButtonText}>{t('Roll')}</Text>
       </TouchableOpacity>
       <View style={styles.resultsContainer}>{renderResults()}</View>
-      <View style={styles.goBack}>
+      <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-          <Text style={styles.goBackText}>{t('Go_back')}</Text>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
+            <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
+
     </ImageBackground>
   );
 };

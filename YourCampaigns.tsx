@@ -97,7 +97,7 @@ const YourCampaigns = ({ navigation }) => {
 
       <Text style={styles.headerText}>{t('Dungeon Master Campaigns')}</Text>
         {campaigns.map((campaign, index) => (
-          <View key={index} style={styles.buttonContainer}>
+          <View key={index} style={styles.buttonContainerCamp}>
             <TouchableOpacity style={styles.button} onPress={() => handleCampaignPress(campaign)}>
               <Text style={styles.buttonText}>{campaign}</Text>
             </TouchableOpacity>
@@ -107,7 +107,7 @@ const YourCampaigns = ({ navigation }) => {
           </View>
         ))}
 
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainerCamp}>
           {showInput ? (
             <View style={styles.addCampaignContainer}>
               <TextInput
@@ -130,9 +130,11 @@ const YourCampaigns = ({ navigation }) => {
 
       </ScrollView>
 
-      <View style={styles.goBack}>
+      <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-          <Text style={styles.goBackText}>{t('Go_back')}</Text>
+          <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
+            <Text style={styles.GoBackText}>{t('Go_back')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
 

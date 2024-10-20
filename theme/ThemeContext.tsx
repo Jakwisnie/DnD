@@ -4,6 +4,7 @@ const ThemeContext = createContext();
 //    backgroundColor: 'rgba(0,0,0,0.8)',
 const themes = {
   theme1: {
+    backgroundButton: require('../assets/font/font1.png'),
     background: require('../assets/font/dungeon.jpeg'),
     icons: {
       login: require('../assets/icons/login.png'),
@@ -18,7 +19,9 @@ const themes = {
       items: require('../assets/icons/item.png'),
       feats: require('../assets/icons/feat.png'),
       settings: require('../assets/icons/settings.png'),
-    },
+      images: require('../assets/icons/image.png'),
+      notes: require('../assets/icons/notes.png'),
+      },
       fontColor: '#d6d6d6',
       fontSize: 20,
       fontStyle: 'italic',
@@ -29,6 +32,7 @@ const themes = {
       textAlign: 'center',
   },
   theme2: {
+    backgroundButton: require('../assets/font/font1.png'),
     background: require('../assets/font/background1.jpg'),
     icons: {
       login: require('../assets/icons/login1.png'),
@@ -43,6 +47,8 @@ const themes = {
       items: require('../assets/icons/item1.png'),
       feats: require('../assets/icons/feat1.png'),
       settings: require('../assets/icons/settings1.png'),
+      images: require('../assets/icons/image1.png'),
+      notes: require('../assets/icons/notes1.png'),
     },
     fontColor: '#ffd700',
     fontSize: 20,

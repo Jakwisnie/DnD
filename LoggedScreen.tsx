@@ -22,30 +22,33 @@ const LoggedScreen = ({ navigation }) => {
          source={theme.background}
          style={styles.container}
        >
-       <Text style={styles.appName}>DMBook</Text>
+      <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
 
-       <View style={[styles.buttonContainer, {bottom: '50%' }]}>
+       <View style={[styles.buttonContainerUsu, {bottom: '50%' }]}>
           <TouchableOpacity style={styles.button} onPress={() => {handleCharactersPress()}}>
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
-                <Image source={require('./assets/icons/characters.png')} style={styles.icons} />
-                <Text style={styles.buttonText}>{t('Characters')}</Text>
+                <Image source={theme.icons.characters} style={styles.icons} />
+                <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+                {t('Characters')}</Text>
             </ImageBackground>
           </TouchableOpacity>
        </View>
-       <View style={[styles.buttonContainer, {bottom: '30%' }]}>
+       <View style={[styles.buttonContainerUsu, {bottom: '30%' }]}>
           <TouchableOpacity style={styles.button} onPress={() => {handleLoginPress()}}>
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
-                <Image source={require('./assets/icons/logout.png')} style={styles.icons} />
-                <Text style={styles.buttonText}>{t('Log_out')}</Text>
+                <Image source={theme.icons.logout} style={styles.icons} />
+                <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+                {t('Log_out')}</Text>
             </ImageBackground>
           </TouchableOpacity>
        </View>
-       <View style={[styles.buttonContainer, { bottom: '40%' }]}>
+       <View style={[styles.buttonContainerUsu, { bottom: '40%' }]}>
           <TouchableOpacity style={styles.button} onPress={() => {handleRegistrationPress()}}>
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
-                <Image source={require('./assets/icons/rolldice.png')} style={styles.icons} />
-                <Text style={styles.buttonText}>{t('Roll_dice')}</Text>
+                <Image source={theme.icons.rolldice} style={styles.icons} />
+                <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+                {t('Roll_dice')}</Text>
             </ImageBackground>
           </TouchableOpacity>
        </View>
