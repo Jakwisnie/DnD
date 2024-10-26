@@ -17,7 +17,7 @@ const KontoGoogle = ({ navigation }) => {
          source={theme.background}
          style={styles.container}
        >
-       <Text style={styles.appName}>DMBook</Text>
+      <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
        <Text style={styles.cos}>Google</Text>
 

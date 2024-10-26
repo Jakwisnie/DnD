@@ -91,15 +91,15 @@ const YourCampaigns = ({ navigation }) => {
   return (
   <ImageBackground
          source={theme.background}
-         style={styles.container}
+         style={styles.containerCamp}
        >
-       <ScrollView contentContainerStyle={styles.scrollContainer}>
+       <ScrollView contentContainerStyle={styles.scrollContainerCamp}>
 
-      <Text style={styles.headerText}>{t('Dungeon Master Campaigns')}</Text>
+      <Text style={[styles.headerTextCamp, { color: theme.fontColor }]}>{t('Dungeon Master Campaigns')}</Text>
         {campaigns.map((campaign, index) => (
           <View key={index} style={styles.buttonContainerCamp}>
             <TouchableOpacity style={styles.button} onPress={() => handleCampaignPress(campaign)}>
-              <Text style={styles.buttonText}>{campaign}</Text>
+              <Text style={styles.buttonTextCamp}>{campaign}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeleteCampaign(index)}>
               <Text style={styles.deleteButtonText}>{t('Delete')}</Text>
@@ -111,19 +111,19 @@ const YourCampaigns = ({ navigation }) => {
           {showInput ? (
             <View style={styles.addCampaignContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputCamp}
                 value={newCampaign}
                 onChangeText={setNewCampaign}
                 placeholder={t('Enter campaign name')}
                 placeholderTextColor="#d6d6d6"
               />
-              <TouchableOpacity style={styles.addButton} onPress={handleAddCampaign}>
-                <Text style={styles.buttonText}>{t('Add')}</Text>
+              <TouchableOpacity style={styles.addButtonCamp} onPress={handleAddCampaign}>
+                <Text style={styles.buttonTextCamp}>{t('Add')}</Text>
               </TouchableOpacity>
             </View>
           ) : (
             <TouchableOpacity style={styles.button} onPress={() => setShowInput(true)}>
-              <Text style={styles.buttonTextPlus}>{t('Add')}</Text>
+              <Text style={styles.buttonTextPlus}>{t('Add new')}</Text>
             </TouchableOpacity>
           )}
         </View>

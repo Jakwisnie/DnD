@@ -88,7 +88,7 @@ const Items = ({ navigation }) => {
         onChangeText={setSearchText}
       />
 
-      <View style={styles.filterContainer}>
+      <View style={styles.filterContainerItemMon}>
         <TouchableOpacity onPress={() => toggleFilter('Type')} style={[styles.filterToggle, openFilters.includes('Type') && styles.activeFilterToggle]}>
           <Text style={styles.filterToggleText}>{t('Type')}</Text>
         </TouchableOpacity>

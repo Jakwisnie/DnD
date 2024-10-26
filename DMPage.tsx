@@ -81,7 +81,7 @@ const DMPage = ({ navigation }) => {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
+          <View style={styles.modalContentDMBook}>
             <Text style={styles.modalTitle}>{t('Library')}</Text>
             <TouchableOpacity style={styles.modalButton} onPress={() => handleLibraryPress('Spells')}>
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>

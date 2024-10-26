@@ -24,7 +24,7 @@ const RegistrationOkEmail = () => {
          source={theme.background}
     resizeMode="cover">
 
-    <Text style={styles.appName}>DMBook</Text>
+    <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
     <Text style={styles.message}>{t('Registration_confirmation')}</Text>
 

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity, FlatList, Image, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 
 const CreateCharacter = ({ navigation }) => {
@@ -373,7 +374,7 @@ const CreateCharacter = ({ navigation }) => {
             <Text style={styles.RaceGenderPosContTitle}>{t('Race')}</Text>
             <Picker
                 selectedValue={selectedRace}
-                style={styles.picker}
+                style={styles.pickerCharacter}
                 onValueChange={(itemValue) => setSelectedRace(itemValue)}>
                 {races.map((race, index) => (
                   <Picker.Item key={index} label={race.name} value={race.name} />
@@ -383,7 +384,7 @@ const CreateCharacter = ({ navigation }) => {
             <Text style={styles.RaceGenderPosContTitle}>{t('Gender')}</Text>
               <Picker
                  selectedValue={selectedGender}
-                 style={styles.picker}
+                 style={styles.pickerCharacter}
                  onValueChange={(itemValue) => setSelectedGender(itemValue)}>
                  <Picker.Item label="-" value="-" />
                  <Picker.Item label={t('Male')} value="M" />
@@ -393,7 +394,7 @@ const CreateCharacter = ({ navigation }) => {
               <Text style={styles.RaceGenderPosContTitle}>{t('Class')}</Text>
                 <Picker
                   selectedValue={selectedPosition}
-                  style={styles.picker}
+                  style={styles.pickerCharacter}
                   onValueChange={(itemValue) => setSelectedPosition(itemValue)}>
                   {positions.map((position, index) => (
                      <Picker.Item key={index} label={position.name} value={position.name} />
@@ -414,7 +415,7 @@ const CreateCharacter = ({ navigation }) => {
           {selectedRace && selectedGender && selectedPosition && (
             <Image
               source={positionsImages[`${selectedRace}-${selectedGender}-${selectedPosition}`]}
-              style={styles.selectedImage}
+              style={styles.selectedImageCharacter}
             />
           )}
         </View>
@@ -427,7 +428,7 @@ const CreateCharacter = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-        <View style={styles.ConButton}>
+        <View style={styles.ConButtonCharacter}>
           <TouchableOpacity style={styles.button} onPress={handleContinue}>
             <Text style={styles.ConButtonText}>{t('Continue')}</Text>
           </TouchableOpacity>

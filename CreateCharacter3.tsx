@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity, FlatList, Image, ScrollView, Modal, TouchableWithoutFeedback } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 
 const initialAttributes = {
@@ -128,7 +129,7 @@ const handleGoBack = () => {
           >
             <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
               <View style={styles.modalOverlay}>
-                <View style={styles.modalContent}>
+                <View style={styles.modalContentCharacter}>
                   {generateOptions(attributes[selectedAttribute]).map((option) => (
                     <TouchableOpacity
                       key={option.value}

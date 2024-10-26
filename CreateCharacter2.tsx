@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
 import HiddenText from './ProbaUkrytegoTekstu';
 import CustomPicker from './Picker';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 
 const CreateCharacter2 = ({ navigation, route }) => {
@@ -38,7 +39,7 @@ const handleGoBack = () => {
     if (block.trim() === 'Spells:') {
       const spells = block.split('\n').slice(1);
       return (
-        <Picker key={index} title="Spells" options={spells} />
+        <Picker key={index} title={t('Spells')} options={spells} />
       );
     }
 
@@ -46,7 +47,7 @@ const handleGoBack = () => {
      return <HiddenText key={index} title={line} content={selectedClassInfo[block]} />;
    }
 
-   return <Text key={index} style={styles.RaceGenderPosContTitle}>{block}</Text>;
+   return <Text key={index} style={styles.RaceGenderTitle}>{block}</Text>;
     });
   };
 

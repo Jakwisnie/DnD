@@ -22,7 +22,7 @@ const CharacterDetail = ({ navigation }) => {
       style={styles.container}
     >
 
-    <Text style={[styles.appName, { color: theme.fontColor }]}>CharacterDetails</Text>
+    <Text style={[styles.appName, { color: theme.fontColor }]}>{t('CharacterDetails')}</Text>
 
       <View style={styles.dropdownContainer}>
         <Picker
@@ -33,9 +33,9 @@ const CharacterDetail = ({ navigation }) => {
             navigation.navigate(itemValue);
           }}
         >
-          <Picker.Item label="Main Scene" value="Character1" />
-          <Picker.Item label="Inventory" value="Inventory" />
-          <Picker.Item label="Character Details" value="CharacterDetails" />
+          <Picker.Item label={t('Main Scene')} value="Character1" />
+          <Picker.Item label={t('Inventory')} value="Inventory" />
+          <Picker.Item label={t('Character Details')} value="CharacterDetails" />
         </Picker>
       </View>
 

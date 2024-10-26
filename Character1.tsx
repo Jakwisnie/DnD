@@ -61,7 +61,7 @@ const Character1 = ({ navigation }) => {
   if (!characterData) {
     return (
       <View style={styles.loadingContainer}>
-        <Text>Loading...</Text>
+        <Text>{t('Loading...')}</Text>
       </View>
     );
   }
@@ -288,9 +288,9 @@ const Character1 = ({ navigation }) => {
             navigation.navigate(itemValue);
           }}
         >
-          <Picker.Item label="Main Scene" value="Character1" />
-          <Picker.Item label="Inventory" value="Inventory" />
-          <Picker.Item label="Character Details" value="CharacterDetails" />
+          <Picker.Item label={t('Main Scene')} value="Character1" />
+          <Picker.Item label={t('Inventory')} value="Inventory" />
+          <Picker.Item label={t('Character Details')} value="CharacterDetails" />
         </Picker>
       </View>
       <View style={styles.imageContainer}>
@@ -298,15 +298,15 @@ const Character1 = ({ navigation }) => {
       </View>
 
       <View style={styles.healthContainer}>
-       <Text style={styles.statText}>Health: {health}</Text>
+       <Text style={styles.statText}>{t('Health')}: {health}</Text>
         <View style={styles.healthBar}>
           <View style={[styles.healthFill, { width: `${health}%` }]} />
         </View>
         <TouchableOpacity style={styles.healthButton} onPress={() => handleHealthChange(10)}>
-          <Text style={styles.healthText}>Heal</Text>
+          <Text style={styles.healthText}>{t('Heal')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.damageButton} onPress={() => handleHealthChange(-10)}>
-          <Text style={styles.damageText}>Damage</Text>
+          <Text style={styles.damageText}>{t('Damage')}</Text>
         </TouchableOpacity>
        </View>
 
@@ -352,36 +352,36 @@ const Character1 = ({ navigation }) => {
       <View style={styles.leftContainer}>
         <View style={styles.circleBox}>
           <Text style={styles.circleText}>{player.AC}</Text>
-          <Text style={styles.circleLabel}>AC</Text>
+          <Text style={styles.circleLabel}>{t('AC')}</Text>
         </View>
         <View style={styles.circleBox}>
           <Text style={styles.circleText}>{player.INIT}</Text>
-          <Text style={styles.circleLabel}>Initiative</Text>
+          <Text style={styles.circleLabel}>{t('Initiative')}</Text>
         </View>
         <View style={styles.circleBox}>
           <Text style={styles.circleText}>{player.Proficiency}</Text>
-          <Text style={styles.circleLabel}>Proficiency</Text>
+          <Text style={styles.circleLabel}>{t('Proficiency')}</Text>
         </View>
       </View>
 
         <TouchableOpacity style={styles.EditBox}>
-          <Text style={styles.EditText}>Edit Character</Text>
+          <Text style={styles.EditText}>{t('Edit Character')}</Text>
         </TouchableOpacity>
       </View>
       </View>
 
 
       <TouchableOpacity style={styles.Skills} onPress={toggleSkills}>
-        <Text style={styles.SkillsText}>Skills</Text>
+        <Text style={styles.SkillsText}>{t('Skills')}</Text>
       </TouchableOpacity>
 
       {skillsVisible && (
         <View style={styles.skillsWindow}>
           <View style={styles.skillRow}>
-            <Text style={[styles.headerText, {right: '70%' }]}>Prof.</Text>
-            <Text style={[styles.headerText, {right: '150%' }]}>Mod.</Text>
-            <Text style={[styles.headerText, {right: '60%' }]}>Skill</Text>
-            <Text style={[styles.headerText, {left: '320%' }]}>Bonus</Text>
+            <Text style={[styles.headerText, {right: '70%' }]}>{t('Prof')}.</Text>
+            <Text style={[styles.headerText, {right: '150%' }]}>{t('Mod')}.</Text>
+            <Text style={[styles.headerText, {right: '60%' }]}>{t('Skill')}</Text>
+            <Text style={[styles.headerText, {left: '320%' }]}>{t('Bonus')}</Text>
           </View>
           <ScrollView>
             {skills.map((skill, index) => (
@@ -405,13 +405,13 @@ const Character1 = ({ navigation }) => {
 
       <View style={styles.rightContainer}>
       <TouchableOpacity style={styles.rightButton} onPress={toggleAction}>
-        <Text style={styles.buttonText}>Action</Text>
+        <Text style={styles.buttonText}>{t('Action')}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.rightButton} onPress={toggleBonus}>
-        <Text style={styles.buttonText}>Bonus</Text>
+        <Text style={styles.buttonText}>{t('Bonus')}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.rightButton} onPress={toggleReact}>
-        <Text style={styles.buttonText}>React</Text>
+        <Text style={styles.buttonText}>{t('React')}</Text>
       </TouchableOpacity>
         {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'].map((label, index) => (
           <TouchableOpacity key={index} style={styles.rightButton} onPress={() => handleRomanNumeralPress(label)}>
@@ -428,10 +428,10 @@ const Character1 = ({ navigation }) => {
 
         <View style={styles.diceTurnContainer}>
           <TouchableOpacity style={styles.TurnDiceButton}>
-            <Text style={styles.rightTurnDiceText}>New Turn</Text>
+            <Text style={styles.rightTurnDiceText}>{t('New Turn')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.TurnDiceButton} onPress={() => {handleRollDice()}}>
-            <Text style={styles.rightTurnDiceText}>Roll Dice</Text>
+            <Text style={styles.rightTurnDiceText}>{t('Roll Dice')}</Text>
           </TouchableOpacity>
         </View>
 

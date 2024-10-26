@@ -15,7 +15,7 @@ const diceTypes = [
 ];
 
 const RzutKostka = ({ navigation }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
   const [selectedDice, setSelectedDice] = useState([]);
@@ -67,6 +67,11 @@ const RzutKostka = ({ navigation }) => {
     setSelectedDice(updatedDice);
   };
 
+  const handleReset = () => {
+    setSelectedDice([]);
+    setDiceValues([]);
+  };
+
   const renderDice = (dice, index) => {
     const spin = rotateValues[index].interpolate({
       inputRange: [0, 1],
@@ -78,7 +83,7 @@ const RzutKostka = ({ navigation }) => {
     return (
       <TouchableOpacity
         key={index}
-        style={[styles.diceContainer, isSelected && styles.selectedDice]}
+        style={[styles.diceContainerRzut, isSelected && styles.selectedDice]}
         onPress={() => handleDiceSelection(index)}
       >
         {isSelected && (
@@ -92,7 +97,7 @@ const RzutKostka = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         )}
-        <Animated.Image source={dice.image} style={[styles.dice, { transform: [{ rotate: spin }] }]} />
+        <Animated.Image source={dice.image} style={[styles.diceRzut, { transform: [{ rotate: spin }] }]} />
       </TouchableOpacity>
     );
   };
@@ -101,7 +106,7 @@ const RzutKostka = ({ navigation }) => {
     return diceValues.map(({ index, results }) => (
       <View key={index} style={styles.resultContainer}>
         <Text style={styles.resultText}>
-          d{diceTypes[index].sides}: {results.join(', ')}
+          {diceTypes[index].sides}: {results.join(', ')}
         </Text>
       </View>
     ));
@@ -109,13 +114,23 @@ const RzutKostka = ({ navigation }) => {
 
   return (
     <ImageBackground source={theme.background} style={styles.container}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.diceBar}>
+     <ScrollView contentContainerStyle={styles.scrollContainerRzut}>
+      <View style={styles.diceGrid}>
         {diceTypes.map((dice, index) => renderDice(dice, index))}
-      </ScrollView>
-      <TouchableOpacity style={styles.rollButton} onPress={handleRollDice}>
-        <Text style={styles.rollButtonText}>{t('Roll')}</Text>
-      </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttonContainerRzut}>
+        <TouchableOpacity style={styles.rollButton} onPress={handleRollDice}>
+          <Text style={styles.rollButtonText}>{t('Roll')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
+          <Text style={styles.resetButtonText}>{t('Reset')}</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.resultsContainer}>{renderResults()}</View>
+
+
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
           <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
@@ -123,7 +138,7 @@ const RzutKostka = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
       </View>
-
+     </ScrollView>
     </ImageBackground>
   );
 };

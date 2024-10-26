@@ -9,6 +9,13 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
+  containerCamp: {
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
   containerReg: {
     flex: 1,
     justifyContent: 'center',
@@ -25,6 +32,12 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 3,
     fontWeight: 'bold',
+  },
+  CampName: {
+    textAlign: 'center',
+    fontSize: 24,
+    color: '#7F7F7F',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   button: {
     alignItems: 'center',
@@ -57,6 +70,10 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
+  buttonTextCamp: {
+    fontSize: 16,
+    color: '#d6d6d6',
+  },
   icons: {
     marginRight: -30,
     marginLeft: 10,
@@ -68,13 +85,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  modalContent: {
-    width: '60%',
-    backgroundColor: 'rgba(0,0,0,0.8)',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
   },
   modalTitle: {
     fontSize: 22,
@@ -101,6 +111,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 100,
   },
+  scrollContainerCamp: {
+    paddingTop: '40%',
+    paddingHorizontal: 40,
+  },
+  scrollContainerRzut: {
+    alignItems: 'center',
+    paddingTop: '40%',
+    paddingHorizontal: 35,
+    paddingBottom: 40,
+  },
   sessionContainer: {
     borderColor: '#7F7F7F',
     borderWidth: 1.5,
@@ -122,6 +142,7 @@ const styles = StyleSheet.create({
   },
   sessionContent: {
     color: '#d6d6d6',
+    marginTop: 10,
   },
   sessionsList: {
     textAlign: 'center',
@@ -141,12 +162,24 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontSize: 18,
   },
-  editText: {
+  editTextCamp: {
     color: 'yellow',
     marginHorizontal: 5,
   },
-  deleteText: {
+  EditText: {
+    fontSize: 10,
+    color: '#d6d6d6',
+  },
+  editText: {
+    color: '#d6d6d6',
+    marginHorizontal: 5,
+  },
+  deleteTextCamp: {
     color: 'red',
+    marginHorizontal: 5,
+  },
+  deleteText: {
+    color: '#d6d6d6',
     marginHorizontal: 5,
   },
   newNoteContainer: {
@@ -158,7 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
-  input: {
+  inputCampNote: {
     borderColor: '#7F7F7F',
     color: '#d6d6d6',
     borderWidth: 1.5,
@@ -166,6 +199,35 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  input: {
+    width: '100%',
+    padding: 10,
+    borderColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 5,
+    color: '#fff',
+    marginVertical: 10,
+  },
+  inputNotes: {
+    width: '100%',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    color: '#d6d6d6',
+    paddingHorizontal: 10,
+    marginRight: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  inputCamp: {
+    width: '70%',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    color: '#d6d6d6',
+    paddingHorizontal: 10,
+    marginRight: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   contentInput: {
@@ -193,6 +255,7 @@ const styles = StyleSheet.create({
     height: 350,
   },
   noteTitle: {
+    flex: 1,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#9F9F9F',
@@ -204,7 +267,7 @@ const styles = StyleSheet.create({
   },
   shareText: {
     color: 'green',
-    marginLeft: 10,
+    marginHorizontal: 15,
   },
   saveButton: {
     alignItems: 'center',
@@ -226,32 +289,36 @@ const styles = StyleSheet.create({
     color: 'yellow',
     fontSize: 16,
   },
-  addButtonText: {
+  addButtonTextCamp: {
     color: 'green',
     fontSize: 16,
+    textAlign: 'center',
   },
-
-
-
-
-
-
+  addButtonText: {
+    color: '#d6d6d6',
+  },
+  addButtonText: {
+    color: '#d6d6d6',
+    fontSize: 16,
+  },
   newNoteImage: {
     marginTop: 10,
     marginBottom: 10,
     padding: 10,
   },
-
-  deleteButton: {
+  deleteButtonCamp: {
     alignItems: 'center',
     color: 'red',
     fontSize: 16,
   },
-
-
-
   newSessionContainer: {
-    marginBottom: 15,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   inputName: {
     borderColor: '#7F7F7F',
@@ -282,8 +349,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
-  buttonText: {
-    color: '#d6d6d6',
+  addButton: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    alignItems: 'center',
+  },
+  addButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#2d2d38',
+    borderRadius: 5,
+  },
+  chainOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+  },
+  addButtonImage: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    paddingHorizontal: 40,
+    borderColor: '#7F7F7F',
+  },
+  addButtonCamp: {
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    alignItems: 'center',
   },
   playerPanel: {
     position: 'absolute',
@@ -466,10 +569,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
   },
-  EditText: {
-    fontSize: 10,
-    color: '#d6d6d6',
-  },
   Skills: {
     position: 'absolute',
     right: 0,
@@ -530,6 +629,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  headerTextCamp: {
+    marginBottom: 20,
+    fontSize: 24,
+    color: '#7F7F7F',
+    textAlign: 'center',
+  },
   rightContainer: {
     position: 'absolute',
     top: '10%',
@@ -546,10 +651,6 @@ const styles = StyleSheet.create({
     borderColor: '#7F7F7F',
     borderWidth: 1,
     alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#d6d6d6',
   },
   abilityWindow: {
     position: 'absolute',
@@ -631,25 +732,44 @@ const styles = StyleSheet.create({
     padding: 5,
     textAlign: 'center',
   },
-  ConButton: {
-    backgroundColor: 'transparent',
+
+  ConButtonCharacter: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     borderRadius: 10,
-    width: '30%',
+    width: '40%',
     borderRadius: 10,
     borderWidth: 1.5,
     borderColor: '#7F7F7F',
     alignItems: 'center',
   },
+  ConButton: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: 10,
+    width: '60%',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+  },
+  ConButtonNotes: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: 10,
+    width: '60%',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+    marginTop: 15,
+  },
   ConButtonText: {
     color: '#d6d6d6',
     fontSize: 20,
   },
-
   RaceGenderPosCont: {
     marginTop: 20,
     marginBottom: 10,
     alignItems: 'flex-start',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
@@ -660,7 +780,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 10,
   },
-
+  RaceGenderTitle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    color: '#f0f0f0',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  selectedClassInfo: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    color: '#f0f0f0',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   textInput: {
     height: 40,
     width: 200,
@@ -670,7 +801,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  picker: {
+  pickerCharacter: {
     height: 40,
     width: 200,
     backgroundColor: '#f0f0f0',
@@ -678,39 +809,20 @@ const styles = StyleSheet.create({
   },
 
   selectedImageContainer: {
+    marginTop: 70,
     position: 'center',
-
   },
-  selectedImage: {
+  selectedImageCharacter: {
     width: 250,
     height: 250,
+    marginTop: '-15%',
+    marginBottom: '10%',
     resizeMode: 'contain',
   },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '30%',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
-  },
-
-  RaceGenderPosContTitle: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginRight: 10,
   },
   nicknameContainer: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -723,11 +835,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  selectedImageContainer: {
-    marginTop: 70,
-    position: 'center',
 
-  },
   selectedImage: {
     width: 400,
     height: 400,
@@ -738,22 +846,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '40%',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
-  },
-
-
   remainingPointsText: {
+    backgroundColor: 'rgba(0,0,0,0.8)',
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
@@ -766,21 +860,32 @@ const styles = StyleSheet.create({
   },
   attributeText: {
     color: '#7F7F7F',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginRight: 20,
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
 
   modalOverlay: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
   },
-  modalContent: {
+  modalContentCharacter: {
     backgroundColor: '#7F7F7F',
     padding: 20,
     borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalContentDMBook: {
+    width: '60%',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalContent: {
+    padding: 20,
     alignItems: 'center',
   },
   modalOption: {
@@ -796,73 +901,59 @@ const styles = StyleSheet.create({
 
 
   blockTitle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     fontSize: 20,
     fontWeight: 'bold',
     color: '#d6d6d6',
     marginTop: 20,
+    marginBottom: 5,
   },
 
   blockContent: {
     width: '90%',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     padding: 20,
     borderRadius: 10,
-    marginBottom: 20,
   },
 
 
-  picker: {
-    height: 50,
-    width: '100%',
-    marginBottom: 20,
+  pickerCharacter3: {
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
   },
-  input: {
+  inputCharacter: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderColor: 'grey',
+    borderWidth: 2,
     marginBottom: 20,
     paddingLeft: 10,
-  },
-
-
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '60%',
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
   },
   content: {
     padding: 20,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 10,
   },
-
-
   title: {
     fontSize: 24,
     color: '#d6d6d6',
     marginBottom: 10,
+  },
+  titleSelect: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#d6d6d6',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    width: '100%',
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 18,
     color: '#d6d6d6',
     marginTop: 10,
   },
-
-
-  item: {
-    fontSize: 16,
-    color: '#d6d6d6',
-  },
-
-
   goldInputContainer: {
     marginTop: 10,
   },
@@ -881,25 +972,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 5,
   },
-
   totalGold: {
     fontSize: 20,
     color: '#FFD700',
     marginTop: 20,
     textAlign: 'center',
   },
-  ConButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    width: '35%',
-    borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-    alignItems: 'center',
-  },
-  ConButtonText: {
-    color: '#d6d6d6',
-    fontSize: 20,
-  },
+
     message: {
       position: 'absolute',
       top: '41%',
@@ -932,11 +1011,15 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     backgroundColor: 'rgba(0,0,0,0.8)',
   },
-  filterContainer: {
+  filterContainerItemMon: {
     width: '80%',
     marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  filterContainer: {
+    width: '80%',
+    marginTop: 20,
   },
   filterToggle: {
     backgroundColor: '#444',
@@ -954,8 +1037,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#777',
   },
   filterOptionsContainer: {
-    width: '80%',
+    width: '90%',
     marginTop: 10,
+    marginBottom: -200,
   },
   filterBlock: {
     marginBottom: 15,
@@ -1054,139 +1138,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: 'bold',
     },
-    scrollContainer: {
-      paddingTop: '20%',
-      paddingHorizontal: 20,
-    },
-    sessionContainer: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      marginTop: 10,
-      marginBottom: 10,
-      padding: 10,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    },
-    sessionHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    sessionName: {
-      color: '#d6d6d6',
-      fontSize: 18,
-    },
-    sessionContent: {
-      color: '#d6d6d6',
-      marginTop: 10,
-    },
-    sessionsList: {
-      textAlign: 'center',
-      top: '10%',
-      width: '100%',
-      borderColor: '#7F7F7F',
-      borderBottomWidth: 1.5,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      zIndex: 1, //przez tą linijke stracilem kilka godzin, bo kod nie dzialal
-    },
-    sessionTab: {
-      padding: 10,
-      borderColor: '#7F7F7F',
-      borderRightWidth: 1.5,
-    },
-    sessionTabText: {
-      color: '#d6d6d6',
-      fontSize: 18,
-    },
-    editText: {
-      color: '#d6d6d6',
-      marginHorizontal: 5,
-    },
-    deleteText: {
-      color: '#d6d6d6',
-      marginHorizontal: 5,
-    },
-    newSessionContainer: {
-      marginBottom: 15,
-    },
-    inputName: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      color: '#d6d6d6',
-      paddingHorizontal: 10,
-      marginTop: 10,
-      marginBottom: 10,
-    },
-    inputContent: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      color: '#d6d6d6',
-      paddingHorizontal: 10,
-      marginBottom: 10,
-    },
-    textArea: {
-      height: 100,
-    },
-    addButton: {
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 10,
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      alignItems: 'center',
-    },
-    buttonText: {
-      color: '#d6d6d6',
-    },
-    playerPanel: {
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      borderTopColor: '#7F7F7F',
-      borderTopWidth: 1.5,
-      padding: 10,
-    },
-    playerAvatar: {
-      margin: 5,
-      padding: 5,
-      borderColor: '#7F7F7F',
-      borderWidth: 1.5,
-      borderRadius: 50,
-    },
-    playerImage: {
-      width: 50,
-      height: 50,
-      borderRadius: 50,
-    },
-    selectedPlayer: {
-      borderColor: 'yellow',
-    },
-    addPlayerText: {
-      color: '#d6d6d6',
-      fontSize: 18,
-      top: 10,
-      paddingHorizontal: 20,
-    },
-    playerActions: {
-      bottom: 90,
-      width: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      padding: 5,
-      borderTopColor: '#7F7F7F',
-      borderTopWidth: 1,
-    },
-    playerActionButton: {
-      padding: 4,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      borderRadius: 50,
-    },
-    playerActionText: {
-      color: '#d6d6d6',
-    },
   flagsContainer: {
     position: 'absolute',
     top: 10,
@@ -1217,31 +1168,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     shadowColor: 'rgba(0, 0, 0, 1)',
   },
-  buttonBackground: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  buttonText: {
-    color: '#ffd700',
-    fontSize: 20,
-    textShadowColor: 'black',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 2,
-    fontStyle: 'italic',
-    flex: 1,
-    textAlign: 'center',
-  },
-  icons: {
-    marginRight: -30,
-    marginLeft: 10,
-    width: 40,
-    height: 40,
-  },
   gearIcon: {
     width: 50,
     height: 50,
@@ -1261,16 +1187,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 8,
   },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.95)',
-  },
-  modalContent: {
-    padding: 20,
-    alignItems: 'center',
-  },
+
+
   modalTitle: {
     color: 'white',
     fontSize: 24,
@@ -1343,15 +1261,7 @@ const styles = StyleSheet.create({
   removeButtonText: {
     color: '#d6d6d6',
   },
-  addButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: '#2d2d38',
-    borderRadius: 5,
-  },
-  addButtonText: {
-    color: '#d6d6d6',
-  },
+
   summaryContainer: {
     marginTop: 30,
   },
@@ -1376,60 +1286,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     borderWidth: 1.5,
-  },
-  searchInput: {
-    marginTop: 100,
-    width: '80%',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    padding: 10,
-    color: '#d6d6d6',
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-  filterContainer: {
-    width: '80%',
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  filterToggle: {
-    backgroundColor: '#444',
-    padding: 7,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '30%',
-  },
-  filterToggleText: {
-    color: '#d6d6d6',
-    fontSize: 16,
-  },
-  activeFilterToggle: {
-    backgroundColor: '#777',
-  },
-  filterOptionsContainer: {
-    width: '80%',
-    marginTop: 10,
-  },
-  filterBlock: {
-    marginBottom: 15,
-  },
-  filterOptions: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  filterButton: {
-    padding: 10,
-    marginHorizontal: 5,
-    backgroundColor: '#444',
-    borderRadius: 10,
-  },
-  selectedFilterButton: {
-    backgroundColor: '#777',
-  },
-  filterButtonText: {
-    color: '#d6d6d6',
   },
   item: {
     backgroundColor: '#333',
@@ -1472,31 +1328,6 @@ const styles = StyleSheet.create({
           position: 'absolute',
           top: '50%',
         },
-  buttonBackground: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  buttonText: {
-    color: '#ffd700',
-    fontSize: 20,
-    textShadowColor: 'black',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 2,
-    fontStyle: 'italic',
-    flex: 1,
-    textAlign: 'center',
-  },
-  icons: {
-    marginRight: -30,
-    marginLeft: 10,
-    width: 40,
-    height: 40,
-  },
   GoBack: {
     position: 'absolute',
     top: '5%',
@@ -1509,14 +1340,6 @@ const styles = StyleSheet.create({
   },
   GoBackText: {
     color: '#d6d6d6',
-  },
-  buttonBackground: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
   },
   titleLogin: {
     position: 'absolute',
@@ -1539,8 +1362,15 @@ const styles = StyleSheet.create({
     color: '#d6d6d6'
   },
   buttonUser: {
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    width: '250%',
+    flexDirection: 'row',
     position: 'absolute',
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    borderWidth: 1,
+    borderColor: '#007bff',
+    borderRadius: 4,
     left: '105%'
   },
   buttonUserText: {
@@ -1592,10 +1422,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   forgotPasswordButtonText: {
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    borderWidth: 1,
+    borderColor: '#007bff',
+    paddingVertical: 0,
+    paddingHorizontal: 8,
+    borderRadius: 4,
     position: 'absolute',
-    marginTop: '11%',
+    marginTop: 45,
     fontSize: 16,
-    left: '-40%',
+    left: '-41%',
     color: '#007bff',
   },
   continueButton: {
@@ -1632,7 +1468,7 @@ const styles = StyleSheet.create({
     top: '75%',
   },
   socialGoogle: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     borderColor: '#7F7F7F',
     flexDirection: 'row',
     alignItems: 'center',
@@ -1806,67 +1642,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 10,
   },
-  diceContainer: {
+  diceGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  diceContainerRzut: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 90,
     height: 90,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     marginHorizontal: 5,
+    margin: 10,
+    backgroundColor: 'rgba(255,255,255,0.6)',
   },
   selectedDice: {
     borderColor: '#FFD700',
     borderWidth: 2,
+    borderRadius: 8,
   },
   dice: {
     width: 50,
     height: 50,
-  },
-  counterContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  counterButton: {
-    padding: 4,
-    backgroundColor: '#7F7F7F',
-    borderRadius: 5,
-  },
-  counterText: {
-    color: '#fff',
-  },
-  counterValue: {
-    paddingHorizontal: 8,
-    fontSize: 18,
-    color: '#d6d6d6',
-  },
-  rollButton: {
-    position: 'absolute',
-    bottom: 150,
-    backgroundColor: '#444',
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-  },
-  rollButtonText: {
-    fontSize: 20,
-    color: '#d6d6d6',
-  },
-  resultsContainer: {
-    marginTop: 20,
-  },
-  resultContainer: {
-    padding: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  resultText: {
-    color: 'pink',
-    fontSize: 18,
-  },
-  resultText: {
-    fontSize: 26,
-    color: '#7F7F7F',
   },
   diceContainer: {
     alignItems: 'center',
@@ -1878,17 +1676,73 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#d6d6d6',
   },
-  dice: {
-    width: 200,
-    height: 200,
+  diceRzut: {
+    width: 65,
+    height: 65,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#d6d6d6',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  counterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
+  counterButton: {
+    width: 20,
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#7F7F7F',
+    borderRadius: 5,
+  },
+  counterText: {
+    color: '#fff',
+  },
+  counterValue: {
+    marginHorizontal: 8,
+    fontSize: 18,
+    color: 'black',
+  },
+  buttonContainerRzut: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  rollButton: {
+    marginTop: 20,
+    borderRadius: 8,
+    backgroundColor: 'goldenrod',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+  },
+  rollButtonText: {
+    fontSize: 20,
+    color: 'black',
+  },
+  resetButton: {
+    paddingVertical: 10,
+    backgroundColor: 'crimson',
+    borderRadius: 8,
+    marginHorizontal: 10,
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  resetButtonText: {
+    fontSize: 20,
+    color: 'black',
+  },
+  resultsContainer: {
+    marginTop: 20,
+  },
+  resultContainer: {
+    marginVertical: 5,
+    padding: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 10,
+  },
+  resultText: {
+    fontSize: 18,
+    color: 'black',
+  },
+
+
   selectionContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -1906,7 +1760,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#d6d6d6',
     position: 'absolute',
-    bottom: 10,
+    backgroundColor: 'rgba(0, 0, 0, 99)',
+    width: '100%',
+    textAlign: 'center',
   },
   playericon: {
     width: '100%',
@@ -1916,20 +1772,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  searchInput: {
-    marginTop: 100,
-    width: '80%',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    padding: 10,
-    color: '#d6d6d6',
-    backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-  filterContainer: {
-    width: '80%',
-    marginTop: 20,
-  },
   levelFilter: {
     marginBottom: 10,
   },
@@ -1937,18 +1779,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 10,
-  },
-  filterButton: {
-    padding: 10,
-    marginHorizontal: 5,
-    backgroundColor: '#444',
-    borderRadius: 10,
-  },
-  selectedFilterButton: {
-    backgroundColor: '#777',
-  },
-  filterButtonText: {
-    color: '#d6d6d6',
   },
   spellContainer: {
     width: '80%',
@@ -1970,8 +1800,10 @@ const styles = StyleSheet.create({
     color: '#a1a1a1',
   },
   noResultsText: {
+    textAlign: 'center',
     color: '#d6d6d6',
     fontSize: 18,
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
   backButton: {
     width: '20%',
@@ -1980,64 +1812,26 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1.5,
     marginTop: 10,
+    padding: 10,
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
   backButtonText: {
     color: '#d6d6d6',
-  },
-  buttonBackground: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  buttonText: {
-    color: '#ffd700',
-    fontSize: 20,
-    textShadowColor: 'black',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 2,
-    fontStyle: 'italic',
-    flex: 1,
-    textAlign: 'center',
-  },
-  icons: {
-    marginRight: -30,
-    marginLeft: 10,
-    width: 40,
-    height: 40,
   },
   sectionContainer: {
     width: '80%',
     alignItems: 'center',
   },
   itemText: {
-    color: '#fff',
+    color: 'white',
     fontSize: 16,
-    marginVertical: 5,
-  },
-  input: {
-    width: '100%',
-    padding: 10,
-    borderColor: '#fff',
-    borderWidth: 1,
-    borderRadius: 5,
-    color: '#fff',
-    marginVertical: 10,
-  },
-  addButton: {
-    backgroundColor: 'transparent',
-    padding: 10,
+    borderColor: '#7F7F7F',
     alignItems: 'center',
     borderRadius: 10,
     borderWidth: 1.5,
-    borderColor: '#7F7F7F',
-  },
-  addButtonText: {
-    color: '#d6d6d6',
-    fontSize: 16,
+    marginVertical: 5,
+    padding: 5,
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
   image: {
     width: 100,
@@ -2057,39 +1851,33 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'flex-end',
   },
-  scrollContainer: {
-    paddingTop: '40%',
-    paddingHorizontal: 40,
-  },
-  headerText: {
-    marginBottom: 20,
-    fontSize: 24,
-    color: '#7F7F7F',
-    textAlign: 'center',
-  },
   buttonContainerCamp: {
     flex: 1,
+    width: '80%',
     marginBottom: 30,
-    paddingHorizontal: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'transparent',
     borderColor: '#7F7F7F',
     alignItems: 'center',
     borderRadius: 10,
     borderWidth: 1.5,
-  },
-  buttonText: {
-    color: '#d6d6d6',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   buttonTextPlus: {
-    color: '#d6d6d6',
+    color: 'green',
     justifyContent: 'center',
     textAlign: 'center',
-    marginLeft: "55%",
+    padding: 8,
   },
   deleteButton: {
-    padding: 10,
+    padding: 7,
+    marginLeft: 10,
+    justifyContent: 'space-between',
+    borderColor: '#7F7F7F',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    backgroundColor: 'rgba(255, 0, 0, 0.8)',
   },
   deleteButtonText: {
     color: '#d6d6d6',
@@ -2097,22 +1885,6 @@ const styles = StyleSheet.create({
   addCampaignContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  input: {
-    width: '70%',
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    color: '#d6d6d6',
-    paddingHorizontal: 10,
-    marginRight: 10,
-  },
-  addButton: {
-    borderColor: '#7F7F7F',
-    borderWidth: 1.5,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
   },
 });
 

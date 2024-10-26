@@ -2,10 +2,12 @@ import React, { useState, useContext } from 'react';
 import { ImageBackground, View, Text, TouchableOpacity, StyleSheet, Animated, Easing, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from './theme/ThemeContext';
+import { useTranslation } from 'react-i18next';
 import styles from './styles';
 
 const SelectionRole = () => {
   const { theme } = useContext(ThemeContext);
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation();
   const [animation, setAnimation] = useState(new Animated.Value(0));
 
@@ -54,18 +56,18 @@ const SelectionRole = () => {
       resizeMode="cover">
 
     <View style={styles.container}>
-      <Text style={styles.title}>Who are you today?</Text>
+      <Text style={styles.titleSelect}>{t('Who are you today')}?</Text>
       <View style={styles.selectionContainer}>
         <Animated.View style={[styles.optionContainer, playerAnimatedStyle]}>
           <TouchableOpacity style={styles.option} onPress={() => handlePress('Player')}>
             <Image source={require('./assets/adventurer.jpeg')} style={styles.playericon} />
-            <Text style={styles.optionText}>Player</Text>
+            <Text style={styles.optionText}>{t('Player')}</Text>
           </TouchableOpacity>
         </Animated.View>
         <Animated.View style={[styles.optionContainer, dmAnimatedStyle]}>
           <TouchableOpacity style={styles.option} onPress={() => handlePress('DM')}>
             <Image source={require('./assets/dungeon-master.jpeg')} style={styles.dmicon} />
-            <Text style={styles.optionText}>Dungeon Master</Text>
+            <Text style={styles.optionText}>{t('Dungeon Master')}</Text>
           </TouchableOpacity>
         </Animated.View>
       </View>

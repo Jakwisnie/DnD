@@ -79,7 +79,7 @@ const YourBook = ({ navigation }) => {
       <TextInput
         placeholder={t('Add Note')}
         placeholderTextColor="#fff"
-        style={styles.input}
+        style={styles.inputNotes}
         onSubmitEditing={(e) => {
           setNotes([...notes, e.nativeEvent.text]);
           e.target.clear();
@@ -95,7 +95,7 @@ const YourBook = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => <Image source={{ uri: item }} style={styles.image} />}
       />
-      <TouchableOpacity style={styles.addButton} onPress={handleAddImage}>
+      <TouchableOpacity style={styles.addButtonImage} onPress={handleAddImage}>
         <Text style={styles.addButtonText}>{t('Add Image')}</Text>
       </TouchableOpacity>
     </View>
@@ -112,7 +112,7 @@ const YourBook = ({ navigation }) => {
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
               <Image source={theme.icons.characters} style={styles.icons} />
               <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
-              {t('CHARACTERS')}</Text>
+              {t('Characters')}</Text>
             </ImageBackground>
           </TouchableOpacity>
        </View>
@@ -122,7 +122,7 @@ const YourBook = ({ navigation }) => {
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
               <Image source={theme.icons.notes} style={styles.icons} />
               <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
-              {t('NOTES')}</Text>
+              {t('Notes')}</Text>
             </ImageBackground>
           </TouchableOpacity>
        </View>
@@ -132,7 +132,7 @@ const YourBook = ({ navigation }) => {
             <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
               <Image source={theme.icons.images} style={styles.icons} />
               <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
-              {t('IMAGES')}</Text>
+              {t('Images')}</Text>
             </ImageBackground>
           </TouchableOpacity>
        </View>

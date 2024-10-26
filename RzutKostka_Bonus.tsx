@@ -43,7 +43,7 @@ const RzutKostka_Bonus = ({ route, navigation }) => {
 
   return (
     <ImageBackground source={theme.background} style={styles.container}>
-      <Text style={styles.appName}>DMBook</Text>
+      <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
       <View style={styles.diceContainer}>
         <TouchableOpacity style={styles.diceContainer} onPress={handleRollDice}>
           <Animated.Image

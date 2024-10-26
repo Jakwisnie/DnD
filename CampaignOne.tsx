@@ -244,11 +244,11 @@ const CampaignOne = ({ navigation }) => {
   return (
     <ImageBackground
       source={theme.background}
-      style={styles.container}
+      style={styles.containerCamp}
     >
 
       <View style={styles.sessionsList}>
-        <Text style={styles.appName}>LOREM PSILUM</Text>
+        <Text style={[styles.CampName, { color: theme.fontColor }]}>LOREM PSILUM</Text>
 
         <ScrollView horizontal>
           {sessions.map((session, index) => (
@@ -272,11 +272,11 @@ const CampaignOne = ({ navigation }) => {
             <View style={styles.sessionHeader}>
               <Text style={styles.sessionName}>{sessions[activeSessionIndex]?.name}</Text>
               <TouchableOpacity onPress={() => handleEditSession(activeSessionIndex)}>
-                <Text style={[styles.editText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+                <Text style={styles.editTextCamp}>
                 {t('Edit')}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleDeleteSession(activeSessionIndex)}>
-                <Text style={[styles.deleteText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+                <Text style={styles.deleteTextCamp}>
                 {t('Delete')}</Text>
               </TouchableOpacity>
             </View>
@@ -301,8 +301,8 @@ const CampaignOne = ({ navigation }) => {
               placeholderTextColor="#d6d6d6"
               multiline
             />
-            <TouchableOpacity style={styles.addButton} onPress={handleAddSession}>
-              <Text style={styles.buttonText}>{t('Add Session')}</Text>
+            <TouchableOpacity style={styles.addButtonCamp} onPress={handleAddSession}>
+              <Text style={styles.buttonTextCamp}>{t('Add Session')}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -324,8 +324,8 @@ const CampaignOne = ({ navigation }) => {
               placeholderTextColor="#d6d6d6"
               multiline
             />
-            <TouchableOpacity style={styles.addButton} onPress={handleSaveEdit}>
-              <Text style={styles.buttonText}>{t('Save Changes')}</Text>
+            <TouchableOpacity style={styles.addButtonCamp} onPress={handleSaveEdit}>
+              <Text style={styles.buttonTextCamp}>{t('Save Changes')}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -344,7 +344,7 @@ const CampaignOne = ({ navigation }) => {
                       style={styles.editButton}
                       onPress={() => handleEditNote(index)}
                     >
-                      <Text style={styles.editText}>{t('Edit')}</Text>
+                      <Text style={styles.editTextCamp}>{t('Edit')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={styles.shareButton}
@@ -353,10 +353,10 @@ const CampaignOne = ({ navigation }) => {
                       <Text style={styles.shareText}>{t('Share')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      style={styles.deleteButton}
+                      style={styles.deleteButtonCamp}
                       onPress={() => handleDeleteNote(index)}
                     >
-                      <Text style={styles.deleteText}>{t('Delete')}</Text>
+                      <Text style={styles.deleteTextCamp}>{t('Delete')}</Text>
                     </TouchableOpacity>
                   </View>
               </TouchableOpacity>
@@ -369,10 +369,10 @@ const CampaignOne = ({ navigation }) => {
             </View>
           ))}
           <TouchableOpacity
-            style={styles.addButton}
+            style={styles.addButtonCamp}
             onPress={handleAddNote}
           >
-            <Text style={styles.addButtonText}>{t('+ Add Note')}</Text>
+            <Text style={styles.addButtonTextCamp}>{t('+ Add Note')}</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -380,14 +380,14 @@ const CampaignOne = ({ navigation }) => {
         {addingNewNote && !addingNewSession && (
           <View style={styles.newNoteContainer}>
             <TextInput
-              style={styles.input}
+              style={styles.inputCampNote}
               placeholder={t('Enter note title')}
               placeholderTextColor="#d6d6d6"
               value={newNoteTitle}
               onChangeText={setNewNoteTitle}
             />
             <TextInput
-              style={[styles.input, styles.contentInput]}
+              style={[styles.inputCampNote, styles.contentInput]}
               placeholder={t('Enter note content')}
               placeholderTextColor="#d6d6d6"
               multiline
@@ -415,10 +415,10 @@ const CampaignOne = ({ navigation }) => {
             </TouchableOpacity>
             {editingNoteIndex !== null && (
               <TouchableOpacity
-                style={styles.deleteButton}
+                style={styles.deleteButtonCamp}
                 onPress={() => handleDeleteNote(editingNoteIndex)}
               >
-                <Text style={styles.deleteText}>{t('Delete Note')}</Text>
+                <Text style={styles.deleteTextCamp}>{t('Delete Note')}</Text>
               </TouchableOpacity>
             )}
           </View>

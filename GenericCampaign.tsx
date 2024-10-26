@@ -137,11 +137,11 @@ const GenericCampaign = ({ route, navigation }) => {
     return (
       <ImageBackground
          source={theme.background}
-        style={styles.container}
+        style={styles.containerCamp}
       >
 
         <View style={styles.sessionsList}>
-          <Text style={styles.appName}>LOREM PSILUM</Text>
+          <Text style={[styles.CampName, { color: theme.fontColor }]}>LOREM PSILUM</Text>
           <ScrollView horizontal>
             {sessions.map((session, index) => (
               <TouchableOpacity key={index} style={styles.sessionTab} onPress={() => {
@@ -163,10 +163,12 @@ const GenericCampaign = ({ route, navigation }) => {
               <View style={styles.sessionHeader}>
                 <Text style={styles.sessionName}>{sessions[activeSessionIndex]?.name}</Text>
                 <TouchableOpacity onPress={() => handleEditSession(activeSessionIndex)}>
-                  <Text style={styles.editText}>{t('Edit')}</Text>
+                <Text style={styles.editTextCamp}>
+                  {t('Edit')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleDeleteSession(activeSessionIndex)}>
-                  <Text style={styles.deleteText}>{t('Delete')}</Text>
+                <Text style={styles.deleteTextCamp}>
+                  {t('Delete')}</Text>
                 </TouchableOpacity>
               </View>
               <Text style={styles.sessionContent}>{sessions[activeSessionIndex]?.content}</Text>
@@ -189,8 +191,8 @@ const GenericCampaign = ({ route, navigation }) => {
                 placeholderTextColor="#d6d6d6"
                 multiline
               />
-              <TouchableOpacity style={styles.addButton} onPress={editingSession === null ? handleAddSession : handleSaveEdit}>
-                <Text style={styles.buttonText}>{editingSession === null ? t('Add Session') : t('Save Session')}</Text>
+              <TouchableOpacity style={styles.addButtonCamp} onPress={editingSession === null ? handleAddSession : handleSaveEdit}>
+                <Text style={styles.buttonTextCamp}>{editingSession === null ? t('Add Session') : t('Save Session')}</Text>
               </TouchableOpacity>
             </View>
           )}

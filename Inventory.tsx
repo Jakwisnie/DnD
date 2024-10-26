@@ -65,19 +65,19 @@ const Inventory = ({ navigation }) => {
             navigation.navigate(itemValue);
           }}
         >
-          <Picker.Item label="Main Scene" value="Character1" />
-          <Picker.Item label="Inventory" value="Inventory" />
-          <Picker.Item label="Character Details" value="CharacterDetails" />
+          <Picker.Item label={t('Main Scene')} value="Character1" />
+          <Picker.Item label={t('Inventory')} value="Inventory" />
+          <Picker.Item label={t('Character Details')} value="CharacterDetails" />
         </Picker>
       </View>
 
       <ScrollView style={styles.tableContainer}>
         <View style={styles.tableHeader}>
-          <Text style={styles.tableHeaderText}>Name</Text>
-          <Text style={styles.tableHeaderText}>Weight</Text>
-          <Text style={styles.tableHeaderText}>Quantity</Text>
-          <Text style={styles.tableHeaderText}>Cost (gold)</Text>
-          <Text style={styles.tableHeaderText}>Actions</Text>
+          <Text style={styles.tableHeaderText}>{t('Name')}</Text>
+          <Text style={styles.tableHeaderText}>{t('Weight')}</Text>
+          <Text style={styles.tableHeaderText}>{t('Quantity')}</Text>
+          <Text style={styles.tableHeaderText}>{t('Cost (gold)')}</Text>
+          <Text style={styles.tableHeaderText}>{t('Actions')}</Text>
         </View>
         {items.map((item, index) => (
           <View key={index} style={styles.tableRow}>
@@ -105,19 +105,19 @@ const Inventory = ({ navigation }) => {
               keyboardType="numeric"
             />
             <TouchableOpacity style={styles.removeButton} onPress={() => handleRemoveItem(index)}>
-              <Text style={styles.removeButtonText}>Remove</Text>
+              <Text style={styles.removeButtonText}>{t('Remove')}</Text>
             </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
 
       <TouchableOpacity style={styles.addButton} onPress={handleAddItem}>
-        <Text style={styles.addButtonText}>Add Item</Text>
+        <Text style={styles.addButtonText}>{t('Add Item')}</Text>
       </TouchableOpacity>
 
       <View style={styles.summaryContainer}>
-        <Text style={styles.summaryTextLeft}>{calculateTotalWeight()} kg</Text>
-        <Text style={styles.summaryTextRight}>{calculateTotalCost()} gold</Text>
+        <Text style={styles.summaryTextLeft}>{calculateTotalWeight()} {t('kg')}</Text>
+        <Text style={styles.summaryTextRight}>{calculateTotalCost()} {t('gold')}</Text>
       </View>
 
       <View style={styles.GoBack}>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 
 const alignments = [
@@ -50,10 +51,10 @@ const CreateCharacter4 = ({ navigation, route }) => {
         </TouchableOpacity>
         {isCharacterDetailsVisible && (
           <View style={styles.blockContent}>
-            <Text>Alignment:</Text>
+            <Text style={{ color: theme.fontColor }}>{t('Alignment')}:</Text>
             <Picker
               selectedValue={alignment}
-              style={styles.picker}
+              style={styles.pickerCharacter3}
               onValueChange={(itemValue) => setAlignment(itemValue)}
             >
               {alignments.map((align) => (
@@ -61,18 +62,18 @@ const CreateCharacter4 = ({ navigation, route }) => {
               ))}
             </Picker>
 
-            <Text>Fate:</Text>
+            <Text style={{ color: theme.fontColor }}>{t('Fate')}:</Text>
             <TextInput
-              style={styles.input}
-              placeholder="Enter your fate"
+              style={styles.inputCharacter}
+              placeholder={t('Enter_your_fate')}
               value={fate}
               onChangeText={setFate}
             />
 
-            <Text>Lifestyle:</Text>
+            <Text style={{ color: theme.fontColor }}>{t('Lifestyle')}:</Text>
             <TextInput
-              style={styles.input}
-              placeholder="Enter your lifestyle"
+              style={styles.inputCharacter}
+              placeholder={t('Enter_your_lifestyle')}
               value={lifestyle}
               onChangeText={setLifestyle}
             />
@@ -81,73 +82,73 @@ const CreateCharacter4 = ({ navigation, route }) => {
 
         {/* Физ дан */}
         <TouchableOpacity onPress={() => setPhysicalCharacteristicsVisible(!isPhysicalCharacteristicsVisible)}>
-          <Text style={styles.blockTitle}>Physical Characteristics</Text>
+          <Text style={styles.blockTitle}>{t('Physical_Characteristics')}</Text>
         </TouchableOpacity>
         {isPhysicalCharacteristicsVisible && (
           <View style={styles.blockContent}>
-            <Text>Hair:</Text>
-            <TextInput style={styles.input} placeholder="Enter hair description" />
+            <Text style={{ color: theme.fontColor }}>{t('Hair')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_hair_description')} />
 
-            <Text>Skin:</Text>
-            <TextInput style={styles.input} placeholder="Enter skin description" />
+            <Text style={{ color: theme.fontColor }}>{t('Skin')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_skin_description')} />
 
-            <Text>Eyes:</Text>
-            <TextInput style={styles.input} placeholder="Enter eye description" />
+            <Text style={{ color: theme.fontColor }}>{t('Eyes')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_eye_description')} />
 
-            <Text>Height:</Text>
-            <TextInput style={styles.input} placeholder="Enter height" />
+            <Text style={{ color: theme.fontColor }}>{t('Height')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_height')} />
 
-            <Text>Weight:</Text>
-            <TextInput style={styles.input} placeholder="Enter weight" />
+            <Text style={{ color: theme.fontColor }}>{t('Weight')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_weight')} />
 
-            <Text>Age:</Text>
-            <TextInput style={styles.input} placeholder="Enter age" />
+            <Text style={{ color: theme.fontColor }}>{t('Age')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_age')} />
           </View>
         )}
 
         {/* Перса */}
         <TouchableOpacity onPress={() => setPersonalCharacteristicsVisible(!isPersonalCharacteristicsVisible)}>
-          <Text style={styles.blockTitle}>Personal Characteristics</Text>
+          <Text style={styles.blockTitle}>{t('Personal_Characteristics')}</Text>
         </TouchableOpacity>
         {isPersonalCharacteristicsVisible && (
           <View style={styles.blockContent}>
-            <Text>Ideals:</Text>
-            <TextInput style={styles.input} placeholder="Enter ideals" />
+            <Text style={{ color: theme.fontColor }}>{t('Ideals')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_ideals')} />
 
-            <Text>Preferences:</Text>
-            <TextInput style={styles.input} placeholder="Enter preferences" />
+            <Text style={{ color: theme.fontColor }}>{t('Preferences')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_preferences')} />
 
-            <Text>Other:</Text>
-            <TextInput style={styles.input} placeholder="Enter other personal characteristics" />
+            <Text style={{ color: theme.fontColor }}>{t('Other')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_other_personal_characteristics')} />
           </View>
         )}
 
         {/* Заметки */}
         <TouchableOpacity onPress={() => setNotesVisible(!isNotesVisible)}>
-          <Text style={styles.blockTitle}>Notes</Text>
+          <Text style={styles.blockTitle}>{t('Notes')}</Text>
         </TouchableOpacity>
         {isNotesVisible && (
           <View style={styles.blockContent}>
-            <Text>Organizations:</Text>
-            <TextInput style={styles.input} placeholder="Enter organizations" />
+            <Text style={{ color: theme.fontColor }}>{t('Organizations')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_organizations')} />
 
-            <Text>Enemies:</Text>
-            <TextInput style={styles.input} placeholder="Enter enemies" />
+            <Text style={{ color: theme.fontColor }}>{t('Enemies')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_enemies')} />
 
-            <Text>Allies:</Text>
-            <TextInput style={styles.input} placeholder="Enter allies" />
+            <Text style={{ color: theme.fontColor }}>{t('Allies')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_allies')} />
 
-            <Text>Backstory:</Text>
-            <TextInput style={styles.input} placeholder="Enter backstory" multiline />
+            <Text style={{ color: theme.fontColor }}>{t('Backstory')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_backstory')} multiline />
 
-            <Text>Other Notes:</Text>
-            <TextInput style={styles.input} placeholder="Enter other notes" multiline />
+            <Text style={{ color: theme.fontColor }}>{t('Other_Notes')}:</Text>
+            <TextInput style={styles.inputCharacter} placeholder={t('Enter_other_notes')} multiline />
           </View>
         )}
 
-        <View style={styles.ConButton}>
+        <View style={styles.ConButtonNotes}>
           <TouchableOpacity style={styles.button} onPress={handleContinue}>
-            <Text style={styles.ConButtonText}>Continue</Text>
+            <Text style={styles.ConButtonText}>{t('Continue')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

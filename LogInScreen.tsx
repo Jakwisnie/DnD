@@ -55,22 +55,22 @@ const LogInScreen = () => {
 
       <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
 
-    <Text style={styles.titleLogin}>{t('Log_in')}</Text>
+    <Text style={[styles.titleLogin, { color: theme.textColor }]}>{t('Log in')}</Text>
 
     <View style={styles.newUser}>
-       <Text style={styles.newUserText}>{t('New_user')}?</Text>
-       <TouchableOpacity style={[styles.buttonUser, {width: '200%' }]} onPress={() => {handleRegistrationPress()}}>
+       <Text style={[styles.newUserText, { color: theme.textColor }]}>{t('New_user')}?</Text>
+       <TouchableOpacity style={styles.buttonUser } onPress={() => {handleRegistrationPress()}}>
            <Text style={styles.buttonUserText}>{t('Create_account')}</Text>
        </TouchableOpacity>
     </View>
 
-    <Text style={styles.labelLogin}>{t('Login_nick')}</Text>
+    <Text style={[styles.labelLogin, { color: theme.textColor }]}>{t('Login_nick')}</Text>
     <TextInput style={styles.inputLogin}
     value={login}
     onChangeText={setLogin}
     placeholder={t('Login_nick')} />
 
-    <Text style={styles.labelPassword}>{t('Pass')}</Text>
+    <Text style={[styles.labelPassword, { color: theme.textColor }]}>{t('Pass')}</Text>
     <TextInput style={styles.inputPassword}
     value={password}
     onChangeText={setPassword}
@@ -81,12 +81,12 @@ const LogInScreen = () => {
     </TouchableOpacity>
 
     <TouchableOpacity style={styles.continueButton} onPress={() => {handleKontynuacja()}}>
-      <Text style={styles.continueButtonText}>{t('Continue')}</Text>
+      <Text style={[styles.continueButtonText, { color: theme.textColor }]}>{t('Continue')}</Text>
     </TouchableOpacity>
 
     <View style={styles.separator}>
     <View style={styles.separatorLine} />
-       <Text style={styles.separatorText}>{t('or')}</Text>
+       <Text style={[styles.separatorText, { color: theme.textColor }]}>{t('or')}</Text>
     <View style={styles.separatorLine} />
     </View>
 

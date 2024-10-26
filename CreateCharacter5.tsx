@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, FlatList, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 
 const CreateCharacter5 = ({ navigation, route }) => {
@@ -67,8 +68,8 @@ const CreateCharacter5 = ({ navigation, route }) => {
       style={styles.container}
     >
       <View style={styles.content}>
-        <Text style={styles.title}>Choose Starting Equipment or Gold</Text>
-        <Text style={styles.subtitle}>Starting Equipment:</Text>
+        <Text style={[styles.title, { color: theme.fontColor }]}>{t('Choose Starting Equipment or Gold')}</Text>
+        <Text style={styles.subtitle}>{t('Starting Equipment')}:</Text>
 
         {equipment && (
           <FlatList
@@ -78,7 +79,7 @@ const CreateCharacter5 = ({ navigation, route }) => {
           />
         )}
 
-        <Text style={styles.subtitle}>Or choose starting gold:</Text>
+        <Text style={styles.subtitle}>{t('Or choose starting gold')}:</Text>
         <View style={styles.goldInputContainer}>
           {['copper', 'silver', 'gold', 'platinum'].map((field) => (
             <View key={field} style={styles.goldInputWrapper}>
@@ -94,7 +95,7 @@ const CreateCharacter5 = ({ navigation, route }) => {
             </View>
           ))}
         </View>
-        <Text style={styles.totalGold}>Total Gold: {formattedTotalGold}</Text>
+        <Text style={styles.totalGold}>{t('Total Gold')}: {formattedTotalGold}</Text>
       </View>
 
       <View style={styles.GoBack}>
@@ -105,11 +106,11 @@ const CreateCharacter5 = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.ConButton}>
-        <TouchableOpacity style={styles.button} onPress={handleContinue}>
-          <Text style={styles.ConButtonText}>Continue</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.ConButtonNotes}>
+          <TouchableOpacity style={styles.button} onPress={handleContinue}>
+            <Text style={styles.ConButtonText}>{t('Continue')}</Text>
+          </TouchableOpacity>
+        </View>
     </ImageBackground>
   );
 };
