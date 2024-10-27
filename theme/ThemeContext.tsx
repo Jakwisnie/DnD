@@ -72,13 +72,18 @@ const themes = {
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(themes.theme1);
+  const [diceResults, setDiceResults] = useState([]);
 
   const changeTheme = (themeName) => {
     setTheme(themes[themeName]);
   };
 
+  const addDiceResult = (result) => {
+    setDiceResults((prevResults) => [...prevResults, result]);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, changeTheme }}>
+    <ThemeContext.Provider value={{ theme, changeTheme, diceResults, addDiceResult }}>
       {children}
     </ThemeContext.Provider>
   );

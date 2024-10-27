@@ -7,7 +7,7 @@ import styles from './styles';
 
 const CampaignOne = ({ navigation }) => {
   const { t, i18n } = useTranslation();
-  const { theme } = useContext(ThemeContext);
+  const { theme, diceResults } = useContext(ThemeContext);
 
   const [sessions, setSessions] = useState([
     { name: "Session 1" },
@@ -368,6 +368,12 @@ const CampaignOne = ({ navigation }) => {
               )}
             </View>
           ))}
+
+      {diceResults.map((result, index) => (
+        <Text key={index} style={styles.diceResult}>
+          {t('Dice roll result')}: Dice {result}
+        </Text>
+      ))}
           <TouchableOpacity
             style={styles.addButtonCamp}
             onPress={handleAddNote}

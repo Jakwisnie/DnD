@@ -834,8 +834,18 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-
-
+  diceResult: {
+    fontSize: 18,
+    color: '#d9534f',
+    marginVertical: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+  },
   selectedImage: {
     width: 400,
     height: 400,

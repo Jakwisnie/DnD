@@ -25,6 +25,7 @@
   "Characters": "Персонажи",
   "Roll_dice": "Бросок костьми",
   "Log_out": "Выйти",
+  "Log out": "Выйти",
   "Available": "Доступен",
   "In_session": "В сессии",
   "To_finish": "Закончить",
@@ -167,5 +168,6 @@
   "Cancel": "Отмена",
   "Dungeon Master Campaigns": "Кампании Мастера подземелий",
   "Enter campaign name": "Введите название кампании",
-  "Add": "Добавить"
+  "Add": "Добавить",
+  "Reset": "Сброс"
 }

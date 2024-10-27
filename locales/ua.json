@@ -25,6 +25,7 @@
   "Characters": "Персонажі",
   "Roll_dice": "Кинути гральні кості",
   "Log_out": "Вийти",
+  "Log out": "Вийти",
   "Available": "Доступний",
   "In_session": "У грі",
   "To_finish": "Закінчити",
@@ -167,5 +168,6 @@
   "Cancel": "Скасувати",
   "Dungeon Master Campaigns": "Кампанії Майстра Підземелля",
   "Enter campaign name": "Впишіть назву кампанії",
-  "Add": "Додати"
+  "Add": "Додати",
+  "Reset": "Скинути"
 }

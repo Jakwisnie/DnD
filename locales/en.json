@@ -25,6 +25,7 @@
   "Characters": "Characters",
   "Roll_dice": "Roll dice",
   "Log_out": "Log out",
+  "Log out": "Log out",
   "Available": "Available",
   "In_session": "In session",
   "To_finish": "To finish",
@@ -167,5 +168,6 @@
   "Cancel": "Cancel",
   "Dungeon Master Campaigns": "Dungeon Master Campaigns",
   "Enter campaign name": "Enter campaign name",
-  "Add": "Add"
+  "Add": "Add",
+  "Reset": "Reset"
 }

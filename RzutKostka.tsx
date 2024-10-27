@@ -16,7 +16,7 @@ const diceTypes = [
 
 const RzutKostka = ({ navigation }) => {
   const { t } = useTranslation();
-  const { theme } = useContext(ThemeContext);
+  const { theme, addDiceResult } = useContext(ThemeContext);
 
   const [selectedDice, setSelectedDice] = useState([]);
   const [diceValues, setDiceValues] = useState([]);
@@ -33,6 +33,7 @@ const RzutKostka = ({ navigation }) => {
 
   const handleRollDice = () => {
     const newDiceValues = [];
+    const resultsSummary = [];
 
     selectedDice.forEach(({ index, count }) => {
       const diceResults = [];
@@ -40,8 +41,8 @@ const RzutKostka = ({ navigation }) => {
         const randomValue = Math.floor(Math.random() * diceTypes[index].sides) + 1;
         diceResults.push(randomValue);
       }
-
       newDiceValues.push({ index, results: diceResults });
+      resultsSummary.push(`${diceTypes[index].sides}: ${diceResults.join(', ')}`);
 
       Animated.timing(rotateValues[index], {
         toValue: 1,
@@ -54,6 +55,7 @@ const RzutKostka = ({ navigation }) => {
     });
 
     setDiceValues(newDiceValues);
+    addDiceResult(resultsSummary.join(' | Dice '));
   };
 
   const handleDiceCountChange = (index, change) => {
@@ -106,7 +108,7 @@ const RzutKostka = ({ navigation }) => {
     return diceValues.map(({ index, results }) => (
       <View key={index} style={styles.resultContainer}>
         <Text style={styles.resultText}>
-          {diceTypes[index].sides}: {results.join(', ')}
+          d{diceTypes[index].sides}: {results.join(', ')}
         </Text>
       </View>
     ));

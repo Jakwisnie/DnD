@@ -25,6 +25,7 @@
   "Characters": "Postaci",
   "Roll_dice": "Rzut kostką",
   "Log_out": "Wyloguj się",
+  "Log out": "Wyloguj się",
   "Available": "Dostępne",
   "In_session": "W trakcie rozrywki",
   "To_finish": "Do dokonczenia",
@@ -172,5 +173,6 @@
   "Cancel": "Anuluj",
   "Dungeon Master Campaigns": "Kampanie Mistrza Podziemi",
   "Enter campaign name": "Wpisz nazwę kampanii",
-  "Add": "Dodaj"
+  "Add": "Dodaj",
+  "Reset": "Zresetuj"
 }
