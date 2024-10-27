@@ -101,12 +101,35 @@ const CampaignOne = ({ navigation }) => {
     loadSessions();
   }, []);
 
+  useEffect(() => {
+    const loadNotes = async () => {
+      try {
+        const savedNotes = await AsyncStorage.getItem('notes');
+        if (savedNotes !== null) {
+          setNotes(JSON.parse(savedNotes));
+        }
+      } catch (error) {
+        console.error('Failed to load notes', error);
+      }
+    };
+    loadNotes();
+  }, []);
+
   const saveSessions = async (updatedSessions) => {
     try {
       await AsyncStorage.setItem('sessions', JSON.stringify(updatedSessions));
       setSessions(updatedSessions);
     } catch (error) {
       console.error('Failed to save sessions', error);
+    }
+  };
+
+  const saveNotes = async (updatedNotes) => {
+    try {
+      await AsyncStorage.setItem('notes', JSON.stringify(updatedNotes));
+      setNotes(updatedNotes);
+    } catch (error) {
+      console.error('Failed to save notes', error);
     }
   };
 
@@ -183,10 +206,11 @@ const CampaignOne = ({ navigation }) => {
       const newNote = {
         title: newNoteTitle,
         content: newNoteContent,
-        image: newNoteImage ? { uri: newNoteImage } : require('./assets/Human-W-Mage.jpg')
+        image: newNoteImage ? { uri: newNoteImage } : require('./assets/Human-W-Mage.jpg'),
+        diceResults: diceResults,
       };
       const updatedNotes = [...notes, newNote];
-      setNotes(updatedNotes);
+      await saveNotes(updatedNotes);
       setNewNoteTitle('');
       setNewNoteContent('');
       setNewNoteImage(null);
@@ -374,6 +398,7 @@ const CampaignOne = ({ navigation }) => {
           {t('Dice roll result')}: Dice {result}
         </Text>
       ))}
+
           <TouchableOpacity
             style={styles.addButtonCamp}
             onPress={handleAddNote}
