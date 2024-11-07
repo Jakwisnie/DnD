@@ -169,5 +169,12 @@
   "Dungeon Master Campaigns": "Кампании Мастера подземелий",
   "Enter campaign name": "Введите название кампании",
   "Add": "Добавить",
-  "Reset": "Сброс"
+  "Reset": "Сброс",
+  "Your Sessions": "Твои сессии",
+  "Change role": "Сменить роль",
+  "Select Language": "Измени язык",
+  "Add Automatically": "Добавь автоматически",
+
+  "Add New Item": "Add New Item",
+  "Cost": "Cost"
 }

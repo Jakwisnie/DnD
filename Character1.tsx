@@ -25,7 +25,7 @@ const Character1 = ({ navigation }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://10.0.2.2:8000/player_characters/get/0');
+      const response = await fetch('http://10.0.2.2:8000/characters/1');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -137,7 +137,7 @@ const Character1 = ({ navigation }) => {
           <View style={styles.powerLevels}>
             {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
               <TouchableOpacity key={index} style={styles.rightButton}>
-                <Text style={styles.buttonText}>{label}</Text>
+                <Text style={styles.buttonTextCharacter}>{label}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -168,7 +168,7 @@ const Character1 = ({ navigation }) => {
           <View style={styles.powerLevels}>
             {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
               <TouchableOpacity key={index} style={styles.rightButton}>
-                <Text style={styles.buttonText}>{label}</Text>
+                <Text style={styles.buttonTextCharacter}>{label}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -196,7 +196,7 @@ const Character1 = ({ navigation }) => {
           <View style={styles.powerLevels}>
             {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
               <TouchableOpacity key={index} style={styles.rightButton}>
-                <Text style={styles.buttonText}>{label}</Text>
+                <Text style={styles.buttonTextCharacter}>{label}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -224,7 +224,7 @@ const Character1 = ({ navigation }) => {
           <View style={styles.powerLevels}>
             {['I', 'II', 'III', 'IV', 'V', 'VI'].map((label, index) => (
               <TouchableOpacity key={index} style={styles.rightButton}>
-                <Text style={styles.buttonText}>{label}</Text>
+                <Text style={styles.buttonTextCharacter}>{label}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -279,7 +279,7 @@ const Character1 = ({ navigation }) => {
 
   return (
     <ImageBackground source={theme.background} style={styles.container}>
-      <View style={styles.dropdownContainer}>
+      <View style={styles.dropdownContainerCharacter}>
         <Picker
           selectedValue={selectedScreen}
           style={styles.picker}
@@ -405,17 +405,17 @@ const Character1 = ({ navigation }) => {
 
       <View style={styles.rightContainer}>
       <TouchableOpacity style={styles.rightButton} onPress={toggleAction}>
-        <Text style={styles.buttonText}>{t('Action')}</Text>
+        <Text style={styles.buttonTextCharacter}>{t('Action')}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.rightButton} onPress={toggleBonus}>
-        <Text style={styles.buttonText}>{t('Bonus')}</Text>
+        <Text style={styles.buttonTextCharacter}>{t('Bonus')}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.rightButton} onPress={toggleReact}>
-        <Text style={styles.buttonText}>{t('React')}</Text>
+        <Text style={styles.buttonTextCharacter}>{t('React')}</Text>
       </TouchableOpacity>
         {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'].map((label, index) => (
           <TouchableOpacity key={index} style={styles.rightButton} onPress={() => handleRomanNumeralPress(label)}>
-            <Text style={styles.buttonText}>{label}</Text>
+            <Text style={styles.buttonTextCharacter}>{label}</Text>
           </TouchableOpacity>
         ))}
       </View>

@@ -128,7 +128,7 @@
   "Total Gold": "Всього Золота",
   "Library": "Бібліотека",
   "Items": "Предмети",
-  "Feats": "Досягнення",
+  "Feats": "Потвори",
   "Close": "Закрити",
   "Search monsters": "Шукай монстрів",
   "CR": "CR",
@@ -169,5 +169,12 @@
   "Dungeon Master Campaigns": "Кампанії Майстра Підземелля",
   "Enter campaign name": "Впишіть назву кампанії",
   "Add": "Додати",
-  "Reset": "Скинути"
+  "Reset": "Скинути",
+  "Your Sessions": "Твоі сесії",
+  "Change role": "Змінити роль",
+  "Select Language": "Змінити язик",
+  "Add Automatically": "Додай автоматично",
+
+  "Add New Item": "Add New Item",
+  "Cost": "Cost"
 }

@@ -50,6 +50,8 @@ import CharacterDetails from './CharacterDetails';
 import Spells from './Spells';
 import Items from './Items';
 import Feats from './Feats';
+import PlayerSessions from './PlayerSessions';
+import PlayerSessionDetails from './PlayerSessionDetails';
 
 
 const Stack = createStackNavigator();
@@ -92,6 +94,8 @@ const App = () => {
         <Stack.Screen name="Spells" component={Spells} options={{ headerShown: false }} />
         <Stack.Screen name="Items" component={Items} options={{ headerShown: false }} />
         <Stack.Screen name="Feats" component={Feats} options={{ headerShown: false }} />
+        <Stack.Screen name="PlayerSessions" component={PlayerSessions} options={{ headerShown: false }} />
+        <Stack.Screen name="PlayerSessionDetails" component={PlayerSessionDetails} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
     </UserProvider>

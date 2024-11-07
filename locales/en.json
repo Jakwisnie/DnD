@@ -169,5 +169,12 @@
   "Dungeon Master Campaigns": "Dungeon Master Campaigns",
   "Enter campaign name": "Enter campaign name",
   "Add": "Add",
-  "Reset": "Reset"
+  "Reset": "Reset",
+  "Your Sessions": "Your Sessions",
+  "Change role": "Change role",
+  "Select Language": "Select Language",
+  "Add Automatically": "Add automatically",
+
+  "Add New Item": "Add New Item",
+  "Cost": "Cost"
 }

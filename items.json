@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Potion of Healing",
+    "weight": 0.5,
+    "quantity": 2,
+    "cost": 50
+  },
+  {
+    "name": "Sword",
+    "weight": 3,
+    "quantity": 1,
+    "cost": 150
+  },
+  {
+    "name": "Rope",
+    "weight": 5,
+    "quantity": 1,
+    "cost": 1
+  },
+  {
+    "name": "Torch",
+    "weight": 0.2,
+    "quantity": 5,
+    "cost": 0.01
+  },
+  {
+    "name": "Backpack",
+    "weight": 1,
+    "quantity": 1,
+    "cost": 2
+  },
+  {
+    "name": "Spellbook",
+    "weight": 1.5,
+    "quantity": 1,
+    "cost": 75
+  }
+]

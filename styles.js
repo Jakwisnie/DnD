@@ -9,6 +9,77 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
+  languageLabel: {
+    fontSize: 16,
+    color: 'white',
+    marginLeft: 10,
+  },
+  titleSesDet: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  descriptionSesDet: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  sessionsListSesDet: {
+    width: '100%',
+    marginVertical: 20,
+  },
+  sessionTabSesDet: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    marginVertical: 5,
+    width: '100%',
+  },
+  sectionTitleSesDet: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  sessionTabTextSesDet: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  notesContainerSesDet: {
+    width: '100%',
+  },
+  noteContainerSesDet: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 10,
+    padding: 15,
+    marginVertical: 5,
+  },
+  noteTitleSesDet: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  noteContentSesDet: {
+    fontSize: 16,
+  },
+  noteImageSesDet: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  sessionDescription: {
+    fontSize: 14,
+    color: '#ccc'
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
   containerCamp: {
     flex: 1,
     justifyContent: 'center',
@@ -69,6 +140,10 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     flex: 1,
     textAlign: 'center',
+  },
+  buttonTextCharacter: {
+    fontSize: 16,
+    color: '#d6d6d6',
   },
   buttonTextCamp: {
     fontSize: 16,
@@ -210,6 +285,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginVertical: 10,
   },
+  inputInventory: {
+    borderBottomWidth: 1,
+    marginBottom: 10,
+    padding: 8,
+  },
   inputNotes: {
     width: '100%',
     borderColor: '#7F7F7F',
@@ -276,6 +356,11 @@ const styles = StyleSheet.create({
     color: 'green',
     fontSize: 16,
   },
+  picker: {
+    height: 50,
+    width: '101%',
+    color: '#d6d6d6',
+  },
   imagePicker: {
     borderColor: '#7F7F7F',
     borderWidth: 1.5,
@@ -301,10 +386,21 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontSize: 16,
   },
+  autoAddButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
   newNoteImage: {
     marginTop: 10,
     marginBottom: 10,
     padding: 10,
+  },
+  cancelButton: {
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  cancelButtonText: {
+    color: 'red',
   },
   deleteButtonCamp: {
     alignItems: 'center',
@@ -362,6 +458,19 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#2d2d38',
     borderRadius: 5,
+  },
+  addButtonInventory: {
+    padding: 10,
+    backgroundColor: 'green',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  autoAddButton: {
+    padding: 10,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
   },
   chainOverlay: {
     position: 'absolute',
@@ -445,11 +554,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 1)',
     width: '40%',
   },
-  picker: {
-    height: 50,
-    width: '101%',
-    color: '#d6d6d6',
-  },
   blackLeftContainer: {
     backgroundColor: 'rgba(0, 0, 0, 1)',
     borderColor: '#7F7F7F',
@@ -505,11 +609,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: 10,
     overflow: 'hidden',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
   },
   healthContainer: {
     position: 'absolute',
@@ -710,11 +809,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 1)',
     width: '40%',
   },
-  picker: {
-    height: 50,
-    width: '101%',
-    color: '#d6d6d6',
-  },
   characterRow: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -800,14 +894,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
   },
-
   pickerCharacter: {
     height: 40,
     width: 200,
     backgroundColor: '#f0f0f0',
     borderRadius: 5,
   },
-
   selectedImageContainer: {
     marginTop: 70,
     position: 'center',
@@ -898,6 +990,12 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
+  modalContentInventory: {
+    width: '80%',
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
   modalOption: {
     fontSize: 18,
     padding: 10,
@@ -908,8 +1006,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-
   blockTitle: {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     fontSize: 20,
@@ -918,15 +1014,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
   },
-
   blockContent: {
     width: '90%',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     padding: 20,
     borderRadius: 10,
   },
-
-
   pickerCharacter3: {
     marginTop: 10,
     marginBottom: 10,
@@ -1212,7 +1305,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 10,
   },
-  dropdownContainer: {
+  dropdownContainerCharacter: {
     position: 'absolute',
     top: '3%',
     justifyContent: 'center',
@@ -1223,12 +1316,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 1)',
     width: '40%',
   },
-  picker: {
-    height: 50,
-    width: '101%',
-    color: '#d6d6d6',
-  },
-
   tableContainer: {
     marginTop: 90,
     width: '90%',
@@ -1273,17 +1360,18 @@ const styles = StyleSheet.create({
   },
 
   summaryContainer: {
-    marginTop: 30,
+    marginLeft: 15,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   summaryTextRight: {
-    bottom: 85,
-    left: 80,
+    marginLeft: 5,
     fontSize: 16,
     color: '#d6d6d6',
   },
   summaryTextLeft: {
-    bottom: 65,
-    right: 65,
+    marginRight: 5,
     fontSize: 16,
     color: '#d6d6d6',
   },
@@ -1842,11 +1930,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     padding: 5,
     backgroundColor: 'rgba(0,0,0,0.8)',
-  },
-  image: {
-    width: 100,
-    height: 100,
-    margin: 5,
   },
   characterRow: {
     flexDirection: 'row',

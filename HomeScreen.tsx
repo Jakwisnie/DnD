@@ -20,6 +20,7 @@ const HomeScreen = ({ navigation }) => {
   const { t, i18n } = useTranslation();
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isThemeDropdownVisible, setThemeDropdownVisible] = useState(false);
+  const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [currentLang, setCurrentLang] = useState(i18n.language);
   const { theme, changeTheme } = useContext(ThemeContext);
   const [themeModalVisible, setThemeModalVisible] = useState(false);
@@ -68,23 +69,8 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.flagsContainer}>
-        <TouchableOpacity onPress={() => setDropdownVisible(!isDropdownVisible)}>
-          <Image source={languages.find(lang => lang.code === currentLang).flag} style={styles.flag} />
-        </TouchableOpacity>
-        {isDropdownVisible && (
-          <View style={styles.dropdown}>
-            {languages.filter(lang => lang.code !== currentLang).map((lang) => (
-              <TouchableOpacity key={lang.code} onPress={() => changeLanguage(lang.code)} style={styles.flagButton}>
-                <Image source={lang.flag} style={styles.flag} />
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
-      </View>
-
       <View style={styles.themeContainer}>
-        <TouchableOpacity onPress={() => setThemeModalVisible(true)}>
+        <TouchableOpacity onPress={() => setSettingsModalVisible(true)}>
           <Image source={theme.icons.settings} style={styles.gearIcon} />
         </TouchableOpacity>
       </View>
@@ -92,12 +78,22 @@ const HomeScreen = ({ navigation }) => {
       <Modal
         transparent={true}
         animationType="slide"
-        visible={themeModalVisible}
-        onRequestClose={() => setThemeModalVisible(false)}
+        visible={settingsModalVisible}
+        onRequestClose={() => setSettingsModalVisible(false)}
       >
-        <TouchableWithoutFeedback onPress={() => setThemeModalVisible(false)}>
+        <TouchableWithoutFeedback onPress={() => setSettingsModalVisible(false)}>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>{t('Select Language')}</Text>
+              <View style={styles.dropdown}>
+                {languages.map((lang) => (
+                  <TouchableOpacity key={lang.code} onPress={() => changeLanguage(lang.code)} style={styles.flagButton}>
+                    <Image source={lang.flag} style={styles.flag} />
+                    <Text style={styles.languageLabel}>{lang.label}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
               <Text style={styles.modalTitle}>{t('Select Theme')}</Text>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
                 {themes.map((themeItem) => (
@@ -107,7 +103,8 @@ const HomeScreen = ({ navigation }) => {
                   </TouchableOpacity>
                 ))}
               </View>
-              <TouchableOpacity style={styles.closeButton} onPress={() => setThemeModalVisible(false)}>
+
+              <TouchableOpacity style={styles.closeButton} onPress={() => setSettingsModalVisible(false)}>
                 <Text style={{ color: 'white', fontSize: 20 }}>{t('Close')}</Text>
               </TouchableOpacity>
             </View>
