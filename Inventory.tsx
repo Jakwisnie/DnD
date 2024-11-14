@@ -7,26 +7,21 @@ import styles from './styles';
 import sampleItems from './items.json';
 
 const Inventory = ({ navigation }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
   const [selectedScreen, setSelectedScreen] = useState('Inventory');
-  const [items, setItems] = useState([
-    { name: 'Arrow', weight: 0.1, quantity: 10, cost: 1 },
-    { name: 'Sword', weight: 3, quantity: 1, cost: 15 },
-    { name: 'Shield', weight: 6, quantity: 1, cost: 20 },
-    { name: 'Helmet', weight: 2, quantity: 1, cost: 10 },
-    { name: 'Armor', weight: 15, quantity: 1, cost: 50 },
-    { name: 'Boots', weight: 1, quantity: 1, cost: 5 },
-    { name: 'Gloves', weight: 0.5, quantity: 1, cost: 2 },
-    { name: 'Ring', weight: 0.1, quantity: 1, cost: 25 },
-    { name: 'Amulet', weight: 0.2, quantity: 1, cost: 30 },
-    { name: 'Boots', weight: 1, quantity: 1, cost: 5 },
-    { name: 'Gloves', weight: 0.5, quantity: 1, cost: 2 },
-    { name: 'Ring', weight: 0.1, quantity: 1, cost: 25 },
-    { name: 'Amulet', weight: 0.2, quantity: 1, cost: 30 },
-  ]);
+  const [items, setItems] = useState(sampleItems);
   const [isModalVisible, setModalVisible] = useState(false);
-  const [newItem, setNewItem] = useState({ name: '', weight: 0, quantity: 0, cost: 0 });
+  const [newItem, setNewItem] = useState({ name: '', weight: 0, quantity: 0, cost: 0, description: '', category: '' });
+  const [searchText, setSearchText] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedItem, setSelectedItem] = useState(null);
+  const handleItemPress = (item) => {
+    setSelectedItem(item);
+  };
+  const closeDescriptionModal = () => {
+    setSelectedItem(null);
+  };
 
   const handleGoBack = () => {
     navigation.navigate('Characters');
@@ -42,14 +37,38 @@ const Inventory = ({ navigation }) => {
   };
 
   const handleAddManualItem = () => {
-    setItems([...items, newItem]);
-    setNewItem({ name: '', weight: 0, quantity: 0, cost: 0 });
+    const existingItemIndex = items.findIndex(item => item.name === newItem.name);
+
+    if (existingItemIndex >= 0) {
+
+      const updatedItems = [...items];
+      updatedItems[existingItemIndex].quantity += newItem.quantity;
+      setItems(updatedItems);
+    } else {
+      setItems([...items, newItem]);
+    }
+
+    setNewItem({ name: '', weight: 0, quantity: 0, cost: 0, description: '', category: '' });
     setModalVisible(false);
   };
 
+
   const handleAddItemsFromJSON = () => {
-    setItems([...items, ...sampleItems]);
+    const updatedItems = [...items];
+
+    sampleItems.forEach(sampleItem => {
+      const existingItemIndex = updatedItems.findIndex(item => item.name === sampleItem.name);
+
+      if (existingItemIndex >= 0) {
+        updatedItems[existingItemIndex].quantity += sampleItem.quantity;
+      } else {
+        updatedItems.push(sampleItem);
+      }
+    });
+
+    setItems(updatedItems);
   };
+
 
   const handleRemoveItem = (index) => {
     const newItems = [...items];
@@ -63,9 +82,17 @@ const Inventory = ({ navigation }) => {
     setItems(newItems);
   };
 
+  const filteredItems = items.filter(item => {
+    const matchesCategory = selectedCategory === 'All' || item.category.includes(selectedCategory);
+    const matchesSearch = item.name.toLowerCase().includes(searchText.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+ const categories = ['All', 'Weapon', 'Armor', 'Ammunition', 'Tools', 'Potions', 'Scrolls', 'Magic Items', 'Adventuring Gear', 'Other'];
+
   return (
     <ImageBackground source={theme.background} style={styles.container}>
-      <View style={styles.dropdownContainer}>
+      <View style={styles.dropdownContainerCharacter}>
         <Picker
           selectedValue={selectedScreen}
           style={styles.picker}
@@ -80,46 +107,54 @@ const Inventory = ({ navigation }) => {
         </Picker>
       </View>
 
-      <ScrollView style={styles.tableContainer}>
-        <View style={styles.tableHeader}>
-          <Text style={styles.tableHeaderText}>{t('Name')}</Text>
-          <Text style={styles.tableHeaderText}>{t('Weight')}</Text>
-          <Text style={styles.tableHeaderText}>{t('Quantity')}</Text>
-          <Text style={styles.tableHeaderText}>{t('Cost (gold)')}</Text>
-          <Text style={styles.tableHeaderText}>{t('Actions')}</Text>
-        </View>
-        {items.map((item, index) => (
-          <View key={index} style={styles.tableRow}>
-            <TextInput
-              style={styles.tableCell}
-              value={item.name}
-              onChangeText={(text) => handleItemChange(index, 'name', text)}
-            />
-            <TextInput
-              style={styles.tableCell}
-              value={item.weight.toString()}
-              onChangeText={(text) => handleItemChange(index, 'weight', parseFloat(text) || 0 )}
-              keyboardType="numeric"
-            />
-            <TextInput
-              style={styles.tableCell}
-              value={item.quantity.toString()}
-              onChangeText={(text) => handleItemChange(index, 'quantity', parseInt(text) || 0 )}
-              keyboardType="numeric"
-            />
-            <TextInput
-              style={styles.tableCell}
-              value={item.cost.toString()}
-              onChangeText={(text) => handleItemChange(index, 'cost', parseFloat(text) || 0 )}
-              keyboardType="numeric"
-            />
-            <TouchableOpacity style={styles.removeButton} onPress={() => handleRemoveItem(index)}>
-              <Text style={styles.removeButtonText}>{t('Remove')}</Text>
-            </TouchableOpacity>
-          </View>
+      {/* search input */}
+      <TextInput
+        style={styles.searchInput}
+        placeholder={t('Search items')}
+        placeholderTextColor="#7F7F7F"
+        value={searchText}
+        onChangeText={setSearchText}
+      />
+
+      {/* category filter */}
+      <ScrollView horizontal style={styles.categoryContainer} showsHorizontalScrollIndicator={false}>
+        {['All', 'Weapon', 'Armor', 'Ammunition', 'Tools', 'Potions', 'Scrolls', 'Magic Items', 'Adventuring Gear', 'Other'].map(category => (
+          <TouchableOpacity
+            key={category}
+            style={[styles.categoryButton, selectedCategory === category && styles.selectedCategoryButton]}
+            onPress={() => setSelectedCategory(category)}
+          >
+            <Text style={styles.categoryButtonText}>{t(category)}</Text>
+          </TouchableOpacity>
         ))}
       </ScrollView>
 
+      {/* items list */}
+      <ScrollView style={styles.tableContainer}>
+        <View style={styles.tableHeader}>
+          <Text style={[styles.tableHeaderText, styles.nameColumn]}>{t('Name')}</Text>
+          <Text style={[styles.tableHeaderText, styles.weightColumn]}>{t('Weight')}</Text>
+          <Text style={[styles.tableHeaderText, styles.quantityColumn]}>{t('Quantity')}</Text>
+          <Text style={[styles.tableHeaderText, styles.costColumn]}>{t('Cost')}</Text>
+          <Text style={[styles.tableHeaderText, styles.actionsColumn]}>{t('Actions')}</Text>
+        </View>
+        {filteredItems.map((item, index) => (
+          <View key={index} style={styles.tableRow}>
+            <Text style={[styles.tableCell, styles.nameColumn]}>{item.name}</Text>
+            <Text style={[styles.tableCell, styles.weightColumn]}>{item.weight}</Text>
+            <Text style={[styles.tableCell, styles.quantityColumn]}>{item.quantity}</Text>
+            <Text style={[styles.tableCell, styles.costColumn]}>{item.cost}</Text>
+            <TouchableOpacity style={styles.removeButton} onPress={() => handleRemoveItem(index)}>
+              <Text style={styles.removeButtonText}>{t('Remove')}</Text>
+            </TouchableOpacity>
+               <TouchableOpacity key={index} style={styles.descriptionButton} onPress={() => handleItemPress(item)}>
+                    <Text style={styles.descriptionButtonText}>{t('Description')}</Text>
+               </TouchableOpacity>
+           </View>
+        ))}
+      </ScrollView>
+
+      {/* add item */}
       <Modal
         visible={isModalVisible}
         transparent={true}
@@ -128,13 +163,15 @@ const Inventory = ({ navigation }) => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContentInventory}>
-            <Text style={styles.modalTitle}>{t('Add New Item')}</Text>
+            <Text style={styles.modalTitleInv}>{t('Add New Item')}</Text>
+              <Text style={styles.invItemDescription}>{t('Name')}</Text>
             <TextInput
               placeholder={t('Name')}
               style={styles.inputInventory}
               value={newItem.name}
               onChangeText={(text) => setNewItem({ ...newItem, name: text })}
             />
+              <Text style={styles.invItemDescription}>{t('Weight')}</Text>
             <TextInput
               placeholder={t('Weight')}
               style={styles.inputInventory}
@@ -142,6 +179,7 @@ const Inventory = ({ navigation }) => {
               onChangeText={(text) => setNewItem({ ...newItem, weight: parseFloat(text) || 0 })}
               keyboardType="numeric"
             />
+              <Text style={styles.invItemDescription}>{t('Quantity')}</Text>
             <TextInput
               placeholder={t('Quantity')}
               style={styles.inputInventory}
@@ -149,6 +187,7 @@ const Inventory = ({ navigation }) => {
               onChangeText={(text) => setNewItem({ ...newItem, quantity: parseInt(text) || 0 })}
               keyboardType="numeric"
             />
+              <Text style={styles.invItemDescription}>{t('Cost')}</Text>
             <TextInput
               placeholder={t('Cost')}
               style={styles.inputInventory}
@@ -156,6 +195,23 @@ const Inventory = ({ navigation }) => {
               onChangeText={(text) => setNewItem({ ...newItem, cost: parseFloat(text) || 0 })}
               keyboardType="numeric"
             />
+              <Text style={styles.invItemDescription}>{t('Description')}</Text>
+            <TextInput
+              placeholder={t('Description')}
+              style={styles.inputInventory}
+              value={newItem.description}
+              onChangeText={(text) => setNewItem({ ...newItem, description: text })}
+            />
+            <Picker
+              selectedValue={newItem.category}
+              style={styles.inputInventory}
+              onValueChange={(itemValue) => setNewItem({ ...newItem, category: itemValue })}
+            >
+              {categories.map((category) => (
+                <Picker.Item key={category} label={t(category)} value={category} />
+              ))}
+            </Picker>
+
             <TouchableOpacity onPress={handleAddManualItem} style={styles.addButtonInventory}>
               <Text style={styles.addButtonText}>{t('Add Item')}</Text>
             </TouchableOpacity>
@@ -166,16 +222,32 @@ const Inventory = ({ navigation }) => {
         </View>
       </Modal>
 
+      {/* description */}
+      <Modal
+        visible={!!selectedItem}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={closeDescriptionModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContentInventory}>
+            <Text style={styles.modalTitleInv}>{selectedItem?.name}</Text>
+            <Text style={styles.modalDescription}>{selectedItem?.description}</Text>
+            <TouchableOpacity onPress={closeDescriptionModal} style={styles.cancelButton}>
+              <Text style={styles.cancelButtonText}>{t('Close')}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+
       <View style={styles.summaryContainer}>
         <Text style={styles.summaryTextLeft}>{calculateTotalWeight()} {t('kg')}</Text>
-
-            <TouchableOpacity style={styles.addButtonInventory} onPress={() => setModalVisible(true)}>
-                <Text style={styles.addButtonText}>{t('Add Item')}</Text>
-            </TouchableOpacity>
-
+        <TouchableOpacity style={styles.addButtonInventory} onPress={() => setModalVisible(true)}>
+          <Text style={styles.addButtonText}>{t('Add Item')}</Text>
+        </TouchableOpacity>
         <Text style={styles.summaryTextRight}>{calculateTotalCost()} {t('gold')}</Text>
       </View>
-
 
       <TouchableOpacity style={styles.autoAddButton} onPress={handleAddItemsFromJSON}>
         <Text style={styles.autoAddButtonText}>{t('Add Automatically')}</Text>

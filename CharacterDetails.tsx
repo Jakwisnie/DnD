@@ -24,7 +24,7 @@ const CharacterDetail = ({ navigation }) => {
 
     <Text style={[styles.appName, { color: theme.fontColor }]}>{t('CharacterDetails')}</Text>
 
-      <View style={styles.dropdownContainer}>
+      <View style={styles.dropdownContainerCharacter}>
         <Picker
           selectedValue={selectedScreen}
           style={styles.picker}

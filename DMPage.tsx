@@ -39,6 +39,10 @@ const DMPage = ({ navigation }) => {
     navigation.navigate('LoggedScreen');
   };
 
+  const handleMonsterCreationScreen = () => {
+    navigation.navigate('MonsterCreationScreen');
+  };
+
   const handleLibraryPress = (page) => {
     setModalVisible(false);
     navigation.navigate(page);
@@ -59,6 +63,16 @@ const DMPage = ({ navigation }) => {
       style={styles.container}
     >
       <Text style={[styles.appName, { color: theme.fontColor }]}>DMBook</Text>
+
+      <View style={[styles.buttonContainerUsu, { bottom: '70%' }]}>
+        <TouchableOpacity style={styles.button} onPress={handleMonsterCreationScreen}>
+          <ImageBackground source={require('./assets/font/font1.png')} style={styles.buttonBackground}>
+            <Image source={theme.icons.yourcamp} style={styles.icons} />
+            <Text style={[styles.buttonText, { color: theme.fontColor, fontSize: theme.fontSize, fontStyle: theme.fontStyle, textShadowColor: theme.textShadowColor, textShadowOffset: theme.textShadowOffset, textShadowRadius: theme.textShadowRadius, flex: theme.flex, textAlign: theme.textAlign}]}>
+            {t('Monstrum')}</Text>
+          </ImageBackground>
+        </TouchableOpacity>
+      </View>
 
       <View style={[styles.buttonContainerUsu, { bottom: '60%' }]}>
         <TouchableOpacity style={styles.button} onPress={handleCampaignsPress}>

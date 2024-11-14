@@ -9,10 +9,26 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
+  containerMonCre: {
+    flex: 1,
+  },
   languageLabel: {
     fontSize: 16,
     color: 'white',
     marginLeft: 10,
+  },
+  largeButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: '#444',
+    borderRadius: 8,
+    marginHorizontal: 5,
+  },
+  largeButtonMonCre: {
+    backgroundColor: '#8a2be2',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
   },
   titleSesDet: {
     fontSize: 24,
@@ -141,6 +157,29 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
+  twoColumnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  column: {
+    flex: 1,
+    paddingHorizontal: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  labelMonCre: {
+    fontSize: 16,
+    color: '#fff',
+    marginVertical: 5,
+  },
+  labelMonCreHitPoint: {
+    fontSize: 16,
+    color: 'blue',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   buttonTextCharacter: {
     fontSize: 16,
     color: '#d6d6d6',
@@ -160,6 +199,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContainerMonCre: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContentMonCre: {
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalTitleMonCre: {
+    fontSize: 18,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  modalInputMonCre: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    padding: 10,
+    height: 100,
+    textAlignVertical: 'top',
+    marginBottom: 20,
+  },
+  modalInputMonCreHitPoints: {
+    backgroundColor: '#f0f0f0',
   },
   modalTitle: {
     fontSize: 22,
@@ -285,6 +352,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginVertical: 10,
   },
+  inputMonCre: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+  },
   inputInventory: {
     borderBottomWidth: 1,
     marginBottom: 10,
@@ -360,6 +433,20 @@ const styles = StyleSheet.create({
     height: 50,
     width: '101%',
     color: '#d6d6d6',
+    backgroundColor: '#fff',
+  },
+  pickerMonCre: {
+    color: 'black',
+    backgroundColor: '#fff',
+    marginVertical: 5,
+    width: '101%',
+  },
+  addButtonMonCre: {
+    backgroundColor: '#ffa500',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
   },
   imagePicker: {
     borderColor: '#7F7F7F',
@@ -378,9 +465,6 @@ const styles = StyleSheet.create({
     color: 'green',
     fontSize: 16,
     textAlign: 'center',
-  },
-  addButtonText: {
-    color: '#d6d6d6',
   },
   addButtonText: {
     color: '#d6d6d6',
@@ -943,11 +1027,6 @@ const styles = StyleSheet.create({
     height: 400,
     resizeMode: 'contain',
   },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   remainingPointsText: {
     backgroundColor: 'rgba(0,0,0,0.8)',
     fontSize: 22,
@@ -1000,11 +1079,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 10,
     textAlign: 'center',
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   blockTitle: {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -1271,6 +1345,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     shadowColor: 'rgba(0, 0, 0, 1)',
   },
+  buttonContainerMonCre: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   gearIcon: {
     width: 50,
     height: 50,
@@ -1290,10 +1368,34 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 8,
   },
-
-
-  modalTitle: {
+  categoryContainer: {
+    flexDirection: 'row',
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    maxHeight: 50,
+  },
+  categoryButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    marginHorizontal: 5,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+  },
+  selectedCategoryButton: {
+    backgroundColor: 'rgba(160, 160, 160, 0.9)',
+  },
+  categoryButtonText: {
     color: 'white',
+    fontSize: 14,
+  },
+  modalDescription: {
+    color: 'black',
+    fontSize: 16,
+    marginVertical: 15,
+    textAlign: 'center',
+  },
+  modalTitleInv: {
+    color: 'black',
     fontSize: 24,
     marginBottom: 20,
   },
@@ -1313,16 +1415,16 @@ const styles = StyleSheet.create({
     borderColor: '#7F7F7F',
     borderWidth: 1.5,
     borderRadius: 10,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
+    backgroundColor: 'black',
     width: '40%',
   },
   tableContainer: {
-    marginTop: 90,
     width: '90%',
-    maxHeight: '75%',
   },
   tableHeader: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: '#2d2d38',
     padding: 4,
@@ -1330,8 +1432,22 @@ const styles = StyleSheet.create({
   tableHeaderText: {
     color: '#d6d6d6',
     fontWeight: 'bold',
-    flex: 1,
     textAlign: 'center',
+  },
+  nameColumn: {
+    width: 70,
+  },
+  weightColumn: {
+    width: 50,
+  },
+  quantityColumn: {
+    width: 84,
+  },
+  costColumn: {
+    width: 38,
+  },
+  actionsColumn: {
+    width: 150,
   },
   tableRow: {
     flexDirection: 'row',
@@ -1355,10 +1471,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  descriptionButton: {
+    marginBottom: 6,
+    backgroundColor: 'green',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   removeButtonText: {
     color: '#d6d6d6',
   },
-
+  descriptionButtonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
   summaryContainer: {
     marginLeft: 15,
     marginTop: 10,
@@ -1839,8 +1965,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black',
   },
-
-
+  invItemDescription: {
+    color: 'blue',
+  },
   selectionContainer: {
     flex: 1,
     flexDirection: 'row',
