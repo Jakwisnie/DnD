@@ -45,6 +45,7 @@ const MonsterCreationDescription = ({ navigation }) => {
   return (
     <ImageBackground source={theme.background} style={styles.containerMonCre}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+       <View style={styles.columnDescr}>
         <Text style={styles.labelMonCre}>{t('Monster Description')}</Text>
         <TouchableOpacity style={styles.inputMonCre} onPress={() => openDescriptionModal('monsterDescription')}>
           <Text style={styles.TextMonCre}> {monsterDescriptions.monsterDescription || t('Enter monster description')}</Text>
@@ -97,6 +98,8 @@ const MonsterCreationDescription = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         )}
+
+        </View>
 
         <Modal visible={descriptionModalVisible} transparent={true} animationType="slide">
           <View style={styles.modalContainerMonCre}>

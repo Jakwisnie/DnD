@@ -27,9 +27,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   largeButtonMonCre: {
+    position: 'absolute',
     borderRadius: 8,
-    top: 22,
-    right: "-270%",
+    top: -28,
+    right: -180,
     alignItems: 'center',
     width: '30%',
     borderColor: '#0f101a',
@@ -167,11 +168,22 @@ const styles = StyleSheet.create({
   twoColumnContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
   },
   column: {
     flex: 1,
     marginHorizontal: 5,
+  },
+  columnTop: {
+    flex: 1,
+    marginHorizontal: 35,
+  },
+  columnAdding: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    width: '100%',
+    marginVertical: 5,
   },
   labelMonCre: {
     fontSize: 16,
@@ -223,6 +235,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
     textAlign: 'center',
+  },
+  columnDescr: {
+    alignItems: 'right',
   },
   TextMonCre: {
     backgroundColor: '#f0f0f0',
@@ -371,6 +386,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
+    marginLeft: 0,
+  },
+  inputMonCreStat: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+    marginHorizontal: 70,
+    marginLeft: 0,
   },
   inputInventory: {
     borderBottomWidth: 1,
@@ -458,7 +482,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffa500',
     padding: 10,
     borderRadius: 8,
-    alignItems: 'center',
+    width: "40%",
+    alignItems: 'right',
   },
   imagePicker: {
     borderColor: '#7F7F7F',
@@ -1494,6 +1519,7 @@ const styles = StyleSheet.create({
   },
   removeButtonText: {
     color: 'red',
+    textAlign: 'right',
   },
   descriptionButtonText: {
     color: '#fff',
@@ -1534,12 +1560,11 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
   itemContainer: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     padding: 10,
-    marginBottom: 5,
+    marginBottom: 2,
     backgroundColor: '#080917',
+    width: "100%",
   },
   itemName: {
     fontSize: 18,
