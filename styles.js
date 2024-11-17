@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
   },
   containerMonCre: {
     flex: 1,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   languageLabel: {
     fontSize: 16,
@@ -25,10 +27,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   largeButtonMonCre: {
-    backgroundColor: '#8a2be2',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     borderRadius: 8,
+    top: 22,
+    right: "-270%",
+    alignItems: 'center',
+    width: '30%',
+    borderColor: '#0f101a',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
   },
   titleSesDet: {
     fontSize: 24,
@@ -160,17 +167,17 @@ const styles = StyleSheet.create({
   twoColumnContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 10,
   },
   column: {
     flex: 1,
-    paddingHorizontal: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: 5,
   },
   labelMonCre: {
     fontSize: 16,
-    color: '#fff',
+    color: 'white',
     marginVertical: 5,
+    marginBottom: 5,
   },
   labelMonCreHitPoint: {
     fontSize: 16,
@@ -216,6 +223,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
     textAlign: 'center',
+  },
+  TextMonCre: {
+    backgroundColor: '#f0f0f0',
+    height: 'auto',
+    alignSelf: 'flex-start',
+    borderRadius: 10,
+    textAlignVertical: 'top',
   },
   modalInputMonCre: {
     backgroundColor: '#f0f0f0',
@@ -438,15 +452,13 @@ const styles = StyleSheet.create({
   pickerMonCre: {
     color: 'black',
     backgroundColor: '#fff',
-    marginVertical: 5,
-    width: '101%',
+    marginVertical: 3,
   },
   addButtonMonCre: {
     backgroundColor: '#ffa500',
     padding: 10,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 10,
   },
   imagePicker: {
     borderColor: '#7F7F7F',
@@ -467,7 +479,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   addButtonText: {
-    color: '#d6d6d6',
+    color: 'white',
     fontSize: 16,
   },
   autoAddButtonText: {
@@ -997,6 +1009,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
+    paddingBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -1346,8 +1359,9 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 1)',
   },
   buttonContainerMonCre: {
-    alignItems: 'center',
-    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: 10,
   },
   gearIcon: {
     width: 50,
@@ -1479,7 +1493,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   removeButtonText: {
-    color: '#d6d6d6',
+    color: 'red',
   },
   descriptionButtonText: {
     color: '#fff',
@@ -1520,8 +1534,12 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
   itemContainer: {
-    width: '80%',
-    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    marginBottom: 5,
+    backgroundColor: '#080917',
   },
   itemName: {
     fontSize: 18,

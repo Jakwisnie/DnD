@@ -92,7 +92,9 @@ const MonsterCreationScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.buttonContainerMonCre}>
           <TouchableOpacity style={styles.largeButtonMonCre} onPress={() => navigation.navigate('MonsterCreationDescription', { monster })}>
+           <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
             <Text style={styles.buttonTextCharacter}>{t('Description')}</Text>
+           </ImageBackground>
           </TouchableOpacity>
         </View>
 

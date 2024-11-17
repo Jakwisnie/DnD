@@ -22,14 +22,20 @@ const MonsterCreationDescription = ({ navigation }) => {
     specialTraitsDescription: '',
     legendaryActionsDescription: '',
   });
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [legendaryDescription, setLegendaryDescription] = useState('');
 
   const openDescriptionModal = (type) => {
     setDescriptionType(type);
-    setDescriptionText(monsterDescriptions[type]);
+    setDescriptionText(monsterDescriptions[type] || '');
     setDescriptionModalVisible(true);
+    setIsModalVisible(true);
   };
 
-  const closeDescriptionModal = () => setDescriptionModalVisible(false);
+  const closeDescriptionModal = () => {
+    setDescriptionModalVisible(false);
+    setIsModalVisible(false);
+  };
 
   const saveDescription = () => {
     setMonsterDescriptions((prev) => ({ ...prev, [descriptionType]: descriptionText }));
@@ -41,44 +47,67 @@ const MonsterCreationDescription = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <Text style={styles.labelMonCre}>{t('Monster Description')}</Text>
         <TouchableOpacity style={styles.inputMonCre} onPress={() => openDescriptionModal('monsterDescription')}>
-          <Text>{monsterDescriptions.monsterDescription || t('Enter monster description')}</Text>
+          <Text style={styles.TextMonCre}> {monsterDescriptions.monsterDescription || t('Enter monster description')}</Text>
         </TouchableOpacity>
 
         <Text style={styles.labelMonCre}>{t('Actions Description')}</Text>
         <TouchableOpacity style={styles.inputMonCre} onPress={() => openDescriptionModal('actionsDescription')}>
-          <Text>{monsterDescriptions.actionsDescription || t('Enter actions description')}</Text>
+          <Text style={styles.TextMonCre}> {monsterDescriptions.actionsDescription || t('Enter actions description')}</Text>
         </TouchableOpacity>
 
         <Text style={styles.labelMonCre}>{t('Bonus Action Description')}</Text>
         <TouchableOpacity style={styles.inputMonCre} onPress={() => openDescriptionModal('bonusActionsDescription')}>
-          <Text>{monsterDescriptions.bonusActionsDescription || t('Enter bonus action description')}</Text>
+          <Text style={styles.TextMonCre}> {monsterDescriptions.bonusActionsDescription || t('Enter bonus action description')}</Text>
         </TouchableOpacity>
 
         <Text style={styles.labelMonCre}>{t('Reactions Description')}</Text>
         <TouchableOpacity style={styles.inputMonCre} onPress={() => openDescriptionModal('reactionsDescription')}>
-          <Text>{monsterDescriptions.reactionsDescription || t('Enter reactions description')}</Text>
+          <Text style={styles.TextMonCre}> {monsterDescriptions.reactionsDescription || t('Enter reactions description')}</Text>
         </TouchableOpacity>
 
         <Text style={styles.labelMonCre}>{t('Special Traits Description')}</Text>
         <TouchableOpacity style={styles.inputMonCre} onPress={() => openDescriptionModal('specialTraitsDescription')}>
-          <Text>{monsterDescriptions.specialTraitsDescription || t('Enter special traits description')}</Text>
+          <Text style={styles.TextMonCre}> {monsterDescriptions.specialTraitsDescription || t('Enter special traits description')}</Text>
         </TouchableOpacity>
 
         <View style={styles.section}>
           <View style={styles.checkboxContainer}>
             <CheckBox
               value={isLegendary}
-              onValueChange={setIsLegendary}
+              onValueChange={(value) => {
+                setIsLegendary(value);
+                if (!value) setLegendaryDescription('');
+              }}
               tintColors={{ true: theme.checkboxActive, false: theme.checkboxInactive }}
             />
             <Text style={styles.label}>{t('Legendary?')}</Text>
           </View>
         </View>
 
+        {isLegendary && (
+          <View>
+            <Text style={styles.labelMonCre}>{t('Legendary Action Description')}</Text>
+            <TouchableOpacity
+              style={styles.inputMonCre}
+              onPress={() => openDescriptionModal('legendaryActionsDescription')}
+            >
+              <Text style={styles.TextMonCre}>
+                {monsterDescriptions.legendaryActionsDescription || t('Enter legendary action description')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         <Modal visible={descriptionModalVisible} transparent={true} animationType="slide">
           <View style={styles.modalContainerMonCre}>
             <View style={styles.modalContentMonCre}>
-              <Text style={styles.modalTitleMonCre}>{t(descriptionType.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()))}</Text>
+              <Text style={styles.modalTitleMonCre}>
+                {t(
+                  (descriptionType || '')
+                    .replace(/([A-Z])/g, ' $1')
+                    .replace(/^./, str => str.toUpperCase())
+                )}
+              </Text>
               <TextInput
                 style={styles.modalInputMonCre}
                 multiline
