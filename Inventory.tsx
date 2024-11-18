@@ -10,12 +10,24 @@ const Inventory = ({ navigation }) => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
   const [selectedScreen, setSelectedScreen] = useState('Inventory');
-  const [items, setItems] = useState(sampleItems);
   const [isModalVisible, setModalVisible] = useState(false);
   const [newItem, setNewItem] = useState({ name: '', weight: 0, quantity: 0, cost: 0, description: '', category: '' });
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedItem, setSelectedItem] = useState(null);
+  const [items, setItems] = useState(sampleItems.items || []);
+  const [gold, setGold] = useState(sampleItems.gold || 0);
+
+
+
+  const handleSpendGold = (amount) => {
+    if (gold >= amount) {
+      setGold((prevGold) => prevGold - amount);
+    } else {
+      alert(t('Not enough gold!'));
+    }
+  };
+
   const handleItemPress = (item) => {
     setSelectedItem(item);
   };
@@ -56,7 +68,7 @@ const Inventory = ({ navigation }) => {
   const handleAddItemsFromJSON = () => {
     const updatedItems = [...items];
 
-    sampleItems.forEach(sampleItem => {
+    sampleItems.items.forEach(sampleItem => {
       const existingItemIndex = updatedItems.findIndex(item => item.name === sampleItem.name);
 
       if (existingItemIndex >= 0) {
@@ -95,7 +107,7 @@ const Inventory = ({ navigation }) => {
       <View style={styles.dropdownContainerCharacter}>
         <Picker
           selectedValue={selectedScreen}
-          style={styles.picker}
+          style={styles.pickerChooseChar}
           onValueChange={(itemValue) => {
             setSelectedScreen(itemValue);
             navigation.navigate(itemValue);
@@ -129,6 +141,10 @@ const Inventory = ({ navigation }) => {
         ))}
       </ScrollView>
 
+      <View style={styles.goldBar}>
+        <Text style={styles.goldText}>{t('Gold')}: {gold} {t('gold')}</Text>
+      </View>
+
       {/* items list */}
       <ScrollView style={styles.tableContainer}>
         <View style={styles.tableHeader}>
@@ -145,7 +161,7 @@ const Inventory = ({ navigation }) => {
             <Text style={[styles.tableCell, styles.quantityColumn]}>{item.quantity}</Text>
             <Text style={[styles.tableCell, styles.costColumn]}>{item.cost}</Text>
             <TouchableOpacity style={styles.removeButton} onPress={() => handleRemoveItem(index)}>
-              <Text style={styles.removeButtonText}>{t('Remove')}</Text>
+              <Text style={styles.removeButtonTextInvent}>{t('Remove')}</Text>
             </TouchableOpacity>
                <TouchableOpacity key={index} style={styles.descriptionButton} onPress={() => handleItemPress(item)}>
                     <Text style={styles.descriptionButtonText}>{t('Description')}</Text>

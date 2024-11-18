@@ -197,7 +197,22 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
+  },
+  checkboxContainer1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  labelMonstrum: {
+    textAlign: 'center',
+    color: '#d6d6d6',
+    fontSize: 16,
+    marginBottom: 5,
+    marginRight: 10,
   },
   buttonTextCharacter: {
     fontSize: 16,
@@ -472,6 +487,11 @@ const styles = StyleSheet.create({
     width: '101%',
     color: '#d6d6d6',
     backgroundColor: '#fff',
+  },
+  pickerChooseChar: {
+    width: '101%',
+    color: '#d6d6d6',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   pickerMonCre: {
     color: 'black',
@@ -1107,6 +1127,18 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
+  modalContentSpells: {
+    width: '80%',
+    padding: 20,
+    backgroundColor: '#333',
+    borderRadius: 10,
+    borderColor: '#7F7F7F',
+    borderWidth: 1.5,
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   modalContentInventory: {
     width: '80%',
     padding: 20,
@@ -1428,15 +1460,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   modalDescription: {
-    color: 'black',
+    color: '#aeafb5',
     fontSize: 16,
     marginVertical: 15,
     textAlign: 'center',
+  },
+  modalDetails: {
+    fontSize: 14,
+    color: '#aeafb5',
+    marginBottom: 20,
   },
   modalTitleInv: {
     color: 'black',
     fontSize: 24,
     marginBottom: 20,
+  },
+  modalTitleSpells: {
+    color: '#c5c6c9',
+    fontSize: 24,
+    textAlign: 'center',
   },
   themeOption: {
     alignItems: 'center',
@@ -1472,6 +1514,15 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  goldBar: {
+    backgroundColor: '#ffd700',
+    padding: 3,
+    borderRadius: 5,
+  },
+  goldText: {
+    fontWeight: 'bold',
+    color: '#000',
   },
   nameColumn: {
     width: 70,
@@ -1521,6 +1572,10 @@ const styles = StyleSheet.create({
     color: 'red',
     textAlign: 'right',
   },
+  removeButtonTextInvent: {
+    color: 'white',
+    textAlign: 'right',
+  },
   descriptionButtonText: {
     color: '#fff',
     fontSize: 14,
@@ -1565,6 +1620,11 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     backgroundColor: '#080917',
     width: "100%",
+  },
+  itemContainerItems: {
+    flexDirection: 'row',
+    padding: 10,
+    marginBottom: 5,
   },
   itemName: {
     fontSize: 18,
@@ -1933,13 +1993,17 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  diceKostka: {
+    width: 200,
+    height: 200,
+  },
   diceContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   diceValue: {
     position: 'absolute',
-    fontSize: 48,
+    fontSize: 33,
     fontWeight: 'bold',
     color: '#d6d6d6',
   },
@@ -2007,6 +2071,10 @@ const styles = StyleSheet.create({
   resultText: {
     fontSize: 18,
     color: 'black',
+  },
+  resultTextKostka: {
+    fontSize: 26,
+    color: '#7F7F7F',
   },
   invItemDescription: {
     color: 'blue',

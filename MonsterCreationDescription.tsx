@@ -128,7 +128,7 @@ const MonsterCreationDescription = ({ navigation }) => {
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
           <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
-            <Text style={styles.GoBackText}>{t('Go back')}</Text>
+            <Text style={styles.GoBackText}>{t('Go_back')}</Text>
           </ImageBackground>
         </TouchableOpacity>
       </View>

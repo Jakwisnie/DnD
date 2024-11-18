@@ -1,3 +1,5 @@
+{
+  "items":
 [
   { "name": "Potion of Healing", "weight": 0.5, "quantity": 2, "cost": 50, "description": "heal yourself or friends", "category": ["All", "Potions"] },
   { "name": "Rope", "weight": 5, "quantity": 1, "cost": 1, "description": "you can use it when you want", "category": ["All", "Adventuring Gear"] },
@@ -14,4 +16,6 @@
   { "name": "Amulet", "weight": 0.2, "quantity": 1, "cost": 30, "description": "Something", "category": ["All", "Magic Items"] },
   { "name": "Arrow", "weight": 0.1, "quantity": 10, "cost": 1, "description": "A sharp arrow", "category": ["All", "Ammunition"] },
   { "name": "Tools", "weight": 0.1, "quantity": 10, "cost": 1, "description": "A sharp arrow", "category": ["All", "Tools"] },
-]
+],
+  "gold": 100
+}

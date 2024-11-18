@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal, Button, ImageBackground } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTranslation } from 'react-i18next';
+import CheckBox from '@react-native-community/checkbox';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 
@@ -44,7 +45,7 @@ const MonsterCreationScreen = ({ navigation }) => {
   const [hitDieValue, setHitDieValue] = useState('d8');
   const [hitPointsModifier, setHitPointsModifier] = useState('');
   const [hitDieCount, setHitDieCount] = useState('');
-  const [isSubtype, setIsSubtype] = useState('No');
+  const [isSubtype, setIsSubtype] = useState(false);
   const [subtypeValue, setSubtypeValue] = useState('');
 
   const handleInputChange = (field, value) => {
@@ -150,22 +151,31 @@ const MonsterCreationScreen = ({ navigation }) => {
               <Picker.Item label="Undead" value="Undead" />
             </Picker>
 
-            <Text style={styles.labelMonCre}>{t('Monster Subtype')}</Text>
-            <Picker selectedValue={isSubtype} onValueChange={(value) => setIsSubtype(value)} style={styles.pickerMonCre} >
-                <Picker.Item label="No" value="No" />
-                <Picker.Item label="Yes" value="Yes" />
-            </Picker>
-
-          {isSubtype === 'Yes' && (
-            <View>
-              <Text style={styles.label}>{t('Select Subtype')}</Text>
-              <Picker selectedValue={subtypeValue} onValueChange={(value) => setSubtypeValue(value)} style={styles.pickerMonCre} >
-                <Picker.Item label="Subtype 1" value="Subtype 1" />
-                <Picker.Item label="Subtype 2" value="Subtype 2" />
-                <Picker.Item label="Subtype 3" value="Subtype 3" />
-              </Picker>
+          <View style={styles.section}>
+            <Text style={styles.labelMonstrum}>{t('Monster Subtype?')}</Text>
+            <View style={styles.checkboxContainer1}>
+              <CheckBox
+                value={isSubtype}
+                onValueChange={(value) => setIsSubtype(value)}
+                tintColors={{ true: '#4caf50', false: '#f44336' }}
+              />
             </View>
-          )}
+
+            {isSubtype && (
+              <View>
+                <Text style={styles.labelMonCre}>{t('Select Subtype')}</Text>
+                <Picker
+                  selectedValue={subtypeValue}
+                  onValueChange={(value) => setSubtypeValue(value)}
+                  style={styles.pickerMonCre}
+                >
+                  <Picker.Item label="Subtype 1" value="Subtype 1" />
+                  <Picker.Item label="Subtype 2" value="Subtype 2" />
+                  <Picker.Item label="Subtype 3" value="Subtype 3" />
+                </Picker>
+              </View>
+            )}
+          </View>
 
           </View>
         </View>

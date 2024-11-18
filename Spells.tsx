@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput, Modal } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
@@ -9,9 +9,11 @@ const spells = require('./assets/Library/spells.json');
 const Spells = ({ navigation }) => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
+
   const [searchText, setSearchText] = useState('');
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedEffect, setSelectedEffect] = useState(null);
+  const [selectedSpell, setSelectedSpell] = useState(null);
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -44,11 +46,16 @@ const Spells = ({ navigation }) => {
 
   const filteredSpells = filterSpells();
 
+  const handleSpellPress = (spell) => {
+    setSelectedSpell(spell);
+  };
+
+  const closeSpellModal = () => {
+    setSelectedSpell(null);
+  };
+
   return (
-    <ImageBackground
-         source={theme.background}
-      style={styles.container}
-    >
+    <ImageBackground source={theme.background} style={styles.container}>
       <View style={styles.GoBack}>
         <TouchableOpacity style={styles.button} onPress={handleGoBack}>
           <ImageBackground source={theme.backgroundButton} style={styles.buttonBackground}>
@@ -102,15 +109,39 @@ const Spells = ({ navigation }) => {
           <Text style={styles.noResultsText}>{t('No spells found')}</Text>
         ) : (
           filteredSpells.map((spell, index) => (
-            <View key={index} style={styles.spellItem}>
+            <TouchableOpacity
+              key={index}
+              style={styles.spellItem}
+              onPress={() => handleSpellPress(spell)}
+            >
               <Text style={styles.spellName}>{spell.name}</Text>
               <Text style={styles.spellDetails}>
                 {t('Level')}: {spell.level} | {t('School')}: {spell.school} | {t('Effect')}: {t(spell.effect)}
               </Text>
-            </View>
+            </TouchableOpacity>
           ))
         )}
       </ScrollView>
+
+      <Modal
+        visible={!!selectedSpell}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={closeSpellModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContentSpells}>
+            <Text style={styles.modalTitleSpells}>{selectedSpell?.name}</Text>
+            <Text style={styles.modalDescription}>{selectedSpell?.description}</Text>
+            <Text style={styles.modalDetails}>
+              {t('Level')}: {selectedSpell?.level} | {t('School')}: {selectedSpell?.school} | {t('Effect')}: {t(selectedSpell?.effect)}
+            </Text>
+            <TouchableOpacity onPress={closeSpellModal} style={styles.cancelButton}>
+              <Text style={styles.cancelButtonText}>{t('Close')}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ImageBackground>
   );
 };

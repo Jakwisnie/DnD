@@ -27,7 +27,7 @@ const CharacterDetail = ({ navigation }) => {
       <View style={styles.dropdownContainerCharacter}>
         <Picker
           selectedValue={selectedScreen}
-          style={styles.picker}
+          style={styles.pickerChooseChar}
           onValueChange={(itemValue) => {
             setSelectedScreen(itemValue);
             navigation.navigate(itemValue);
