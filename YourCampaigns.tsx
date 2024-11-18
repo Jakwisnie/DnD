@@ -4,33 +4,50 @@ import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
+import { UserData } from './UserData';
 
 const YourCampaigns = ({ navigation }) => {
   const { t, i18n } = useTranslation();
   const { theme } = useContext(ThemeContext);
+  const { id } = useContext(UserData);
 
   const [campaigns, setCampaigns] = useState([]);
   const [newCampaign, setNewCampaign] = useState('');
   const [showInput, setShowInput] = useState(false);
 
-  useEffect(() => {
     const loadCampaigns = async () => {
-      try {
-        const storedCampaigns = await AsyncStorage.getItem('campaigns');
-        if (storedCampaigns) {
-          console.log('Loaded campaigns from storage:', storedCampaigns);
-          setCampaigns(JSON.parse(storedCampaigns));
-        } else {
-          const initialCampaigns = ["LOREM PSILUM", "UNGA BUNGA", "KRWAWA ŁAŹNIA"];
-          await AsyncStorage.setItem('campaigns', JSON.stringify(initialCampaigns));
-          setCampaigns(initialCampaigns);
-        }
-      } catch (error) {
-        console.error('Failed to load campaigns:', error);
-      }
-    };
-    loadCampaigns();
-  }, []);
+     try {
+           const response = await fetch(`http://172.19.240.65:8000/user/campaigns/${id}`);
+           if (!response.ok) {
+             throw new Error('Failed to fetch data');
+           }
+           const data = await response.json();
+      const campaignTitles = data.campaigns.map(campaign => campaign.title);
+      setCampaigns(campaignTitles);
+         } catch (error) {
+           console.error('Error fetching data:', error);
+         }
+       try {
+          const storedCampaigns = await AsyncStorage.getItem('campaigns');
+             if (storedCampaigns) {
+               console.log('Loaded campaigns from storage:', storedCampaigns);
+                
+
+         } else {
+           const initialCampaigns = ["LOREM PSILUM", "UNGA BUNGA", "KRWAWA ŁAŹNIA"];
+           await AsyncStorage.setItem('campaigns', JSON.stringify(initialCampaigns));
+           setCampaigns(initialCampaigns);
+         }
+       } catch (error) {
+         console.error('Failed to load campaigns:', error);
+  }
+};
+
+useEffect(() => {
+  loadCampaigns();
+}, [id]);
+
+
 
   const saveCampaigns = async (newCampaigns) => {
     try {
@@ -55,6 +72,8 @@ const YourCampaigns = ({ navigation }) => {
           style: 'destructive',
           onPress: () => {
             const updatedCampaigns = campaigns.filter((_, i) => i !== index);
+            index = index+1
+            const response = fetch(`http://172.19.240.65:8000/campaigns/delete/${index}`,{method:'Delete'});
             saveCampaigns(updatedCampaigns);
           }
         }

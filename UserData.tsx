@@ -1,10 +1,12 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UserData = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
+  const [id, setId] = useState(0);
+
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -53,10 +55,16 @@ export const UserProvider = ({ children }) => {
   const loginUser = (login, password) => {
     return users.find(user => user.login === login && user.password === password);
   };
+    const updateId = (newId) => {
+      setId(newId);
+      };
 
   return (
-    <UserData.Provider value={{ users, registerUser, loginUser, clearUsers }}>
+    <UserData.Provider value={{ users,id, registerUser, loginUser, clearUsers,updateId }}>
       {children}
     </UserData.Provider>
   );
+};
+export const useUserData = () => {
+    return useContext(UserData);
 };

@@ -141,7 +141,7 @@ const GenericCampaign = ({ route, navigation }) => {
       >
 
         <View style={styles.sessionsList}>
-          <Text style={[styles.CampName, { color: theme.fontColor }]}>LOREM PSILUM</Text>
+          <Text style={[styles.CampName, { color: theme.fontColor }]}>{campaignName}</Text>
           <ScrollView horizontal>
             {sessions.map((session, index) => (
               <TouchableOpacity key={index} style={styles.sessionTab} onPress={() => {

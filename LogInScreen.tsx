@@ -2,18 +2,19 @@ import React, { useState, useContext } from 'react';
 import { ImageBackground, TouchableOpacity, Image, Text, View, Button, StyleSheet, TextInput } from 'react-native';
 import { useNavigation, HeaderBackButton } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { UserData } from './UserData';
+import { UserData, useUserData } from './UserData';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 
+
 const LogInScreen = () => {
   const navigation = useNavigation();
-
   const { t, i18n } = useTranslation();
   const { theme } = useContext(ThemeContext);
-
+  const { updateId } = useUserData();
   const { loginUser } = useContext(UserData);
   const [login, setLogin] = useState('');
+  const [answer,setAnswer] = useState(0);
   const [password, setPassword] = useState('');
 
   const handleRegistrationPress = () => {
@@ -39,12 +40,42 @@ const LogInScreen = () => {
   };
 
   const handleKontynuacja = () => {
-      const user = loginUser(login, password);
-      if (user) {
-            navigation.navigate('SelectionRole');
-      } else {
-        alert(t('Invalid login or password'));
-      }
+
+      if (login && password) {
+            const fetchData = async () => {
+                      try {
+                          const response = await fetch('http://172.19.240.65:8000/user/login', {
+                              method: 'POST',
+                              headers: {
+                                  'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                  nickname: login,
+                                  password: password,
+                              }),
+                          });
+                          if (!response.ok) {
+                              const errorDetails = await response.text();
+                              throw new Error(`Failed to fetch data: ${errorDetails}`);
+                          }
+                          const data = await response.json();
+                          setAnswer(Number(data));
+
+
+                          if (answer === 1) {
+                              updateId(answer);
+                              navigation.navigate('SelectionRole');
+                          } else {
+                              alert(t(data));
+                          }
+                      } catch (error) {
+                          console.error('Error fetching data:', error);
+                      }
+                  };
+                  fetchData();
+              } else {
+                  alert(t('Invalid login or password'));
+              }
     };
 
   return (
