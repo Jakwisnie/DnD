@@ -44,7 +44,7 @@ const LogInScreen = () => {
       if (login && password) {
             const fetchData = async () => {
                       try {
-                          const response = await fetch('http://172.19.240.65:8000/user/login', {
+                          const response = await fetch('http://172.20.10.12:8000/user/login', {
                               method: 'POST',
                               headers: {
                                   'Content-Type': 'application/json',
