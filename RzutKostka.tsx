@@ -3,6 +3,7 @@ import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Animated, Ea
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
+import { useAuth } from './AuthContext';
 import { Appearance } from 'react-native';
 
 Appearance.setColorScheme('light');
@@ -17,10 +18,12 @@ const diceTypes = [
   { sides: 100, image: require('./assets/dice/d100.png') },
 ];
 
-const RzutKostka = ({ navigation }) => {
+
+const RzutKostka = ({ route,navigation }) => {
+  const { token } = useAuth();
   const { t } = useTranslation();
   const { theme, addDiceResult } = useContext(ThemeContext);
-
+  const { player,session } = route.params;
   const [selectedDice, setSelectedDice] = useState([]);
   const [diceValues, setDiceValues] = useState([]);
   const [rotateValues] = useState(diceTypes.map(() => new Animated.Value(0)));
@@ -36,8 +39,7 @@ const RzutKostka = ({ navigation }) => {
 
   const handleRollDice = () => {
     const newDiceValues = [];
-    const resultsSummary = [];
-
+    const resultsSummary = []
     selectedDice.forEach(({ index, count }) => {
       const diceResults = [];
       for (let i = 0; i < count; i++) {
@@ -45,7 +47,7 @@ const RzutKostka = ({ navigation }) => {
         diceResults.push(randomValue);
       }
       newDiceValues.push({ index, results: diceResults });
-      resultsSummary.push(`${diceTypes[index].sides}: ${diceResults.join(', ')}`);
+      resultsSummary.push(`${player.name} roll ${diceTypes[index].sides}: ${diceResults.join(', ')}`);
 
       Animated.timing(rotateValues[index], {
         toValue: 1,
@@ -57,8 +59,11 @@ const RzutKostka = ({ navigation }) => {
       });
     });
 
+    fetchData(resultsSummary);
     setDiceValues(newDiceValues);
     addDiceResult(resultsSummary.join(' | Dice '));
+
+
   };
 
   const handleDiceCountChange = (index, change) => {
@@ -106,7 +111,29 @@ const RzutKostka = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
+const fetchData = async (resultsSummary) => {
+          try {
+              const sessionResponse = await fetch('http://192.168.0.54:8000/sessions/addToLogs', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json',
+                              'accept': 'application/json'
+                          },
+                          body: JSON.stringify({ token: token.toString(),log:resultsSummary.toString(),sessionID:session.id }),
+                      });
 
+
+              if (!sessionResponse.ok) {
+                  throw new Error('Failed to fetch data');
+              }
+
+                  const answer = await sessionResponse.json();
+                  console.log(answer)
+
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          }
+      };
   const renderResults = () => {
     return diceValues.map(({ index, results }) => (
       <View key={index} style={styles.resultContainer}>

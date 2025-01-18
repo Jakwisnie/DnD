@@ -9,8 +9,9 @@ import { Appearance } from 'react-native';
 
 Appearance.setColorScheme('light');
 
-const Inventory = ({ navigation }) => {
+const Inventory = ({ route,navigation }) => {
   const { t } = useTranslation();
+  const { characterData } =  route.params;
   const { theme } = useContext(ThemeContext);
   const [selectedScreen, setSelectedScreen] = useState('Inventory');
   const [isModalVisible, setModalVisible] = useState(false);
@@ -39,7 +40,7 @@ const Inventory = ({ navigation }) => {
   };
 
   const handleGoBack = () => {
-    navigation.navigate('Characters');
+    navigation.navigate('Characters',{characterData:characterData});
   };
 
   const calculateTotalWeight = () => {
@@ -113,7 +114,7 @@ const Inventory = ({ navigation }) => {
           style={styles.pickerChooseChar}
           onValueChange={(itemValue) => {
             setSelectedScreen(itemValue);
-            navigation.navigate(itemValue);
+            navigation.navigate(itemValue,{characterData:characterData});
           }}
         >
           <Picker.Item label={t('Main Scene')} value="Character1" />

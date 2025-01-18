@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import { ImageBackground, StyleSheet, View, Button, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
+import { useAuth } from './AuthContext';
 import styles from './styles';
 import { Appearance } from 'react-native';
 
@@ -11,13 +12,42 @@ const Characters = ({ navigation }) => {
   const handleGoBack = () => {
      navigation.navigate('LoggedScreen');
   };
-
+  const { token } = useAuth();
   const { t, i18n } = useTranslation();
   const { theme } = useContext(ThemeContext);
+  const [characters, setCharacters] = useState([]);
+  useEffect(() => {
+          fetchData();
+        }, []);
+      const fetchData = async () => {
+          try {
+              console.log('Token:', token.toString());
 
-  const handleCharacterPress = (characterName) => {
-     console.log(`Character ${characterName} pressed`);
-     navigation.navigate(characterName);
+              const campaignsResponse = await fetch('http://192.168.0.54:8000/user/characters', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json',
+                              'accept': 'application/json'
+                          },
+                          body: JSON.stringify({ token: token.toString() }),
+                      });
+
+
+              if (!campaignsResponse.ok) {
+                  throw new Error('Failed to fetch data');
+              }
+
+              const characters = await campaignsResponse.json();
+              setCharacters(characters.characters);
+
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          }
+      };
+
+  const handleCharacterPress = (character) => {
+     console.log(`Character ${character.name} pressed`);
+     navigation.navigate('Character1',{ characterData : character });
   };
 
   return (
@@ -30,53 +60,17 @@ const Characters = ({ navigation }) => {
 
 
       <View style={styles.characterRow}>
-              <TouchableOpacity onPress={() => handleCharacterPress('Character1')}>
-                <ImageBackground
-                  source={require('./assets/assasin.jpeg')}
-                  style={styles.characterImage}
-                >
-                  <Text style={[styles.characterStatus, {color:'rgba(0,255,0,1)' }]}>{t('Available')}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => handleCharacterPress('Character2')}>
-                <ImageBackground
-                  source={require('./assets/swordsman.jpeg')}
-                  style={styles.characterImage}
-                >
-                  <Text style={[styles.characterStatus, {color:'red' }]}>{t('In_session')}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => handleCharacterPress('Character3')}>
-                <ImageBackground
-                  source={require('./assets/Halfling-W-Druid.jpg')}
-                  style={styles.characterImage}
-                >
-                  <Text style={[styles.characterStatus, {color:'yellow' }]}>{t('To_finish')}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.characterRow}>
-              <TouchableOpacity onPress={() => handleCharacterPress('Character4')}>
-                <ImageBackground
-                  source={require('./assets/archer.jpeg')}
-                  style={styles.characterImage}
-                >
-                  <Text style={[styles.characterStatus, {color:'rgba(0,255,0,1)' }]}>{t('Available')}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => handleCharacterPress('Character5')}>
-                <ImageBackground
-                  source={require('./assets/wizard.jpeg')}
-                  style={styles.characterImage}
-                >
-                  <Text style={[styles.characterStatus, {color:'red' }]}>{t('In_session')}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-
+              {characters.map((character, index) => (
+                <View key={index} style={styles.buttonContainerCamp}>
+                  <TouchableOpacity style={styles.button} onPress={() => handleCharacterPress(character)}>
+                    <ImageBackground
+                                      source={{uri: character.image }}
+                                      style={styles.characterImage}
+                                    >
+                    </ImageBackground>
+                  </TouchableOpacity>
+                </View>
+              ))}
               <TouchableOpacity onPress={() => handleCharacterPress('CreateCharacter')}>
                 <ImageBackground
                   source={require('./assets/Halfling-M-Warlock.jpg')}

@@ -8,8 +8,6 @@ import { Appearance } from 'react-native';
 
 Appearance.setColorScheme('light');
 
-const spellsData = require('./assets/Library/spells.json');
-
 const schoolColors = {
   Evocation: '#FF4500',
   Abjuration: '#4682B4',
@@ -35,18 +33,36 @@ const Spells = ({ navigation }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedSpell, setEditedSpell] = useState(null);
 
-  const levels = Array.from({ length: 10 }, (_, i) => i);
-  const effects = ['Attack', 'Defense', 'Support'];
-  const schools = Object.keys(schoolColors);
+  const levels = ["Cantrip", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"];
+  const [schools,setSchools] = useState([])
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
   useEffect(() => {
-    setSpells(spellsData);
+    fetchData();
   }, []);
+ const fetchData = async () => {
+    try {
+        const [spellsResponse, schoolsResponse] = await Promise.all([
+          fetch('http://192.168.0.54:8000/spells/all'),
+          fetch('http://192.168.0.54:8000/schools/all'),
+        ]);
 
+        if (!spellsResponse.ok || !schoolsResponse.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const spellsData = await spellsResponse.json();
+        const schoolsData = await schoolsResponse.json();
+
+        setSpells(spellsData);
+        setSchools(schoolsData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
   useEffect(() => {
     if (selectedSpell) {
       setEditedSpell({ ...selectedSpell });
@@ -65,7 +81,7 @@ const Spells = ({ navigation }) => {
     }
 
     if (selectedLevel !== 'All') {
-      filtered = filtered.filter((spell) => spell.level === parseInt(selectedLevel, 10));
+      filtered = filtered.filter((spell) => spell.level === selectedLevel);
     }
 
     if (selectedEffect !== 'All') {
@@ -139,17 +155,7 @@ const Spells = ({ navigation }) => {
         >
           <Picker.Item style={styles.pickerItems} label={t('All Levels')} value="All" />
           {levels.map((level) => (
-            <Picker.Item key={level} label={`${t('Level')} ${level}`} value={level.toString()} />
-          ))}
-        </Picker>
-        <Picker
-          selectedValue={selectedEffect}
-          style={styles.pickerItems}
-          onValueChange={(value) => setSelectedEffect(value)}
-        >
-          <Picker.Item style={styles.pickerItems} label={t('All Types')} value="All" />
-          {effects.map((effect) => (
-            <Picker.Item key={effect} label={t(effect)} value={effect} />
+            <Picker.Item key={level} label={`${t('Level')} ${level}`} value={level} />
           ))}
         </Picker>
         <Picker
@@ -161,9 +167,9 @@ const Spells = ({ navigation }) => {
           {schools.map((school) => (
             <Picker.Item
               key={school}
-              label={t(school)}
-              value={school}
-              color={schoolColors[school]}
+              label={t(school.name)}
+              value={school.name}
+              color={schoolColors[school] || '#000'}
             />
           ))}
         </Picker>

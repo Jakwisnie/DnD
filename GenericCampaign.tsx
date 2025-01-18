@@ -12,15 +12,15 @@ const GenericCampaign = ({ route, navigation }) => {
   const { t, i18n } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
-    const { campaignName } = route.params;
-    const [sessions, setSessions] = useState([]);
+    const { campaign } = route.params;
+    const [sessions, setSessions] = useState(campaign.sessions ?? []);
     const [newSessionName, setNewSessionName] = useState('');
     const [newSessionContent, setNewSessionContent] = useState('');
     const [editingSession, setEditingSession] = useState(null);
     const [activeSessionIndex, setActiveSessionIndex] = useState(0);
     const [addingNewSession, setAddingNewSession] = useState(false);
 
-  const [players, setPlayers] = useState([
+  const [players, setPlayers] = useState(campaign.characters ?? [
     { id: 1, name: "Player 1", image: require('./assets/assasin.jpeg'), coins: 0, level: 1, hp: 100 },
   ]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -67,21 +67,6 @@ const GenericCampaign = ({ route, navigation }) => {
       };
       setPlayers([...players, newPlayer]);
     };
-
-    useEffect(() => {
-      const loadSessions = async () => {
-        try {
-          const savedSessions = await AsyncStorage.getItem('sessions');
-          if (savedSessions !== null) {
-            console.log('Loaded sessions from storage:', savedSessions);
-            setSessions(JSON.parse(savedSessions));
-          }
-        } catch (error) {
-          console.error('Failed to load sessions', error);
-        }
-      };
-      loadSessions();
-    }, []);
 
     const saveSessions = async (updatedSessions) => {
       try {
@@ -144,14 +129,14 @@ const GenericCampaign = ({ route, navigation }) => {
       >
 
         <View style={styles.sessionsList}>
-          <Text style={[styles.CampName, { color: theme.fontColor }]}>LOREM PSILUM</Text>
+          <Text style={[styles.CampName, { color: theme.fontColor }]}>{campaign.title}</Text>
           <ScrollView horizontal>
             {sessions.map((session, index) => (
               <TouchableOpacity key={index} style={styles.sessionTab} onPress={() => {
                 setActiveSessionIndex(index);
                 setAddingNewSession(false);
               }}>
-                <Text style={styles.sessionTabText}>{session.name}</Text>
+                <Text style={styles.sessionTabText}>{session.title}</Text>
               </TouchableOpacity>
             ))}
             <TouchableOpacity style={styles.sessionTab} onPress={handleNewSessionTab}>
@@ -212,7 +197,7 @@ const GenericCampaign = ({ route, navigation }) => {
                 ]}
                 onPress={() => handleSelectPlayer(player)}
               >
-                <Image source={player.image} style={styles.playerImage} />
+                <Image source={{uri: player.image }} style={styles.playerImage} />
               </TouchableOpacity>
             ))}
             <TouchableOpacity style={styles.playerAvatar} onPress={handleAddPlayer}>

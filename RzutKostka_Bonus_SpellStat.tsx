@@ -3,6 +3,7 @@ import { ImageBackground, View, Text, TouchableOpacity, Animated, Easing } from 
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
+import { useAuth } from './AuthContext';
 import { Appearance } from 'react-native';
 
 Appearance.setColorScheme('light');
@@ -14,7 +15,8 @@ const RzutKostka_Bonus_SpellStat = ({ route, navigation }) => {
   };
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
-
+  const { token } = useAuth();
+  const { player,session ={} } = route.params;
   const [diceValue, setDiceValue] = useState(null);
   const [rotateValue] = useState(new Animated.Value(0));
   const [result, setResult] = useState(null);
@@ -38,6 +40,9 @@ const RzutKostka_Bonus_SpellStat = ({ route, navigation }) => {
         const finalStatValue = isNaN(statValue) || statValue === 'None' ? null : parseInt(statValue);
         if (finalStatValue !== null) {
           setResult(randomValue + finalStatValue);
+          if (session !== null && session !== undefined && Object.keys(session).length > 0) {
+                fetchData();
+              }
         } else {
           setResult(null);
         }
@@ -56,7 +61,7 @@ const RzutKostka_Bonus_SpellStat = ({ route, navigation }) => {
 
       <View style={styles.diceRollLabelContainer}>
         <Text style={[styles.diceRollLabelText]}>
-          {spell.name ? `${t('Roll for spell')} \n ${spell.name}` : `${t('Roll for stat')} ${statValue}`}
+          {spell.name ? `${player.name} ${t('Roll for spell')} \n ${spell.name}` : `${t('Roll for stat')} ${statValue}`}
         </Text>
       </View>
 

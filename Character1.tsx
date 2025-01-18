@@ -7,15 +7,15 @@ import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 import { Appearance } from 'react-native';
 
-const spellsData = require('./assets/Library/spells.json');
-
 Appearance.setColorScheme('light');
 
-const Character1 = ({ navigation }) => {
+const Character1 = ({ route, navigation }) => {
   const { t, i18n } = useTranslation();
-  const [characterData, setCharacterData] = useState(null);
+  const { characterData } =  route.params;
+  const { session = {} } = route.params;
+  const [character, setCharacter] = useState(characterData);
   const [selectedScreen, setSelectedScreen] = useState('Character1');
-  const [health, setHealth] = useState(100);
+  const [health, setHealth] = useState(character.actualHP);
   const [skillsVisible, setSkillsVisible] = useState(false);
   const [actionVisible, setActionVisible] = useState(false);
   const [bonusVisible, setBonusVisible] = useState(false);
@@ -24,40 +24,18 @@ const Character1 = ({ navigation }) => {
   const [selectedRomanNumeral, setSelectedRomanNumeral] = useState(null);
   const { theme } = useContext(ThemeContext);
   const [selectedLevel, setSelectedLevel] = useState(null);
-  const [spells, setSpells] = useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    setSpells(spellsData);
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://10.0.2.2:8000/characters/1');
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const data = await response.json();
-      setCharacterData(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      // Handle error fetching data
-    }
-  };
+  const [spells, setSpells] = useState(character.spellbook || []);
 
   const handleGoBack = () => {
     navigation.navigate('Characters');
   };
 
   const handleRollDice = () => {
-    navigation.navigate('RzutKostka');
+    navigation.navigate('RzutKostka',{player:characterData,session:session});
   };
 
   const handleStatPress = (statName, statValue) => {
-    navigation.navigate('RzutKostka_Bonus', { statName, statValue });
+    navigation.navigate('RzutKostka_Bonus', { statName, statValue, player:characterData,session:session });
   };
 
   const calculateLargerNumber = (value) => {
@@ -69,7 +47,7 @@ const Character1 = ({ navigation }) => {
     setHealth(prevHealth => Math.max(0, Math.min(100, prevHealth + amount)));
   };
 
-  if (!characterData) {
+  if (!character) {
     return (
       <View style={styles.loadingContainer}>
         <Text>{t('Loading...')}</Text>
@@ -171,7 +149,7 @@ const Character1 = ({ navigation }) => {
     const requiredStat = spell.requiredStat;
     const statValue = calculateLargerNumber(player[requiredStat]);
 
-    navigation.navigate('RzutKostka_Bonus_SpellStat', { spell, statValue });
+    navigation.navigate('RzutKostka_Bonus_SpellStat', { spell, statValue,player:characterData,session:session });
   };
 
   const AbilitiesWindow = ({ level, navigation }) => {
@@ -287,14 +265,14 @@ const Character1 = ({ navigation }) => {
   };
 
   const player = new PlayerCharacter(
-    characterData.strScore,
-    characterData.dexScore,
-    characterData.conScore,
-    characterData.intScore,
-    characterData.wisScore,
-    characterData.chaScore,
-    characterData.armorClass,
-    calculateLargerNumber(characterData.dexScore)
+    character.strScore,
+    character.dexScore,
+    character.conScore,
+    character.intScore,
+    character.wisScore,
+    character.chaScore,
+    character.armorClass,
+    calculateLargerNumber(character.dexScore)
   );
 
   const skills = [
@@ -338,7 +316,7 @@ const Character1 = ({ navigation }) => {
           style={styles.pickerChooseChar}
           onValueChange={(itemValue) => {
             setSelectedScreen(itemValue);
-            navigation.navigate(itemValue);
+            navigation.navigate(itemValue,{ characterData : character });
           }}
         >
           <Picker.Item label={t('Main Scene')} value="Character1" />
@@ -347,7 +325,7 @@ const Character1 = ({ navigation }) => {
         </Picker>
       </View>
       <View style={styles.imageContainer}>
-        <Image source={require('./assets/assasin.jpeg')} style={styles.image} />
+        <Image source={{uri: character.image }} style={styles.image} />
       </View>
 
       <View style={styles.healthContainer}>

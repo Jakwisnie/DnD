@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
         formData.append('username', login);
         formData.append('password', password);
 
-        const response = await fetch('http://192.168.56.1:8000/login', {
+        const response = await fetch('http://192.168.0.54:8000/login', {
             method: 'POST',
             body: formData,
         });

@@ -3,6 +3,7 @@ import { ImageBackground, View, Text, TouchableOpacity, Animated, Easing } from 
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
+import { useAuth } from './AuthContext';
 import { Appearance } from 'react-native';
 
 Appearance.setColorScheme('light');
@@ -13,11 +14,13 @@ const RzutKostka_Bonus = ({ route, navigation }) => {
     navigation.goBack();
   };
   const { t } = useTranslation();
+    const { token } = useAuth();
   const { theme } = useContext(ThemeContext);
-
+  const { player,session ={} } = route.params;
   const [diceValue, setDiceValue] = useState(null);
   const [rotateValue] = useState(new Animated.Value(0));
   const [result, setResult] = useState(null);
+const [answer, setAnswer] = useState(null);
 
   const attributes = {
     STR: t('Strength'),
@@ -46,10 +49,38 @@ const RzutKostka_Bonus = ({ route, navigation }) => {
 
         const finalStatValue = isNaN(statValue) || statValue === 'None' ? 0 : parseInt(statValue);
         setResult(randomValue + finalStatValue);
+        setAnswer(`${player.name} roll for ${statName} ${result} ( ${diceValue} ${statValue >= 0 ? '+' : ''}${statValue})`)
+
+       if (answer && answer.trim().length > 0) {
+         fetchData();
+       }
+
       }, 200);
     });
   };
+const fetchData = async () => {
+          try {
+              console.log(answer)
+              const sessionResponse = await fetch('http://192.168.0.54:8000/sessions/addToLogs', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json',
+                              'accept': 'application/json'
+                          },
+                          body: JSON.stringify({ token: token.toString(),log:`${answer}`,sessionID:session.id }),
+                      });
 
+
+              if (!sessionResponse.ok) {
+                  throw new Error('Failed to fetch data');
+              }
+
+                  const ans = await sessionResponse.json();
+
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          }
+      };
   const spin = rotateValue.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
