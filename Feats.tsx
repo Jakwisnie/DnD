@@ -3,13 +3,13 @@ import { ImageBackground, View, Text, TouchableOpacity, ScrollView, TextInput, M
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
-
+import { UserData } from './UserData';
 const featsData = require('./assets/Library/feats.json');
 
 const Feats = ({ navigation }) => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
-
+  const { ipv4 } = useContext(UserData)
   const [feats, setFeats] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [selectedFeat, setSelectedFeat] = useState(null);
@@ -23,7 +23,7 @@ const Feats = ({ navigation }) => {
 const fetchData = async () => {
       try {
           const [featsResponse] = await Promise.all([
-            fetch('http://192.168.0.54:8000/feats/all'),
+            fetch('http://172.20.10.2:8000/feats/all'),
           ]);
 
           if (!featsResponse.ok) {

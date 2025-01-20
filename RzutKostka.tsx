@@ -3,6 +3,7 @@ import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Animated, Ea
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
+import { UserData } from './UserData';
 import { useAuth } from './AuthContext';
 import { Appearance } from 'react-native';
 
@@ -27,7 +28,7 @@ const RzutKostka = ({ route,navigation }) => {
   const [selectedDice, setSelectedDice] = useState([]);
   const [diceValues, setDiceValues] = useState([]);
   const [rotateValues] = useState(diceTypes.map(() => new Animated.Value(0)));
-
+  const { ipv4 } = useContext(UserData)
   const handleDiceSelection = (index) => {
     const alreadySelected = selectedDice.find((dice) => dice.index === index);
     if (alreadySelected) {
@@ -113,7 +114,7 @@ const RzutKostka = ({ route,navigation }) => {
   };
 const fetchData = async (resultsSummary) => {
           try {
-              const sessionResponse = await fetch('http://192.168.0.54:8000/sessions/addToLogs', {
+              const sessionResponse = await fetch(`http://${ipv4}:8000/sessions/addToLogs`, {
                           method: 'POST',
                           headers: {
                               'Content-Type': 'application/json',

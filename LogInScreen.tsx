@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { ImageBackground, TouchableOpacity, Image, Text, View, Button, StyleSheet, TextInput } from 'react-native';
 import { useNavigation, HeaderBackButton } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';

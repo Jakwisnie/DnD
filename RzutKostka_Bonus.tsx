@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { ImageBackground, View, Text, TouchableOpacity, Animated, Easing } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
+import { UserData } from './UserData';
 import styles from './styles';
 import { useAuth } from './AuthContext';
 import { Appearance } from 'react-native';
@@ -21,7 +22,7 @@ const RzutKostka_Bonus = ({ route, navigation }) => {
   const [rotateValue] = useState(new Animated.Value(0));
   const [result, setResult] = useState(null);
 const [answer, setAnswer] = useState(null);
-
+  const { ipv4 } = useContext(UserData)
   const attributes = {
     STR: t('Strength'),
     DEX: t('Dexterity'),
@@ -61,7 +62,7 @@ const [answer, setAnswer] = useState(null);
 const fetchData = async () => {
           try {
               console.log(answer)
-              const sessionResponse = await fetch('http://192.168.0.54:8000/sessions/addToLogs', {
+              const sessionResponse = await fetch(`http://${ipv4}:8000/sessions/addToLogs`, {
                           method: 'POST',
                           headers: {
                               'Content-Type': 'application/json',

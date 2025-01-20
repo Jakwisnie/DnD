@@ -5,7 +5,7 @@ import { ThemeContext } from './theme/ThemeContext';
 import { useAuth } from './AuthContext';
 import styles from './styles';
 import { Appearance } from 'react-native';
-
+import { UserProvider } from './UserData';
 Appearance.setColorScheme('light');
 
 const Characters = ({ navigation }) => {
@@ -16,6 +16,7 @@ const Characters = ({ navigation }) => {
   const { t, i18n } = useTranslation();
   const { theme } = useContext(ThemeContext);
   const [characters, setCharacters] = useState([]);
+    const { ipv4 } = useContext(userData)
   useEffect(() => {
           fetchData();
         }, []);

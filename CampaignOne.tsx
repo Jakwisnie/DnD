@@ -60,7 +60,7 @@ const { campaign } = route.params;
     }, [actualCampaign]);
 const fetchData = async () => {
       try {
-          const sessionsResponse = await fetch(`http://192.168.0.54:8000/user/campaign/${campaign.id}`, {
+          const sessionsResponse = await fetch(`http://172.20.10.2:8000/user/campaign/${campaign.id}`, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

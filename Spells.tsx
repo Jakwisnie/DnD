@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 import { Appearance } from 'react-native';
-
+import { UserData } from './UserData';
 Appearance.setColorScheme('light');
 
 const schoolColors = {
@@ -23,7 +23,7 @@ const schoolColors = {
 const Spells = ({ navigation }) => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
-
+  const { ipv4 } = useContext(UserData)
   const [spells, setSpells] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [selectedLevel, setSelectedLevel] = useState('All');
@@ -46,8 +46,8 @@ const Spells = ({ navigation }) => {
  const fetchData = async () => {
     try {
         const [spellsResponse, schoolsResponse] = await Promise.all([
-          fetch('http://192.168.0.54:8000/spells/all'),
-          fetch('http://192.168.0.54:8000/schools/all'),
+          fetch(`http://${ipv4}:8000/spells/all`),
+          fetch(`http://${ipv4}:8000/schools/all`),
         ]);
 
         if (!spellsResponse.ok || !schoolsResponse.ok) {

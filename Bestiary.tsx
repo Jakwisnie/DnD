@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
 import { Appearance } from 'react-native';
-
+import { UserData } from './UserData';
 Appearance.setColorScheme('light');
 
 
@@ -20,7 +20,7 @@ const Bestiary = ({ navigation }) => {
   const [selectedFeat, setSelectedFeat] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedFeat, setEditedFeat] = useState(null);
-
+  const { ipv4 } = useContext(UserData)
   const crOptions = ["0", "1/8", "1/4", "1/2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
                       "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22",
                       "23", "24", "25", "26", "27", "28", "29", "30"];
@@ -33,9 +33,9 @@ const Bestiary = ({ navigation }) => {
   const fetchData = async () => {
       try {
           const [bestiariesResponse, environmentsResponse, monsterTypeResponse] = await Promise.all([
-            fetch('http://192.168.0.54:8000/bestiaries/all'),
-            fetch('http://192.168.0.54:8000/environments/all'),
-            fetch('http://192.168.0.54:8000/monster_types/all')
+            fetch(`http://${ipv4}:8000/bestiaries/all`),
+            fetch(`http://${ipv4}:8000/environments/all`),
+            fetch(`http://${ipv4}:8000/monster_types/all`)
           ]);
 
           if (!bestiariesResponse.ok || !environmentsResponse.ok || !monsterTypeResponse.ok) {

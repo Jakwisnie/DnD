@@ -2,22 +2,30 @@ import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Appearance } from 'react-native';
 import { useAuth } from './AuthContext';
-
+import { NetworkInfo } from 'react-native-network-info';
+import NetInfo from '@react-native-community/netinfo';
 Appearance.setColorScheme('light');
 
 export const UserData = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
+  const [ipv4, setIpv4] = useState('192.168.0.54');
 
   const registerUser = async (login, password, email) => {
     try {
+        console.log(login, password);
+            NetInfo.fetch().then(state => {
+                setIpv4(state.details.wifiIPAddress);
+              console.log('Adres IP:', state.details.wifiIPAddress);
+            });
+            console.log(ipv4);
       const payload = {
         username: login,
         email: email,
         password: password,
       };
-      const response = await fetch('http://192.168.56.1:8000/register', {
+      const response = await fetch(`http://${ipv4}:8000/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,15 +47,14 @@ export const UserProvider = ({ children }) => {
 
 
 
+
     const loginUser = async (login, password, setToken) => {
     try {
-        console.log(login, password);
-
         const formData = new FormData();
         formData.append('username', login);
         formData.append('password', password);
 
-        const response = await fetch('http://192.168.0.54:8000/login', {
+        const response = await fetch(`http://${ipv4}:8000/login`, {
             method: 'POST',
             body: formData,
         });
@@ -66,10 +73,8 @@ export const UserProvider = ({ children }) => {
     }
     };
 
-
-
   return (
-    <UserData.Provider value={{ users, loginUser, registerUser }}>
+    <UserData.Provider value={{ users, loginUser, registerUser,ipv4 }}>
       {children}
     </UserData.Provider>
   );

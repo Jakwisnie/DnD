@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from './AuthContext';
 import { ThemeContext } from './theme/ThemeContext';
 import styles from './styles';
+import { UserData } from './UserData';
 import { Appearance } from 'react-native';
 
 Appearance.setColorScheme('light');
@@ -17,7 +18,7 @@ const { token } = useAuth();
     const navigation = useNavigation();
     const { t } = useTranslation();
     const { theme } = useContext(ThemeContext);
-
+    const { ipv4 } = useContext(UserData)
 
     useEffect(() => {
              fetchData();
@@ -25,7 +26,7 @@ const { token } = useAuth();
          const fetchData = async () => {
               try {
                   console.log('Token:', token.toString());
-                  const sessionsResponse = await fetch('http://192.168.0.54:8000/user/characters/sessions', {
+                  const sessionsResponse = await fetch(`http://${ipv4}:8000/user/characters/sessions`, {
                       method: 'POST',
                       headers: {
                           'Content-Type': 'application/json',

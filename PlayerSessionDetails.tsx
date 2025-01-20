@@ -55,7 +55,7 @@ const PlayerSessionDetails = ({ route,navigation }) => {
   }, [playerActual, actualSession]);
  const fetchData = async () => {
       try {
-          const sessionsResponse = await fetch('http://192.168.0.54:8000/user/characters/session', {
+          const sessionsResponse = await fetch('http://172.20.10.2:8000/user/characters/session', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

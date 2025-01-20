@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from './theme/ThemeContext';
 import { useAuth } from './AuthContext';
+import { UserData } from './UserData';
 import styles from './styles';
 import { Appearance } from 'react-native';
 
@@ -13,6 +14,7 @@ const YourCampaigns = ({ navigation }) => {
   const { t, i18n } = useTranslation();
   const { theme } = useContext(ThemeContext);
   const { token } = useAuth();
+  const { ipv4 } = useContext(UserData)
   const [campaigns, setCampaigns] = useState([]);
   const [newCampaign, setNewCampaign] = useState('');
   const [showInput, setShowInput] = useState(false);
@@ -24,7 +26,7 @@ const YourCampaigns = ({ navigation }) => {
         try {
             console.log('Token:', token.toString());
 
-            const campaignsResponse = await fetch('http://192.168.0.54:8000/user/campaigns', {
+            const campaignsResponse = await fetch(`http://${ipv4}:8000/user/campaigns`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
